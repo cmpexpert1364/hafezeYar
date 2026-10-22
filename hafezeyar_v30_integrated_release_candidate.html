@@ -1,1021 +1,127 @@
-<!doctype html>
-<html lang="fa" dir="rtl">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="حافظه‌یار؛ تمرین حافظه، قصر حافظه، تندخوانی و سنجش تمرینی استدلال به زبان فارسی">
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="حافظه‌یار">
-<meta name="theme-color" content="#123d35"><title>حافظه‌یار | نسخه ۳۰ · یکپارچه‌سازی و آماده‌سازی نصب</title>
-<style>
-:root{--g:#123d35;--g2:#216b55;--o:#ff9e48;--bg:#f4f7f4;--ink:#192b25;--muted:#697a73;--line:#dfe8e2;--white:#fff;--red:#b93f45}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.7}button,input,textarea{font:inherit}button{cursor:pointer;border:0}.app{max-width:540px;margin:auto;min-height:100vh;padding-bottom:86px}
-header{background:linear-gradient(145deg,#102f2a,var(--g2));color:#fff;padding:20px 18px 24px;border-radius:0 0 25px 25px}
-.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800}.logo{width:44px;height:44px;border-radius:15px;background:var(--o);display:grid;place-items:center;color:var(--g);font-size:22px}
-.badge{margin-right:auto;border:1px solid #ffffff55;border-radius:20px;padding:4px 9px;font-size:11px;color:#e7f3ec}
-.row{display:flex;align-items:center;gap:10px}.welcome{font-size:22px;font-weight:800;margin-top:19px}.sub{font-size:12px;color:#d9e9e0}
-.prog{margin-top:17px;padding:12px;border-radius:15px;background:#ffffff15;border:1px solid #ffffff20}.progline{display:flex;justify-content:space-between;font-size:12px;margin-bottom:7px}.track{height:8px;background:#ffffff35;border-radius:9px;overflow:hidden}.fill{height:100%;background:var(--o);width:0;transition:width .2s}
-main{padding:17px 15px}.screen{display:none}.screen.active{display:block}.head{display:flex;justify-content:space-between;align-items:center;margin:5px 2px 12px}.head h2{font-size:17px;margin:0}.muted{color:var(--muted);font-size:12px}
-.panel{background:#fff;border:1px solid var(--line);border-radius:19px;padding:16px;margin-bottom:12px;box-shadow:0 4px 18px #123d3505}
-.hero{display:flex;gap:12px;align-items:center}.icon{width:48px;height:48px;border-radius:15px;background:#fff0df;color:#985414;display:grid;place-items:center;font-size:22px;font-weight:800;flex-shrink:0}
-h3{font-size:15px;margin:0}p{margin:4px 0}.btn{border-radius:12px;padding:10px 14px;font-weight:800}.primary{background:var(--o);color:#432b15}.secondary{background:#eaf1ed;color:var(--g)}.dark{background:var(--g);color:white}.danger{background:#fff0f0;color:var(--red)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tile{background:white;border:1px solid var(--line);border-radius:17px;text-align:right;padding:13px;min-height:125px}.tile .ico{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:#e2f3e9;color:var(--g);font-weight:800;margin-bottom:7px}.tile strong{font-size:14px;display:block}.tile small{font-size:11px;color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;text-align:center;padding:10px 3px}.stat b{font-size:20px;color:var(--g);display:block}.stat small{font-size:10px;color:var(--muted)}
-.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(540px,100%);display:flex;justify-content:space-around;background:#fffffff0;backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:8px 3px max(8px,env(safe-area-inset-bottom));z-index:5}.nav{background:transparent;color:var(--muted);font-size:10px;display:flex;flex-direction:column;align-items:center;min-width:57px}.nav b{font-size:19px;font-weight:500}.nav.active{color:var(--g);font-weight:800}
-.input{width:100%;border:1px solid #cbd9d1;border-radius:12px;padding:11px;outline:none;background:white}.input:focus{border-color:var(--g2)}label{display:block;font-size:12px;font-weight:700;margin:9px 0 5px}.actionrow{display:flex;gap:8px;margin-top:11px}.actionrow>*{flex:1}.notice{background:#fff6e9;border:1px solid #f1dfc4;color:#765329;padding:11px;border-radius:13px;font-size:11px;margin-top:12px}
-.flashface{background:#f1f7f3;border-radius:16px;padding:26px 12px;text-align:center;margin:12px 0}.flashface .big{font-size:24px;font-weight:900;color:var(--g);text-shadow:none;letter-spacing:.2px}.flashface .small{font-size:12px;color:var(--muted)}
-.wordgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px auto;max-width:310px}.cell{aspect-ratio:1;border-radius:12px;background:#eaf0ec;border:2px solid transparent}.cell.lit{background:var(--o);border-color:#e48a31}.cell.chosen{background:#c8e9d8;border-color:var(--g2)}
-.listitem{border-bottom:1px solid var(--line);padding:11px 0}.listitem:last-child{border:0}.listitem b{font-size:13px}.listitem p{font-size:12px;color:var(--muted)}
-.chip{display:inline-block;background:#e9f3ed;color:var(--g);border-radius:9px;padding:3px 8px;font-size:11px;margin:3px}
-@media(min-width:540px){body{padding:10px 0}.app{border-radius:26px;overflow:hidden;box-shadow:0 10px 45px #123d3514}.bottom{bottom:10px;border-radius:0 0 26px 26px}}
+name: Build HafezeYar APK
 
-/* Hafezeyar Premium UI refresh */
-:root{--g:#073b32;--g2:#0e6855;--o:#ffad55;--bg:#eef3f0;--ink:#142b25;--muted:#71817a;--line:#dce7e1;--white:#fff;--red:#b93f45}
-body{background:radial-gradient(ellipse at 50% -12%,#d2e9dc 0,transparent 42%),#edf2ef;color:var(--ink);font-family:Tahoma,Arial,sans-serif;letter-spacing:0}
-.app{max-width:540px;background:#f6f8f6;min-height:100vh;box-shadow:0 24px 80px #092f2514}
-header{position:relative;overflow:hidden;background:linear-gradient(145deg,#052c26 0%,#0b5143 52%,#16735b 100%);padding:22px 19px 26px;border-radius:0 0 32px 32px;box-shadow:0 14px 30px #0b493a25}
-header:before{content:"";position:absolute;width:220px;height:220px;border:1px solid #ffffff12;border-radius:50%;left:-70px;top:-100px;box-shadow:0 0 0 24px #ffffff08,0 0 0 48px #ffffff05;pointer-events:none}
-header:after{content:"";position:absolute;width:115px;height:115px;border-radius:35px;transform:rotate(28deg);background:linear-gradient(145deg,#ffffff0d,#ffffff00);right:-35px;bottom:-40px;pointer-events:none}
-.brand{font-size:23px;letter-spacing:-.5px}.logo{width:49px;height:49px;border-radius:17px;background:linear-gradient(145deg,#ffd28c,#ff9f43);color:#123d35;font-size:25px;font-weight:900;text-shadow:none;box-shadow:0 2px 5px #0002,inset 0 1px 0 #fff9;border:1px solid #ffe2b6;position:relative}
-.logo:after{content:"";position:absolute;inset:4px;border:1px solid #164c3c33;border-radius:13px}
-.badge{background:#ffffff0d;border:1px solid #ffffff32;backdrop-filter:blur(8px);padding:5px 10px}
-.welcome{font-size:24px;line-height:1.5;margin-top:20px;letter-spacing:-.4px}.sub{font-size:12px;color:#d7eee4}
-.prog{position:relative;z-index:1;margin-top:19px;padding:14px 14px 15px;border-radius:19px;background:linear-gradient(110deg,#ffffff18,#ffffff0a);border:1px solid #ffffff28;box-shadow:inset 0 1px 0 #ffffff10;backdrop-filter:blur(10px)}.progline{font-size:12px}.track{height:9px;background:#ffffff29;border-radius:20px}.fill{background:linear-gradient(90deg,#ffbd70,#ff9841);border-radius:20px;box-shadow:0 0 12px #ffad5570}
-main{padding:19px 15px 22px}.head{margin:6px 2px 14px}.head h2{font-size:18px;letter-spacing:-.3px}.muted{color:#73827c}
-.panel{background:linear-gradient(155deg,#fff 0%,#fcfdfc 100%);border:1px solid #e2ebe5;border-radius:23px;padding:17px;margin-bottom:14px;box-shadow:0 7px 22px #103c2f08,0 1px 2px #103c2f05;transition:transform .18s,box-shadow .18s}
-.hero{gap:13px}.icon{width:53px;height:53px;border-radius:18px;background:linear-gradient(145deg,#fff0d9,#ffe2bd);color:#92500d;box-shadow:inset 0 1px 0 #fff,0 5px 12px #a45b1610;font-size:25px}
-h3{font-size:15px;letter-spacing:-.2px}.btn{border-radius:14px;padding:11px 15px;font-size:12px;font-weight:800;transition:transform .15s,filter .15s,box-shadow .15s;box-shadow:0 3px 0 #00000008}.btn:active,.tile:active,.nav:active{transform:scale(.97)}.primary{background:linear-gradient(135deg,#ffc276,#ff9c43);color:#432b15;box-shadow:0 6px 14px #ffad5530,inset 0 1px 0 #fff9}.secondary{background:linear-gradient(135deg,#edf5f0,#e1eee7);color:var(--g);border:1px solid #dbe9e0}.dark{background:linear-gradient(135deg,#0b493d,#0a6a53);color:white;box-shadow:0 7px 16px #0c59461f}.danger{background:#fff0f0;color:var(--red)}
-.grid{gap:11px}.tile{position:relative;overflow:hidden;background:linear-gradient(155deg,#fff,#f9fcfa);border:1px solid #e0eae4;border-radius:21px;text-align:right;padding:15px 14px;min-height:137px;box-shadow:0 6px 18px #113e3008;transition:transform .18s,box-shadow .18s}.tile:after{content:"";position:absolute;left:-23px;bottom:-35px;width:85px;height:85px;border-radius:50%;background:#e8f4ed70}.tile:hover{transform:translateY(-2px);box-shadow:0 10px 23px #113e3010}.tile .ico{position:relative;z-index:1;display:grid;place-items:center;width:43px;height:43px;border-radius:15px;background:linear-gradient(145deg,#e5f6ec,#cde9d9);color:#075642;font-size:14px;font-weight:900;margin-bottom:10px;box-shadow:inset 0 1px 0 #fff}.tile strong{font-size:14px;display:block;position:relative;z-index:1;margin-bottom:2px}.tile small{font-size:11px;color:var(--muted);position:relative;z-index:1}
-.stats{gap:9px;margin:14px 0}.stat{background:linear-gradient(145deg,#fff,#f8fbf9);border:1px solid #e1eae5;border-radius:18px;padding:12px 3px;box-shadow:0 4px 12px #103c2f05}.stat b{font-size:22px;font-weight:900;color:#0c5b47;text-shadow:none}.stat small{font-size:10px}
-.notice{background:linear-gradient(110deg,#fff8ed,#fff3e2);border:1px solid #f4dfc2;color:#805728;padding:12px 13px;border-radius:16px;font-size:11px;margin-top:12px;box-shadow:inset 0 1px 0 #fff}
-.bottom{background:#ffffffed;backdrop-filter:blur(18px);border-top:1px solid #dfe9e3;padding:9px 5px max(9px,env(safe-area-inset-bottom));box-shadow:0 -8px 25px #123d3508}.nav{font-size:10px;gap:1px;min-width:58px;padding:4px 3px;border-radius:13px;transition:all .15s}.nav b{font-size:20px;line-height:1.4}.nav.active{color:#0b5a46;background:#eaf5ee}.input{border:1px solid #d3e1d9;border-radius:14px;padding:12px 13px;background:#fbfdfb;box-shadow:inset 0 1px 2px #0a3c2c05}.input:focus{border-color:#2b8b6d;box-shadow:0 0 0 3px #2b8b6d18;background:#fff}label{font-size:12px;color:#34574a;margin:11px 0 6px}
-.flashface{background:linear-gradient(145deg,#eff8f2,#e3f2e9);border:1px solid #d8e9df;border-radius:21px;padding:30px 14px;box-shadow:inset 0 1px 0 #fff}.flashface .big{font-size:26px;color:#0b5945}.wordgrid{gap:9px}.cell{border-radius:15px;background:linear-gradient(145deg,#eef4f0,#e2ebe6);border:2px solid #dfe9e3;box-shadow:inset 0 1px 0 #fff;transition:all .15s}.cell.lit{background:linear-gradient(145deg,#ffd18c,#ff9e43);border-color:#f4a44f;box-shadow:0 4px 12px #ffad5540}.cell.chosen{background:linear-gradient(145deg,#d8f1e2,#b5e1c9);border-color:#5ba985}
-.listitem{border-bottom:1px solid #e7eee9;padding:13px 0}.listitem b{font-size:13px;color:#204b3d}.chip{background:#e8f4ec;color:#0b5a46;border:1px solid #d8eade;border-radius:10px;padding:4px 9px}
-@media(min-width:540px){body{padding:16px 0}.app{border-radius:30px;overflow:hidden;box-shadow:0 24px 70px #092f2522}.bottom{bottom:16px;border-radius:0 0 30px 30px}}
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**.html'
+      - '.github/workflows/build.yml'
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-/* Hafezeyar v0.4 — vivid 3D visual treatment */
-:root{--g:#063d34;--g2:#087d63;--o:#ff9f1c;--bg:#edf3fb;--ink:#17263d;--muted:#61728a;--line:#d6e1f0;}
-body{background:radial-gradient(ellipse at 10% 5%,#d6eaff 0,transparent 32%),radial-gradient(ellipse at 95% 40%,#ffe8ce 0,transparent 30%),linear-gradient(150deg,#f4f8ff,#eaf2f9);}
-.app{background:linear-gradient(160deg,#f8fbff,#edf3f8);}
-header{background:linear-gradient(145deg,#042c43 0%,#075b69 48%,#087d63 100%);box-shadow:0 15px 0 #073b3540,0 22px 36px #064a5735;}
-.logo{background:linear-gradient(145deg,#fff17a,#ff9f1c 70%,#e66b00);color:#18394b;border:1px solid #fff4b0;box-shadow:0 7px 0 #a94d0a,0 13px 20px #001e2c60,inset 0 2px 0 #fff9;transform:translateY(-2px);}
-.badge{color:#fff;background:linear-gradient(135deg,#ffffff28,#ffffff08);box-shadow:inset 0 1px 0 #ffffff40;}
-.panel{border:1px solid #d3e2f1;box-shadow:0 7px 0 #cbd9e8,0 13px 25px #1c416018,inset 0 1px 0 #fff;border-radius:22px;}
-.tile{background:linear-gradient(145deg,#fff 0%,#f0f7ff 100%);border:1px solid #cbdced;box-shadow:0 7px 0 #c4d5e8,0 13px 18px #163c6018,inset 0 1px 0 #fff;}
-.tile:active{transform:translateY(4px);box-shadow:0 2px 0 #c4d5e8,0 5px 10px #163c6015;}
-.tile .ico{background:linear-gradient(145deg,#65e7c0,#14a77c);color:#043d36;box-shadow:0 4px 0 #087454,0 7px 10px #08745428,inset 0 2px 0 #ffffffa0;}
-.btn{border-radius:14px;box-shadow:0 4px 0 #c7d4e2,0 7px 12px #173b5c18,inset 0 1px 0 #ffffffb0;transition:transform .12s,box-shadow .12s,filter .12s;}
-.primary{background:linear-gradient(145deg,#ffe66d,#ff9f1c 72%,#f27b00);color:#3d2b00;border:1px solid #ffca4b;box-shadow:0 5px 0 #c96900,0 9px 15px #ed850039,inset 0 2px 0 #fff9;}
-.dark{background:linear-gradient(145deg,#16b98c,#08735c 75%,#045644);color:#fff;border:1px solid #35d2a4;box-shadow:0 5px 0 #034b3b,0 9px 15px #08735c35,inset 0 2px 0 #ffffff35;}
-.secondary{background:linear-gradient(145deg,#fff,#dcecff);color:#164d75;border:1px solid #c0d9f3;box-shadow:0 4px 0 #abc5df,0 7px 11px #1c4c7515,inset 0 1px 0 #fff;}
-.danger{box-shadow:0 4px 0 #edc7ca,inset 0 1px 0 #fff;}
-.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #aebfd0,0 2px 5px #173b5c18;}
-.stats .stat{background:linear-gradient(145deg,#fff,#eaf4ff);border:1px solid #c9dcef;border-radius:17px;box-shadow:0 5px 0 #c2d5e9,0 9px 15px #1b436018,inset 0 1px 0 #fff;}
-.stat b{font-size:25px!important;color:#086e65!important;letter-spacing:.5px;text-shadow:0 2px 0 #a7d9d1,0 4px 7px #176b5b35;}
-.flashface{background:linear-gradient(145deg,#f4fbff,#d9ecff 55%,#d9f8ec);border:1px solid #bad8ef;box-shadow:0 7px 0 #b8d1e8,0 12px 22px #17476d18,inset 0 2px 0 #fff;border-radius:22px;}
-.flashface .big{font-size:30px!important;font-weight:900;color:#064f70;text-shadow:0 2px 0 #fff,0 4px 0 #b0d2ec,0 7px 12px #12486a55;letter-spacing:2px;}
-#numDisplay{font-size:36px!important;line-height:1.6;letter-spacing:5px;color:#064f70;text-shadow:0 2px 0 #fff,0 4px 0 #a6cce9,0 7px 0 #5f9fc8,0 11px 14px #063e6655;}
-.wordgrid .cell{background:linear-gradient(145deg,#fff,#d8e8f8);border:1px solid #b9d0e7;box-shadow:0 5px 0 #b3c9df,0 8px 12px #1a46621a,inset 0 2px 0 #fff;}
-.wordgrid .cell.lit{background:linear-gradient(145deg,#fff16c,#ff9f1c 72%,#ef7300);border-color:#ffbd42;box-shadow:0 5px 0 #bf6100,0 9px 14px #f28a254d,inset 0 2px 0 #fff9;}
-.wordgrid .cell.chosen{background:linear-gradient(145deg,#73f0c6,#14b889 75%,#078262);border-color:#0a956d;box-shadow:0 4px 0 #066d50,0 7px 11px #07826230,inset 0 2px 0 #ffffff90;}
-.chip{background:linear-gradient(145deg,#e2fff3,#b9f1dd);border:1px solid #a5e2cb;box-shadow:0 3px 0 #91cfb7;color:#075744;}
-.input{background:linear-gradient(145deg,#fff,#f2f8ff);border:1px solid #bfd2e6;box-shadow:inset 0 2px 4px #1b4c7010,0 2px 0 #d7e3ef;}
-.bottom{background:#f8fbffed;border-top:1px solid #cbdced;box-shadow:0 -7px 22px #123d3510;}
-.nav.active{background:linear-gradient(145deg,#e1fff2,#c7f2e2);box-shadow:inset 0 1px 0 #fff,0 3px 0 #a3d9c3;color:#075b48;}
-.icon{background:linear-gradient(145deg,#fff0a8,#ffb13b);box-shadow:0 4px 0 #d98a19,0 8px 12px #d98a1925,inset 0 2px 0 #fff;}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-/* اصلاح نمایش اعداد: حجم سه‌بعدی کمتر، وزن قلم بیشتر */
-.stat b{font-weight:800;text-shadow:0 1px 1px #176b5b18!important;letter-spacing:0!important}
-.flashface .big{font-weight:800!important;text-shadow:0 1px 1px #12486a20!important;letter-spacing:1px!important}
-#numDisplay{font-weight:800!important;text-shadow:0 1px 1px #063e661c!important;letter-spacing:4px!important}
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
 
-/* قصر حافظه پیشرفته */
-.palace-hero{background:linear-gradient(145deg,#fff,#eefaf4);border-color:#bcdccb}
-.palace-kicker{display:inline-block;border-radius:20px;padding:4px 10px;background:#d9f3e5;color:#075744;font-size:11px;font-weight:900}
-.palace-method{display:grid;gap:9px;margin-top:14px}
-.palace-method>div{border:1px solid #d9e9df;border-radius:14px;padding:11px 12px;background:linear-gradient(145deg,#fff,#f5faf7)}
-.palace-method b{font-weight:900;color:#075744}.palace-method p{font-size:12px;line-height:1.9;margin-top:3px}
-.palace-item{padding:12px;border-radius:13px;background:#f1f7f3;border:1px solid #dcebe1;margin:8px 0;font-weight:800}
-.palace-item strong{color:#075744}.palace-countdown{font-size:26px;font-weight:900;text-align:center;color:#075744;padding:8px}
-.palace-feedback{border-radius:14px;padding:12px;margin-top:12px;font-weight:800;line-height:2}
-#palaceSession .input{margin-bottom:4px}
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
-.field{margin:10px 0}.field label{display:block;font-weight:700;margin-bottom:6px}.input{width:100%;padding:11px;border:1px solid #d7e2dc;border-radius:10px;background:#fff;color:#163c2e;font:inherit}
- .iq-entry-tile{border:2px solid #ffad55;background:linear-gradient(145deg,#fff9f0,#fff)}
-.iq-entry-tile .ico{background:linear-gradient(145deg,#ffd6a2,#ffad55);color:#4b2c10}
-</style></head>
-<body><div class="app">
-<header><div class="row"><div class="brand"><div class="logo">ح</div>حافظه‌یار</div><div class="badge">نسخه ۳۰ · یکپارچه‌سازی و آماده‌سازی نصب</div></div>
-<div class="welcome">هر روز، یک قدم قوی‌تر</div><div class="sub">یاد بگیر، تمرین کن، در زمان مناسب مرور کن</div>
-<div class="prog"><div class="progline"><span>تمرین‌های امروز</span><b id="dailyText">۰ از ۳</b></div><div class="track"><div class="fill" id="dailyFill"></div></div></div></header>
-<main>
-<section class="screen active" id="home">
-<div class="panel" id="hyInstallPanel" style="border:1px solid #b8d9c7;background:linear-gradient(135deg,#f2fbf5,#fff8ed)"><div class="row" style="align-items:flex-start"><div class="icon">نصب</div><div style="flex:1"><h3>حافظه‌یار روی گوشی</h3><p class="muted" id="hyInstallText">برای استفاده راحت‌تر، می‌توانی نسخه وب را از منوی مرورگر به صفحه اصلی اضافه کنی. بسته نصب وب هم همراه فایل ارائه شده است.</p></div></div><div class="actionrow"><button class="btn primary" id="hyInstallBtn" onclick="hyInstallApp()">نصب / افزودن به صفحه اصلی</button><button class="btn secondary" onclick="hyRunDiagnostics()">بررسی سلامت</button></div><div id="hyInstallMsg" class="muted" style="margin-top:7px" aria-live="polite"></div></div>
-<div class="head"><h2>برنامه امروز</h2><span class="muted" id="date"></span></div>
-<div class="panel hero"><div class="icon">↻</div><div style="flex:1"><h3>مرورهای سررسیدشده</h3><p class="muted" id="dueText">هنوز کارتی برای مرور نداری.</p></div><button class="btn primary" onclick="show('cards')">مرور</button></div>
-<div class="grid">
-<button class="tile" onclick="startNumbers()"><div class="ico">۱۲۳</div><strong>حافظه اعداد</strong><small>یادآوری فعال</small></button>
-<button class="tile" onclick="showLevelQuiz()"><div class="ico">۱۰</div><strong>آزمون سطح‌بندی</strong><small>۳ سطح · هر سطح ۱۰ سؤال</small></button>
-<button class="tile" onclick="startWords()"><div class="ico">آب</div><strong>حافظه کلمات</strong><small>ساخت ارتباط ذهنی</small></button>
-<button class="tile" onclick="startPattern()"><div class="ico">▦</div><strong>حافظه تصویری</strong><small>یادآوری جای خانه‌ها</small></button>
-<button class="tile" onclick="show('palace')"><div class="ico">⌂</div><strong>قصر حافظه</strong><small>یادگیری قدم‌به‌قدم</small></button>
-<button class="tile" onclick="show('cards')"><div class="ico">▤</div><strong>فلش‌کارت‌های من</strong><small>ساخت و مرور شخصی</small></button>
-<button class="tile" onclick="show('learn')"><div class="ico">✦</div><strong>آموزش‌ها</strong><small>روش‌های کاربردی</small></button>
-<button class="tile" onclick="show('speedread')"><div class="ico">سرعت</div><strong>آکادمی تندخوانی</strong><small>سنجش سرعت، درک مطلب و تمرین روزانه</small></button>
-<button class="tile iq-entry-tile" onclick="openIQTest()"><div class="ico">آز</div><strong>تست هوش و استدلال</strong><small>شروع آزمون تصویری و منطقی</small></button>
-</div>
-<div class="panel" id="coachPanel" style="border:1px solid #cfe3d7;background:linear-gradient(145deg,#ffffff,#f0f8f3)">
-<div class="row" style="justify-content:space-between;align-items:flex-start"><div><span class="palace-kicker">مربی تمرین شخصی</span><h3 style="margin-top:7px">پیشنهاد امروز</h3></div><span class="chip" id="coachTime">۱۰ دقیقه</span></div>
-<p id="coachMessage" class="muted" style="font-size:13px;line-height:2;margin-top:8px">برای ساختن پیشنهاد شخصی، چند تمرین انجام بده. تا آن زمان، یک تمرین کوتاه و یک مرور فعال پیشنهاد می‌شود.</p>
-<div class="actionrow"><button class="btn primary" id="coachAction" onclick="runCoachRecommendation()">شروع پیشنهاد</button><button class="btn secondary" onclick="refreshCoach()">تازه‌سازی</button></div>
-<div id="coachSteps" class="muted" style="margin-top:9px;line-height:2"></div>
-<div class="panel" style="margin-top:12px;background:#fff;border:1px solid #dcebe1"><h4 style="margin:0 0 8px">نقشه مهارت‌های حافظه</h4><p class="muted" style="line-height:1.8">این نمودار فقط از پاسخ‌های ثبت‌شده در آزمون‌های همین مرورگر ساخته می‌شود؛ با داده کم، نتیجه قطعی نیست.</p><div id="hy21SkillMap"><p class="muted">پس از ثبت آزمون، نقشه مهارت‌ها نمایش داده می‌شود.</p></div><button class="btn secondary" style="width:100%;margin-top:8px" onclick="hy21RefreshSkillMap()">به‌روزرسانی تحلیل</button></div>
-</div>
-<div class="panel" id="dailyPlanPanel" style="border:1px solid #cfe3d7;background:#fff">
-<div class="row" style="justify-content:space-between;align-items:center"><div><span class="palace-kicker">برنامه هوشمند روزانه</span><h3 style="margin:7px 0">سه گام پیشنهادی امروز</h3></div><span class="chip" id="dailyPlanStatus">۰ از ۳</span></div>
-<p class="muted" id="dailyPlanIntro" style="line-height:2">برنامه کوتاه امروزت بر اساس فعالیت‌هایی که انجام داده‌ای تنظیم می‌شود.</p>
-<div id="dailyPlanItems"></div>
-</div>
-<div class="stats"><div class="stat"><b id="score">۰</b><small>امتیاز</small></div><div class="stat"><b id="sessions">۰</b><small>تمرین انجام‌شده</small></div><div class="stat"><b id="streak">۰</b><small>روز تمرین پیاپی</small></div></div>
-<div class="panel" id="backupPanel"><h3>پشتیبان‌گیری و انتقال اطلاعات</h3><p class="muted" style="line-height:2">برای نگه‌داشتن امتیازها، فلش‌کارت‌ها، مسیر قصر حافظه و سابقه تندخوانی، یک نسخه پشتیبان بگیر. فایل پشتیبان را در جای امن نگه دار.</p><div class="actionrow"><button class="btn primary" onclick="hyExportBackup()">دریافت فایل پشتیبان</button><button class="btn secondary" onclick="document.getElementById('hyImportFile').click()">بازیابی پشتیبان</button></div><input id="hyImportFile" type="file" accept="application/json,.json" style="display:none" onchange="hyImportBackup(event)"><div id="hyBackupMsg" class="muted" style="margin-top:8px;line-height:1.9" aria-live="polite">اطلاعات فقط در همین مرورگر ذخیره می‌شود؛ برای انتقال به گوشی دیگر از پشتیبان استفاده کن.</div></div>
-<div class="notice">این برنامه آموزشی است؛ امتیازها تشخیص پزشکی یا سنجش بالینی حافظه نیستند.</div>
-</section>
+      - name: Install Android tools
+        run: sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
-<section class="screen" id="train"><div class="head"><h2 id="trainTitle">تمرین</h2><button class="btn secondary" onclick="show('home')">بازگشت</button></div><div class="panel" id="trainBody"></div></section>
+      - name: Build APK project
+        run: |
+          mkdir -p app/src/main/assets
+          cp *.html app/src/main/assets/index.html
+          mkdir -p app/src/main/java/com/cmpexpert/hafezeyar
+          cat > settings.gradle <<'EOF'
+          pluginManagement {
+              repositories {
+                  google()
+                  mavenCentral()
+                  gradlePluginPortal()
+              }
+          }
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          rootProject.name = "HafezeYar"
+          include(":app")
+          EOF
+          cat > build.gradle <<'EOF'
+          plugins {
+              id 'com.android.application' version '8.7.3' apply false
+          }
+          EOF
+          cat > gradle.properties <<'EOF'
+          android.useAndroidX=true
+          EOF
+          cat > app/build.gradle <<'EOF'
+          plugins {
+              id 'com.android.application'
+          }
+          android {
+              namespace 'com.cmpexpert.hafezeyar'
+              compileSdk 35
+              defaultConfig {
+                  applicationId 'com.cmpexpert.hafezeyar'
+                  minSdk 23
+                  targetSdk 28
+                  versionCode 1
+                  versionName '1.0'
+              }
+          }
+          EOF
+          cat > app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+              <application android:theme="@android:style/Theme.Material.Light.NoActionBar" android:label="حافظه‌یار" android:usesCleartextTraffic="true">
+                  <activity android:name=".MainActivity" android:exported="true">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN"/>
+                          <category android:name="android.intent.category.LAUNCHER"/>
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          EOF
+          cat > app/src/main/java/com/cmpexpert/hafezeyar/MainActivity.java <<'EOF'
+          package com.cmpexpert.hafezeyar;
+          import android.app.Activity;
+          import android.os.Bundle;
+          import android.webkit.WebView;
+          import android.webkit.WebSettings;
+          import android.webkit.WebViewClient;
+          public class MainActivity extends Activity {
+              @Override public void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+                  WebView web = new WebView(this);
+                  WebSettings settings = web.getSettings();
+                  settings.setJavaScriptEnabled(true);
+                  settings.setDomStorageEnabled(true);
+                  web.setWebViewClient(new WebViewClient());
+                  setContentView(web);
+                  web.loadUrl("file:///android_asset/index.html");
+              }
+          }
+          EOF
+          gradle wrapper --gradle-version 8.9
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
-<section class="screen" id="cards">
-<div class="head"><h2>فلش‌کارت‌های من</h2><button class="btn secondary" onclick="show('home')">خانه</button></div>
-<div class="panel"><h3>ساخت فلش‌کارت</h3><label for="front">پرسش یا مطلب</label><input class="input" id="front" placeholder="مثلاً: پایتخت فرانسه چیست؟"><label for="back">پاسخ</label><input class="input" id="back" placeholder="مثلاً: پاریس"><button class="btn primary" style="width:100%;margin-top:12px" onclick="addCard()">افزودن کارت</button></div>
-<div class="panel"><div class="head"><h3>مرور کارت‌ها</h3><span class="muted" id="cardCount"></span></div><div id="reviewArea"><p class="muted">هنوز کارتی نساخته‌ای.</p></div><div id="reviewControls"></div></div>
-</section>
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: HafezeYar-APK
+          path: app/build/outputs/apk/debug/app-debug.apk
 
-<section class="screen" id="palace">
- <div class="head"><h2>قصر حافظه پیشرفته</h2><button class="btn secondary" onclick="show('home')">خانه</button></div>
- <div class="panel palace-hero"><div class="palace-kicker">روش مکان‌یابی · تمرین فعال</div><h3 style="font-size:19px;margin:4px 0 8px">ذهن خودت را به یک قصر قابل پیمایش تبدیل کن</h3><p class="muted">مسیر آشنا انتخاب کن، تصاویر زنده بساز و بعد بدون دیدن فهرست، از ایستگاه اول تا آخر بازیابی کن.</p>
- <label for="palaceLevel">سطح تمرین</label><select class="input" id="palaceLevel"><option value="5">مبتدی · ۵ ایستگاه</option><option value="8">متوسط · ۸ ایستگاه</option><option value="12">پیشرفته · ۱۲ ایستگاه</option><option value="15">استاد · ۱۵ ایستگاه</option></select>
- <label for="palaceTheme">نوع اطلاعات</label><select class="input" id="palaceTheme"><option value="mixed">ترکیبی و روزمره</option><option value="study">مطالعه و یادگیری</option><option value="numbers">عدد و توالی</option><option value="custom">تمرین با مسیر شخصی من</option></select>
- <button class="btn primary" style="width:100%;margin-top:12px" onclick="startPalaceSession()">شروع تمرین قصر</button></div>
- <div class="panel" id="palaceSession"><h3>چطور حرفه‌ای‌تر به خاطر بسپارم؟</h3><div class="palace-method"><div><b>۱ · مسیر ثابت</b><p>همیشه ایستگاه‌ها را در یک جهت و ترتیب ثابت طی کن.</p></div><div><b>۲ · تصویر اغراق‌آمیز</b><p>هر مورد را به تصویر عجیب، متحرک، بزرگ یا خنده‌دار تبدیل کن.</p></div><div><b>۳ · پیوند دوطرفه</b><p>تصویر را با خود مکان درگیر کن؛ فقط فهرست را تکرار نکن.</p></div><div><b>۴ · بازیابی و مرور</b><p>فهرست را پنهان کن، از حافظه بنویس و خطاها را دوباره تمرین کن.</p></div></div><div class="notice">نکته: برای فهرست‌های طولانی، قصر را به مسیرهای کوچک‌تر تقسیم کن. افزایش تعداد ایستگاه‌ها باید تدریجی باشد.</div></div>
- <div class="panel"><h3>ساخت مسیر شخصی</h3><p class="muted">مکان‌هایی را که واقعاً می‌شناسی به ترتیب وارد کن؛ هر خط یک ایستگاه است. این مسیر در همین مرورگر می‌ماند.</p><label for="customPalace">ایستگاه‌های من</label><textarea id="customPalace" class="input" rows="4" placeholder="در ورودی
-جاکفشی
-مبل
-آشپزخانه
-پنجره"></textarea><div class="actionrow"><button class="btn secondary" onclick="saveCustomPalace()">ذخیره مسیر</button><button class="btn secondary" onclick="loadCustomPalace()">بارگذاری مسیر</button></div><div id="customPalaceMsg" class="muted" style="margin-top:8px" aria-live="polite"></div></div>
-</section>
+### مرحله ۲: ذخیره فایل
 
-<section class="screen" id="learn">
-<div class="head"><h2>آموزش‌های علمی</h2><button class="btn secondary" onclick="show('home')">خانه</button></div>
-<div class="panel">
-<div class="listitem"><b>یادآوری فعال</b><p>بعد از مطالعه، متن را ببند و بدون نگاه‌کردن پاسخ بده. سپس پاسخ خود را بررسی کن.</p></div>
-<div class="listitem"><b>مرور فاصله‌دار</b><p>مطالب را در چند نوبت با فاصله مرور کن. در نسخه فعلی فلش‌کارت‌ها بر اساس ارزیابی تو برای مرور بعدی زمان‌بندی می‌شوند.</p></div>
-<div class="listitem"><b>تصویرسازی و پیوند</b><p>مطلب جدید را به تصویری روشن، عجیب یا معنادار وصل کن؛ سپس آن را از حافظه بازیابی کن.</p></div>
-<div class="listitem"><b>تقسیم‌بندی اعداد</b><p>عدد طولانی را به گروه‌های کوچک‌تر تقسیم کن. از اطلاعات حساس مثل رمز بانکی در تمرین استفاده نکن.</p></div>
-<div class="listitem"><b>قصر حافظه</b><p>مکان‌های آشنا را به ترتیب تصور کن و هر مفهوم را به یک تصویر در یک ایستگاه پیوند بده.</p></div>
-<div class="listitem"><b>خودسنجی</b><p>قبل از دیدن جواب، میزان اطمینانت را بسنج. اشتباه‌ها را ثبت کن و بعداً دوباره مرور کن.</p></div>
-<div class="notice">پشتوانه کلی مرور فاصله‌دار و بازیابی فعال در پژوهش‌های یادگیری بررسی شده است؛ اما این برنامه هنوز کارآزمایی بالینی یا اعتبارسنجی مستقل ندارد.</div>
-</div></section>
+بعد از واردکردن کامل کد:
 
-<section class="screen" id="speedread">
-<div class="head"><h2>آکادمی جامع تندخوانی</h2><button class="btn secondary" onclick="show('home')">خانه</button></div>
-<div class="panel palace-hero"><span class="palace-kicker">سرعت همراه با فهم</span><h3 style="font-size:19px;margin:7px 0">هدف فقط سریع‌تر دیدن کلمات نیست</h3>
-<p class="muted">سرعت مطالعه را همراه با درک مطلب بسنج. برای متن‌های دشوار، تخصصی یا مهم، آهسته‌خوانی دقیق می‌تواند بهترین انتخاب باشد.</p>
-<div class="stats"><div class="stat"><b id="srWpm">—</b><small>آخرین سرعت (کلمه/دقیقه)</small></div><div class="stat"><b id="srComp">—</b><small>درک مطلب</small></div><div class="stat"><b id="srSessions">۰</b><small>آزمون‌ها</small></div></div>
-<button class="btn primary" style="width:100%" onclick="srStartTest()">سنجش پایه سرعت و فهم</button></div>
-<div class="panel" id="srTestArea"><h3>آزمون سرعت مطالعه</h3><p class="muted">آزمون پایه را انجام بده تا بتوانی پیشرفتت را مقایسه کنی.</p></div>
-<div class="panel"><h3>تمرین‌های روزانه</h3>
-<div class="listitem"><b>۱. راهنمای دیداری</b><p>انگشت یا قلم را زیر خط حرکت بده و چشم را آرام دنبال آن کن. سرعت را کم‌کم بالا ببر؛ نه آن‌قدر که معنی از دست برود.</p><button class="btn secondary" onclick="srDrill('guide')">تمرین راهنمای دیداری</button></div>
-<div class="listitem"><b>۲. خواندن گروهی</b><p>به‌جای مکث روی تک‌تک واژه‌ها، عبارت‌های کوتاه معنادار را یک‌جا ببین.</p><button class="btn secondary" onclick="srDrill('chunk')">تمرین گروه‌بندی</button></div>
-<div class="listitem"><b>۳. پیش‌نگری متن</b><p>عنوان و تیترها را مرور کن و پرسشی برای خواندن بساز.</p><button class="btn secondary" onclick="srDrill('preview')">تمرین پیش‌نگری</button></div>
-<div class="listitem"><b>۴. خلاصه از حافظه</b><p>پس از هر بخش، متن را ببند و نکته اصلی را با زبان خودت بازگو کن.</p><button class="btn secondary" onclick="srDrill('recall')">تمرین یادآوری</button></div>
-<div class="listitem"><b>۵. کاهش بازگشت غیرضروری</b><p>فقط وقتی معنا مبهم است به عقب برگرد؛ بازخوانی لازم برای فهم اشتباه نیست.</p></div>
-<div class="listitem"><b>۶. انعطاف در سرعت</b><p>متن ساده را سریع‌تر و متن تخصصی یا پیچیده را آهسته‌تر بخوان.</p></div><div id="srDrillArea" class="notice">برای آغاز، یکی از تمرین‌ها را انتخاب کن.</div></div>
-<div class="panel" id="srDailySmartPanel"><h3>برنامه هوشمند روزانه</h3>
-<p class="muted">برنامه با توجه به نتیجه‌های ثبت‌شده، تمرین امروز را پیشنهاد می‌کند. هر نوبت کوتاه است و هدف، افزایش سرعت بدون قربانی‌کردن فهم است.</p>
-<div class="stats"><div class="stat"><b id="srDailyCount">۰/۳</b><small>گام‌های امروز</small></div><div class="stat"><b id="srDailyFocus">فهم مطلب</b><small>تمرکز پیشنهادی</small></div><div class="stat"><b id="srDailyStreak">۰</b><small>روزهای فعال پیاپی</small></div></div>
-<div id="srDailyAdvice" class="notice">برای ساختن برنامه امروز، دکمه شروع را بزن.</div>
-<div id="srDailyArea" class="listitem">برنامه امروز شامل سه گام کوتاه و قابل پیگیری است.</div>
-<button class="btn primary" style="width:100%" onclick="srStartDaily()">شروع برنامه امروز</button>
-<button class="btn secondary" style="width:100%;margin-top:8px" onclick="srRenderDaily()">به‌روزرسانی پیشنهاد</button>
-</div>
-<div class="panel" id="srCoachPanel"><h3>مربی تطبیقی تندخوانی</h3>
-<p class="muted">مربی بر اساس پاسخ‌های تمرین روزانه، مهارت نیازمند تقویت را پیدا می‌کند و برنامه بعدی را تغییر می‌دهد. این تحلیل آموزشی و تقریبی است.</p>
-<div class="stats"><div class="stat"><b id="srCoachAccuracy">—</b><small>دقت تمرین‌های اخیر</small></div><div class="stat"><b id="srCoachSkill">شروع</b><small>مهارت نیازمند تمرین</small></div><div class="stat"><b id="srCoachSessions">۰</b><small>پاسخ‌های ثبت‌شده</small></div></div>
-<div id="srCoachAdvice" class="notice">با انجام تمرین‌های روزانه، پیشنهاد شخصی‌سازی‌شده اینجا نمایش داده می‌شود.</div>
-<button class="btn secondary" style="width:100%" onclick="srRenderCoach()">تحلیل دوباره عملکرد</button>
-</div>
-<div class="panel" id="srAdaptivePanel"><h3>مسیر تمرین شخصی‌سازی‌شده</h3>
-<p class="muted">سطح و مدت تمرین را انتخاب کن. برنامه با توجه به نتیجه‌های ثبت‌شده، پیشنهاد ساده‌ای برای گام بعدی می‌دهد.</p>
-<div class="field"><label for="srLevel">سطح فعلی</label><select id="srLevel" class="input" onchange="srSavePrefs()"><option value="beginner">مبتدی</option><option value="intermediate">متوسط</option><option value="advanced">پیشرفته</option></select></div>
-<div class="field"><label for="srMinutes">مدت تمرین (دقیقه)</label><select id="srMinutes" class="input" onchange="srSavePrefs()"><option value="3">۳ دقیقه</option><option value="5" selected>۵ دقیقه</option><option value="8">۸ دقیقه</option><option value="10">۱۰ دقیقه</option></select></div>
-<div class="stats"><div class="stat"><b id="srLevelLabel">مبتدی</b><small>سطح انتخابی</small></div><div class="stat"><b id="srGoalTime">۵</b><small>دقیقه در هر نوبت</small></div><div class="stat"><b id="srTrend">شروع</b><small>روند ثبت‌شده</small></div></div>
-<div id="srRecommendation" class="notice">پس از انجام چند آزمون، پیشنهاد تمرین متناسب با نتیجه‌ها نمایش داده می‌شود.</div>
-<button class="btn secondary" style="width:100%" onclick="srStartPractice()">شروع تمرین زمان‌دار</button>
-<div id="srPracticeArea" class="listitem" style="margin-top:10px">تمرین زمان‌دار آماده است.</div>
-</div>
-<div class="panel" id="srSmartChallengePanel"><h3>چالش هوشمند روزانه · نسخه ۱۵</h3>
-<p class="muted">پنج پرسش کوتاه از مهارت‌های مختلف. برنامه با توجه به نتیجه‌های قبلی، از مهارت‌هایی که کمتر موفق بوده‌ای بیشتر سؤال می‌پرسد.</p>
-<div class="stats"><div class="stat"><b id="srChallengeScore">—</b><small>درصد آخرین چالش</small></div><div class="stat"><b id="srChallengeSkill">شروع</b><small>مهارت نیازمند تمرین</small></div><div class="stat"><b id="srChallengeCount">۰</b><small>چالش‌های انجام‌شده</small></div></div>
-<div id="srChallengeArea" class="listitem">برای آغاز چالش امروز دکمه را بزن. هر چالش ۵ پرسش دارد.</div>
-<button class="btn primary" style="width:100%" onclick="srChallengeStart()">شروع چالش هوشمند</button>
-</div>
-<div class="panel" id="srSmartAcademy"><h3>آموزش هوشمند و پیشرفته · نسخه ۱۶</h3>
-<p class="muted">درس‌ها کوتاه و مرحله‌ای هستند. پس از هر درس یک پرسش می‌آید؛ پیشنهاد درس بعدی براساس نتیجه‌های ثبت‌شده تنظیم می‌شود. هدف، افزایش سرعت همراه با حفظ درک مطلب است.</p>
-<div class="stats"><div class="stat"><b id="srCourseDone">۰</b><small>درس‌های تکمیل‌شده</small></div><div class="stat"><b id="srCourseAccuracy">—</b><small>دقت آزمون درس‌ها</small></div><div class="stat"><b id="srCourseNext">شروع</b><small>پیشنهاد بعدی</small></div></div>
-<div id="srCourseRecommendation" class="notice">از درس پیشنهادی شروع کن. پاسخ‌ها برای همین مرورگر ذخیره می‌شوند.</div>
-<div id="srCourseArea" class="listitem">برای شروع آموزش مرحله‌ای، دکمه زیر را بزن.</div>
-<div class="actionrow"><button class="btn primary" onclick="srCourseStartRecommended()">شروع درس پیشنهادی</button><button class="btn secondary" onclick="srCourseShowAll()">فهرست درس‌ها</button><button class="btn secondary" onclick="srCourseResetAsk()">بازنشانی آموزش</button></div>
-</div>
-<div class="panel" id="sr30DayPanel"><h3>مسیر هوشمند ۳۰ روزه · نسخه ۱۷</h3>
-<p class="muted">هر روز یک تمرین کوتاه و قابل انجام. مسیر با توجه به درس‌های تکمیل‌شده و مهارت‌های نیازمند تمرین، پیشنهاد امروز را انتخاب می‌کند.</p>
-<div class="stats"><div class="stat"><b id="sr30DayNumber">۱</b><small>روز مسیر</small></div><div class="stat"><b id="sr30DayDone">۰</b><small>روزهای انجام‌شده</small></div><div class="stat"><b id="sr30DayStreak">۰</b><small>روزهای پیاپی</small></div></div>
-<div id="sr30DayTask" class="notice">در حال آماده‌سازی تمرین امروز…</div>
-<div class="actionrow"><button class="btn primary" id="sr30DayComplete" onclick="sr30Complete()">تمرین امروز را انجام دادم</button><button class="btn secondary" onclick="sr30Refresh()">به‌روزرسانی پیشنهاد</button></div>
-<div id="sr30DayMessage" class="muted" style="margin-top:8px"></div>
-</div>
+۱. بالای صفحه روی دکمه سبز **Commit changes...** بزن.
+۲. اگر پنجره تأیید باز شد، دوباره **Commit changes** را انتخاب کن.
+۳. سپس از صفحه بعد عکس بگیر و برایم بفرست.
 
-<div class="panel" id="srReviewPanel"><h3>موتور مرور هوشمند · نسخه ۱۸</h3>
-<p class="muted">کارت‌ها را بدون نگاه‌کردن به پاسخ بازیابی کن. سپس میزان دشواری را مشخص کن تا زمان مرور بعدی تنظیم شود. این زمان‌بندی یک راهنمای تمرینی است، نه سنجش علمی قطعی حافظه.</p>
-<div class="stats"><div class="stat"><b id="srReviewDue">۰</b><small>کارت‌های موعددار</small></div><div class="stat"><b id="srReviewDone">۰</b><small>مرورهای انجام‌شده</small></div><div class="stat"><b id="srReviewStreak">۰</b><small>مرور امروز</small></div></div>
-<div id="srReviewArea" class="listitem">برای آماده‌سازی کارت‌های آموزشی، دکمه زیر را بزن.</div>
-<div class="actionrow"><button class="btn primary" onclick="srReviewStart()">شروع مرور امروز</button><button class="btn secondary" onclick="srReviewShowAll()">نمایش همه کارت‌ها</button></div>
-<div id="srReviewMessage" class="muted" style="margin-top:8px"></div></div>
-
-<div class="panel"><h3>تاریخچه تندخوانی</h3><div id="srHistory" class="listitem muted">هنوز نتیجه‌ای ثبت نشده است.</div></div>
-<div class="panel"><h3>برنامه ۱۴ روزه</h3><div class="palace-method">
-<div><b>روزهای ۱–۲ · خط پایه</b><p>سرعت و درک مطلب را بسنج.</p></div><div><b>روزهای ۳–۴ · راهنمای دیداری</b><p>روزانه دو نوبت تمرین کوتاه و نرم.</p></div><div><b>روزهای ۵–۶ · گروه‌بندی</b><p>عبارت‌های کوتاه را یک واحد معنایی ببین.</p></div><div><b>روزهای ۷–۸ · پیش‌نگری</b><p>ساختار متن و پرسش اصلی را مشخص کن.</p></div><div><b>روزهای ۹–۱۰ · سرعت کنترل‌شده</b><p>کمی سریع‌تر بخوان و بلافاصله مفهوم را توضیح بده.</p></div><div><b>روزهای ۱۱–۱۲ · متن‌های متفاوت</b><p>متن داستانی و آموزشی را جداگانه تمرین کن.</p></div><div><b>روزهای ۱۳–۱۴ · ارزیابی دوباره</b><p>آزمون مشابه خط پایه را تکرار و نتیجه فهم را مقایسه کن.</p></div></div>
-<div class="panel" id="hyAssessmentPanel" style="margin-top:16px">
-<h3>آزمایشگاه سنجش حافظه · نسخه ۱۹</h3>
-<p class="muted">چهار مهارت را جداگانه تمرین و ارزیابی کن. این آزمون آموزشی است و جایگزین آزمون تخصصی یا تشخیص پزشکی نیست.</p>
-<div class="stats"><div class="stat"><b id="hyAssessBest">—</b><small>بهترین نتیجه</small></div><div class="stat"><b id="hyAssessLast">—</b><small>آخرین نتیجه</small></div><div class="stat"><b id="hyAssessCount">۰</b><small>آزمون‌های انجام‌شده</small></div></div>
-<div id="hyAssessIntro"><p><b>آزمون شامل ۴ بخش است:</b> یادآوری کلمات، حافظه اعداد، تداعی تصویری با واژه‌ها و درک مطلب.</p><button class="btn primary" onclick="hyAssessStart()" style="width:100%">شروع آزمون چهارمرحله‌ای</button><button class="btn secondary" onclick="hyAssessHistory()" style="width:100%;margin-top:8px">نمایش سابقه نتایج</button></div>
-<div id="hyAssessWork" style="display:none"></div><div id="hyAssessFeedback" class="notice" style="display:none;margin-top:10px"></div><div id="hyAssessHistoryBox" style="display:none;margin-top:10px"></div>
-</div>
-
-<div class="panel" id="hyCoach20Panel" style="margin-top:16px">
-<h3>مربی شخصی هوشمند · نسخه ۲۰</h3>
-<p class="muted">این مربی بر اساس نتایج آزمون‌های ثبت‌شده در همین مرورگر، یک پیشنهاد تمرینی می‌سازد. هرچه آزمون‌های بیشتری انجام بدهی، پیشنهادها کاربردی‌تر می‌شوند.</p>
-<div class="stats"><div class="stat"><b id="hyCoach20Average">—</b><small>میانگین ۵ آزمون اخیر</small></div><div class="stat"><b id="hyCoach20Trend">—</b><small>روند عملکرد</small></div><div class="stat"><b id="hyCoach20Tests">۰</b><small>آزمون‌های ثبت‌شده</small></div></div>
-<label for="hyCoach20Goal"><b>مدت تمرین روزانه</b></label><select id="hyCoach20Goal" class="input" style="width:100%;margin:8px 0 12px;padding:10px;border-radius:8px"><option value="10">۱۰ دقیقه؛ سبک</option><option value="15" selected>۱۵ دقیقه؛ متعادل</option><option value="20">۲۰ دقیقه؛ فشرده</option></select>
-<div id="hyCoach20Plan" class="notice" style="line-height:2">برای دریافت برنامه شخصی، ابتدا یک آزمون سنجش حافظه انجام بده.</div>
-<div class="actionrow"><button class="btn primary" onclick="hyCoach20Refresh()">تحلیل دوباره و ساخت برنامه</button><button class="btn secondary" onclick="hyCoach20Export()">خروجی گزارش</button></div>
-<div id="hyCoach20ExportBox" style="display:none;margin-top:10px"></div>
-</div>
-
-
-<div class="panel" id="hy22Panel" style="margin-top:16px">
-<h3>نسخه ۲۲ · آزمون جامع و پشتیبان یکپارچه</h3>
-<p class="muted">آزمون متنوع برای سنجش یادآوری، توجه، تداعی و درک مطلب؛ همراه با امکان انتقال داده‌های ذخیره‌شده.</p>
-<div class="stats"><div class="stat"><b id="hy22Last">—</b><small>آخرین آزمون</small></div><div class="stat"><b id="hy22Avg">—</b><small>میانگین ۵ آزمون</small></div><div class="stat"><b id="hy22Count">۰</b><small>آزمون‌های جامع</small></div></div>
-<label for="hy22Level">سطح آزمون</label><select class="input" id="hy22Level"><option value="easy">آسان · ۵ سؤال</option><option value="normal" selected>متوسط · ۸ سؤال</option><option value="hard">پیشرفته · ۱۰ سؤال</option></select>
-<div class="actionrow"><button class="btn primary" style="width:100%" onclick="hy22Start()">شروع آزمون جامع</button></div>
-<div id="hy22Work" style="margin-top:12px"></div><div id="hy22History" style="margin-top:10px"></div>
-<hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
-<h3>پشتیبان یکپارچه حافظه‌یار</h3><p class="muted">خروجی شامل داده‌های محلی برنامه می‌شود؛ فایل را محرمانه نگه دار. بازیابی می‌تواند داده‌های هم‌نام موجود را جایگزین کند.</p>
-<div class="actionrow"><button class="btn secondary" onclick="hy22Export()">ساخت فایل پشتیبان</button><button class="btn secondary" onclick="document.getElementById('hy22ImportFile').click()">بازیابی فایل</button></div><input id="hy22ImportFile" type="file" accept="application/json,.json" style="display:none" onchange="hy22Import(event)"><div id="hy22BackupMsg" class="muted" style="margin-top:8px"></div>
-</div>
-
-<div class="panel" id="hy23IQPanel" style="scroll-margin-top:18px;border:2px solid #ffad55"><div class="chip" style="font-size:12px;margin-bottom:8px">اینجا بخش تست هوش است</div><h3>تست هوش و استدلال · آزمون تطبیقی و ماتریس‌های دیداری</h3>
-<p class="muted">نسخه ۳۰: دسترسی مستقیم، بانک سؤال تکمیلی، بررسی سلامت، پشتیبان کامل‌تر و بسته وب قابل نصب اضافه شده است. توضیح راه‌حل، مرور خطاها و برنامه تمرینی شخصی‌سازی‌شده حفظ شده‌اند. این آزمون برای تمرین و خودارزیابی است و IQ استاندارد ارائه نمی‌کند.</p>
-<div class="stats"><div class="stat"><b id="hy23IQLast">—</b><small>درصد آخر</small></div><div class="stat"><b id="hy23IQBest">—</b><small>بهترین درصد</small></div><div class="stat"><b id="hy23IQCount">۰</b><small>آزمون‌ها</small></div></div>
-<div class="field"><label for="hy23IQLevel">سطح آزمون</label><select id="hy23IQLevel" class="input"><option value="12">کوتاه · ۱۲ سؤال</option><option value="20">متوسط · ۲۰ سؤال</option><option value="24" selected>پیشرفته · ۲۴ سؤال</option><option value="32">جامع · ۳۲ سؤال</option><option value="40">ماتریسی جامع · ۴۰ سؤال</option></select></div>
-<div class="actionrow"><button class="btn primary" style="width:100%" onclick="hy23IQStart()">شروع تست هوش</button></div>
-<div id="hy23IQWork" style="margin-top:12px"></div><div id="hy23IQHistory" style="margin-top:10px"></div>
-<div class="actionrow" style="margin-top:10px"><button class="btn secondary" style="width:100%" onclick="hy23IQAudit()">بررسی ساختاری بانک سؤال</button></div><div id="hy23IQAuditBox" style="margin-top:10px"></div>
-<div class="notice">محدودیت علمی: این آزمون ساخته‌شده در این برنامه، آزمون روان‌سنجی استاندارد نیست و نمی‌تواند IQ معتبر، تشخیص بالینی یا رتبه‌بندی قطعی توانایی را تعیین کند. در نسخه ۲۵، سطح سؤال با روند پاسخ‌ها تنظیم می‌شود؛ بااین‌حال، بدون آزمون‌سازی تخصصی، نمونه هنجاری و اعتبارسنجی مستقل، این نتیجه IQ معتبر محسوب نمی‌شود.</div>
-</div>
-<div class="notice">ادعاهای «هزاران کلمه در دقیقه با درک کامل» قابل اتکا نیستند. پیشرفت را با متن‌های هم‌سطح و آزمون فهم بسنج.</div></div></section>
-\n<section class="screen" id="progress">
-<div class="head"><h2>گزارش پیشرفت</h2><button class="btn secondary" onclick="show('home')">خانه</button></div>
-<div class="panel" id="hyDiagnosticsPanel"><h3>بررسی سلامت حافظه‌یار</h3><p class="muted">این بررسی، اجزای اصلی صفحه و امکان ذخیره محلی را کنترل می‌کند؛ جایگزین آزمایش کامل روی دستگاه‌های مختلف نیست.</p><button class="btn secondary" style="width:100%;margin-top:8px" onclick="hyRunDiagnostics()">اجرای بررسی</button><div id="hyDiagnosticsResult" style="margin-top:10px" aria-live="polite"></div></div>
-<div class="panel"><div class="stats"><div class="stat"><b id="pScore">۰</b><small>امتیاز</small></div><div class="stat"><b id="pSessions">۰</b><small>فعالیت‌ها</small></div><div class="stat"><b id="pCards">۰</b><small>فلش‌کارت‌ها</small></div></div><p id="progressSummary" class="muted"></p><div class="panel" style="padding:12px;background:#f7fbf8;border:1px solid #dcebe1"><h3>نمای هفتگی فعالیت</h3><p class="muted">تعداد فعالیت‌های ثبت‌شده در هفت روز اخیر</p><div id="weeklyChart" style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;align-items:end;min-height:120px"></div><p id="weeklySummary" class="muted" style="margin-top:10px"></p></div><h3 style="margin-top:16px">فعالیت‌های اخیر</h3><div id="historyList" class="listitem muted">هنوز فعالیتی ثبت نشده است.</div><div class="actionrow"><button class="btn secondary" onclick="exportData()">خروجی پشتیبان</button><button class="btn secondary" onclick="document.getElementById('importFile').click()">بازیابی پشتیبان</button></div><input id="importFile" type="file" accept="application/json,.json" style="display:none" onchange="importData(event)"><button class="btn danger" style="width:100%;margin-top:10px" onclick="resetData()">پاک‌کردن اطلاعات این دستگاه</button><div class="notice">داده‌ها در همین مرورگر ذخیره می‌شوند. خروجی پشتیبان را در جای امن نگه دار. فایل پشتیبان می‌تواند شامل یادداشت‌های شخصی و فلش‌کارت‌ها باشد.</div></div>
-</section>
-</main>
-<nav class="bottom"><button class="nav active" data-id="home" onclick="show('home')"><b>⌂</b>خانه</button><button class="nav" data-id="speedread" onclick="openIQTest()"><b>آز</b>تست هوش</button><button class="nav" data-id="cards" onclick="show('cards')"><b>▤</b>کارت‌ها</button><button class="nav" data-id="palace" onclick="show('palace')"><b>⌂</b>قصر حافظه</button><button class="nav" data-id="learn" onclick="show('learn')"><b>✦</b>آموزش</button><button class="nav" data-id="progress" onclick="show('progress')"><b>↗</b>پیشرفت</button></nav>
-</div>
-<script>
-const fa=n=>String(n).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]);
-const day=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")};
-const freshDB=()=>({schemaVersion:2,score:0,sessions:0,done:{},lastDay:"",streak:0,cards:[],reviewIndex:null,history:[]});
-function normalizeDB(raw){const d=raw&&typeof raw==="object"?raw:freshDB();d.schemaVersion=2;d.score=Number.isFinite(d.score)?d.score:0;d.sessions=Number.isFinite(d.sessions)?d.sessions:0;d.done=d.done&&typeof d.done==="object"?d.done:{};d.lastDay=typeof d.lastDay==="string"?d.lastDay:"";d.streak=Number.isFinite(d.streak)?d.streak:0;d.cards=Array.isArray(d.cards)?d.cards.filter(c=>c&&typeof c.front==="string"&&typeof c.back==="string").map(c=>({...c,id:c.id??(Date.now()+Math.random()),due:Number.isFinite(c.due)?c.due:Date.now(),interval:Number.isFinite(c.interval)?c.interval:0,reps:Number.isFinite(c.reps)?c.reps:0,ease:Number.isFinite(c.ease)?Math.max(1.3,Math.min(3,c.ease)):2.3})):[];d.history=Array.isArray(d.history)?d.history.slice(-100):[];return d}
-let db;try{db=normalizeDB(JSON.parse(localStorage.getItem("hy02")))}catch(e){db=freshDB()}
-function persist(){try{localStorage.setItem("hy02",JSON.stringify(db))}catch(e){alert("ذخیره‌سازی انجام نشد؛ فضای مرورگر ممکن است پر باشد. از اطلاعاتت خروجی پشتیبان بگیر.")}render()}
-function dueCards(){return db.cards.filter(c=>c.due<=Date.now()).sort((a,b)=>a.due-b.due)}
-function todayCount(){return (db.done[day()]||[]).length}
-function renderDailyPlan(){
- const done=new Set(db.done[day()]||[]);
- const items=[
-  {type:"cards",title:"مرور فعال فلش‌کارت‌ها",desc:dueCards().length?fa(dueCards().length)+" کارت سررسید شده است.":"اگر کارت داری، یک مرور کوتاه انجام بده.",action:"مرور کارت‌ها",run:"show('cards')"},
-  {type:"numbers",title:"تمرین حافظه اعداد",desc:"یک تمرین کوتاه برای توجه و یادآوری توالی.",action:"شروع تمرین",run:"startNumbers()"},
-  {type:"words",title:"تمرین حافظه کلمات",desc:"کلمات را با یک تصویر یا داستان به هم پیوند بده.",action:"شروع تمرین",run:"startWords()"},
-  {type:"pattern",title:"تمرین حافظه تصویری",desc:"جای خانه‌ها را ببین و به همان ترتیب به یاد بیاور.",action:"شروع تمرین",run:"startPattern()"},
-  {type:"palace",title:"یک مسیر در قصر حافظه",desc:"چند مورد را به مکان‌های آشنا پیوند بزن.",action:"رفتن به قصر",run:"show('palace')"}
- ];
- let chosen=items.filter(x=>!done.has(x.type)).slice(0,3);
- if(chosen.length<3)chosen=chosen.concat(items.filter(x=>done.has(x.type)).slice(0,3-chosen.length));
- const el=document.getElementById('dailyPlanItems'); if(!el)return;
- el.innerHTML=chosen.map((x,i)=>{const complete=done.has(x.type);return `<div class="listitem" style="display:flex;gap:9px;align-items:center;justify-content:space-between"><div style="flex:1"><b>${complete?'✓ ':fa(i+1)+' · '}${x.title}</b><p class="muted" style="margin:4px 0 0">${x.desc}</p></div><button class="btn ${complete?'secondary':'primary'}" onclick="${x.run}" style="white-space:nowrap">${complete?'تکرار':x.action}</button></div>`}).join('');
- const count=done.size; const status=document.getElementById('dailyPlanStatus');if(status)status.textContent=fa(Math.min(3,count))+' از ۳';
- const intro=document.getElementById('dailyPlanIntro');if(intro)intro.textContent=count>=3?'آفرین؛ هدف پایه امروز تکمیل شده است. اگر انرژی داری، یک مرور کوتاه انجام بده.':'برای امروز فقط چند دقیقه کافی است. سه نوع فعالیت متفاوت را به‌آرامی انجام بده و کیفیت یادآوری را در اولویت بگذار.';
-}
-function renderWeeklyReport(){
- const chart=document.getElementById('weeklyChart');if(!chart)return;
- const now=new Date(),days=[];
- for(let i=6;i>=0;i--){const d=new Date(now);d.setDate(now.getDate()-i);const key=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');const count=(db.history||[]).filter(h=>h.date===key).length;days.push({key,label:new Intl.DateTimeFormat('fa-IR',{weekday:'short'}).format(d),count})}
- const max=Math.max(1,...days.map(x=>x.count));chart.innerHTML=days.map(x=>`<div style="display:flex;flex-direction:column;align-items:center;justify-content:end;gap:5px;min-width:0"><b style="font-size:11px">${fa(x.count)}</b><div title="${x.key}" style="height:${Math.max(5,Math.round(x.count/max*68))}px;width:100%;max-width:24px;background:linear-gradient(180deg,#ffad59,#ff8e32);border-radius:7px 7px 3px 3px"></div><small style="font-size:10px;color:#697a73">${x.label}</small></div>`).join('');
- const total=days.reduce((a,x)=>a+x.count,0),active=days.filter(x=>x.count>0).length;const out=document.getElementById('weeklySummary');if(out)out.textContent='در هفت روز اخیر '+fa(total)+' فعالیت در '+fa(active)+' روز ثبت شده است. این نمودار فقط فعالیت‌های ذخیره‌شده در همین مرورگر را نشان می‌دهد.';
-}
-function render(){
- document.getElementById("dailyText").textContent=fa(todayCount())+" از ۳";document.getElementById("dailyFill").style.width=Math.min(100,todayCount()/3*100)+"%";
- document.getElementById("score").textContent=fa(db.score);document.getElementById("sessions").textContent=fa(db.sessions);document.getElementById("streak").textContent=fa(db.streak);
- document.getElementById("pScore").textContent=fa(db.score);document.getElementById("pSessions").textContent=fa(db.sessions);document.getElementById("pCards").textContent=fa(db.cards.length);
- document.getElementById("dueText").textContent=dueCards().length?fa(dueCards().length)+" کارت آماده مرور است.":"هنوز کارتی برای مرور سررسید نشده است.";
- updateCoach();
- document.getElementById("cardCount").textContent=fa(db.cards.length)+" کارت";
- document.getElementById("progressSummary").textContent="امروز "+fa(todayCount())+" نوع تمرین انجام داده‌ای. استمرار و مرور منظم را هدف بگیر؛ این آمار، سنجش بالینی حافظه نیست.";
- const hist=document.getElementById("historyList");if(hist)hist.innerHTML=db.history.length?db.history.slice(-6).reverse().map(h=>`<div class="listitem"><b>${escapeHtml(h.label||h.type||"فعالیت")}</b><p>${escapeHtml(h.date||"")} · ${fa(h.points||0)} امتیاز</p></div>`).join(""):'<p class="muted">هنوز فعالیتی ثبت نشده است.</p>';
- if(document.getElementById("cards").classList.contains("active"))renderReview();
- renderDailyPlan();renderWeeklyReport();
-}
-function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll(".nav").forEach(x=>x.classList.toggle("active",x.dataset.id===id));if(id==="cards")renderReview();if(id==="progress"){render();renderWeeklyReport()}}
-function openIQTest(){show("speedread");setTimeout(function(){const p=document.getElementById("hy23IQPanel");if(p){p.scrollIntoView({behavior:"smooth",block:"start"});p.style.outline="3px solid #ffad55";setTimeout(function(){p.style.outline=""},1800)}},180)}
-window.openIQTest=openIQTest
-document.getElementById("date").textContent=new Intl.DateTimeFormat("fa-IR",{month:"short",day:"numeric"}).format(new Date());
-function mark(type,points){const today=day();db.score+=points;db.sessions++;db.done[today]=db.done[today]||[];if(!db.done[today].includes(type))db.done[today].push(type);if(db.lastDay!==today){const y=new Date();y.setDate(y.getDate()-1);const yesterday=[y.getFullYear(),String(y.getMonth()+1).padStart(2,"0"),String(y.getDate()).padStart(2,"0")].join("-");db.streak=db.lastDay===yesterday?db.streak+1:1;db.lastDay=today}db.history.push({type,label:({numbers:"حافظه اعداد",words:"حافظه کلمات",pattern:"حافظه تصویری",palace:"قصر حافظه",cards:"مرور فلش‌کارت"})[type]||type,points,date:today,at:Date.now()});db.history=db.history.slice(-100);persist()}
-function exportData(){const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="hafezeyar-backup-"+day()+".json";a.click();URL.revokeObjectURL(url)}
-function importData(event){const file=event.target.files&&event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const imported=normalizeDB(JSON.parse(reader.result));if(!Array.isArray(imported.cards)||!confirm("بازیابی، اطلاعات فعلی این دستگاه را با اطلاعات فایل جایگزین می‌کند. ادامه می‌دهی؟"))return;db=imported;persist();renderReview();alert("پشتیبان با موفقیت بازیابی شد.")}catch(e){alert("فایل پشتیبان معتبر نیست یا قابل خواندن نیست.")}finally{event.target.value=""}};reader.readAsText(file)}
-let timer=null,round={};
-function openTrain(title,content){clearInterval(timer);document.getElementById("trainTitle").textContent=title;document.getElementById("trainBody").innerHTML=content;show("train")}
-let levelQuiz={level:1,index:0,total:10,correct:0,wrong:0,number:"",busy:false};
-function showLevelQuiz(){
- clearInterval(timer);
- openTrain("آزمون سطح‌بندی",`<p class="muted">هر سطح ۱۰ سؤال دارد. پس از هر پاسخ، درست یا غلط بودن آن نمایش داده می‌شود.</p><div class="grid"><button class="btn secondary" onclick="startLevelQuiz(1)">سطح ۱ · آسان</button><button class="btn secondary" onclick="startLevelQuiz(2)">سطح ۲ · متوسط</button><button class="btn secondary" onclick="startLevelQuiz(3)">سطح ۳ · دشوار</button></div><div class="notice">پایان هر سطح، تعداد پاسخ‌های درست و غلط به مدت ۳ ثانیه نمایش داده می‌شود و سپس به صفحهٔ اصلی برمی‌گردی.</div>`);
-}
-function startLevelQuiz(level){
- clearInterval(timer);levelQuiz={level,index:0,total:10,correct:0,wrong:0,number:"",busy:false};showLevelQuestion();
-}
-function showLevelQuestion(){
- clearInterval(timer);if(levelQuiz.index>=levelQuiz.total){finishLevelQuiz();return}
- const digits=levelQuiz.level+3;levelQuiz.number=Array.from({length:digits},()=>Math.floor(Math.random()*10)).join("");levelQuiz.busy=false;
- openTrain(`آزمون سطح ${fa(levelQuiz.level)}`,`<div class="progline"><span>سؤال ${fa(levelQuiz.index+1)} از ${fa(levelQuiz.total)}</span><b>درست: ${fa(levelQuiz.correct)} · غلط: ${fa(levelQuiz.wrong)}</b></div><div class="track"><div class="fill" style="width:${(levelQuiz.index/levelQuiz.total)*100}%"></div></div><p class="muted" style="margin-top:12px">عدد را به خاطر بسپار؛ پس از ۳ ثانیه پنهان می‌شود.</p><div class="flashface"><div class="big" id="levelNumber" dir="ltr" style="font-size:32px;font-weight:900;text-shadow:none;letter-spacing:2px">${levelQuiz.number}</div><div class="small" id="levelMsg">۳ ثانیه فرصت داری</div></div><div id="levelAnswerArea"></div>`);
- let t=3;timer=setInterval(()=>{const msg=document.getElementById("levelMsg");if(!msg){clearInterval(timer);return}t--;if(t<=0){clearInterval(timer);const num=document.getElementById("levelNumber");if(num)num.textContent="؟ ".repeat(digits).trim();msg.textContent="عدد را وارد کن";const area=document.getElementById("levelAnswerArea");if(area)area.innerHTML=`<input class="input" id="levelAnswer" inputmode="numeric" dir="ltr" autocomplete="off" placeholder="عدد را وارد کن" oninput="autoCheckLevelAnswer()"><div id="levelFeedback" aria-live="polite"></div>`;document.getElementById("levelAnswer")?.focus()}else msg.textContent="زمان باقی‌مانده: "+fa(t)+" ثانیه"},1000);
-}
-function autoCheckLevelAnswer(){const input=document.getElementById("levelAnswer");if(!input||levelQuiz.busy)return;const answer=input.value.replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/\D/g,"");if(answer.length>=String(levelQuiz.number).length)checkLevelAnswer()}
-function checkLevelAnswer(){
- if(levelQuiz.busy)return;const input=document.getElementById("levelAnswer");if(!input)return;
- const answer=input.value.replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/\D/g,"");if(answer.length<String(levelQuiz.number).length){input.focus();return}
- levelQuiz.busy=true;const ok=answer===levelQuiz.number;if(ok)levelQuiz.correct++;else levelQuiz.wrong++;
- const shownNumber=document.getElementById("levelNumber");if(shownNumber)shownNumber.textContent=levelQuiz.number;
- input.disabled=true;const btn=document.querySelector("#levelAnswerArea .primary");if(btn)btn.disabled=true;
- const feedback=document.getElementById("levelFeedback");feedback.innerHTML=`<div class="notice" style="background:${ok?'#e8f7ee':'#fff0f0'};border-color:${ok?'#b9e2c8':'#f0c5c5'};color:${ok?'#155d3d':'#9c3038'};font-size:14px;font-weight:900">${ok?'🎉 آفرین! درست بود':'✕ پاسخ غلط بود'}${ok?'':' · پاسخ صحیح: '+fa(levelQuiz.number)}</div><p class="muted">در حال رفتن به سؤال بعدی…</p>`;
- levelQuiz.index++;setTimeout(()=>{if(levelQuiz.index>=levelQuiz.total)finishLevelQuiz();else showLevelQuestion()},1300);
-}
-function finishLevelQuiz(){
- clearInterval(timer);const l=levelQuiz.level,c=levelQuiz.correct,w=levelQuiz.wrong;mark("levelquiz",c*2);
- openTrain("نتیجهٔ سطح "+fa(l),`<div style="text-align:center;padding:22px 8px"><div style="font-size:23px;font-weight:900;color:var(--g)">پایان سطح ${fa(l)}</div><div class="stats"><div class="stat"><b style="font-weight:900;text-shadow:none">${fa(c)}</b><small>پاسخ درست</small></div><div class="stat"><b style="font-weight:900;text-shadow:none;color:var(--red)">${fa(w)}</b><small>پاسخ غلط</small></div><div class="stat"><b style="font-weight:900;text-shadow:none">${fa(c+w)}</b><small>کل سؤال‌ها</small></div></div><p class="muted">این نتیجه تا ۳ ثانیهٔ دیگر نمایش داده می‌شود…</p><div class="track"><div id="resultCountdown" class="fill" style="width:100%;transition:width 3s linear"></div></div></div>`);
- requestAnimationFrame(()=>{const bar=document.getElementById("resultCountdown");if(bar)bar.style.width="0%"});setTimeout(()=>show("home"),3000);
-}
-function startNumbers(){let n=Array.from({length:5},()=>Math.floor(Math.random()*10)).join("");round={n};openTrain("حافظه اعداد",`<p class="muted">عدد را به خاطر بسپار. پس از چند ثانیه پنهان می‌شود.</p><div class="flashface"><div class="big" id="numDisplay" dir="ltr">${n}</div><div class="small" id="numMsg">۴ ثانیه فرصت داری</div></div><div id="numArea"></div>`);let t=4;timer=setInterval(()=>{let el=document.getElementById("numMsg");if(!el){clearInterval(timer);return}t--;if(t<=0){clearInterval(timer);document.getElementById("numDisplay").textContent="؟ ؟ ؟ ؟ ؟";el.textContent="عدد را وارد کن";document.getElementById("numArea").innerHTML=`<input class="input" id="numAns" inputmode="numeric" autocomplete="off" placeholder="عدد پنج‌رقمی" dir="ltr" oninput="autoCheckNum()"><div id="result" aria-live="polite"></div>`}else el.textContent="زمان باقی‌مانده: "+fa(t)+" ثانیه"},1000)}
-function autoCheckNum(){const input=document.getElementById("numAns");if(!input||document.getElementById("result")?.dataset.done==="1")return;const a=input.value.replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/\D/g,"");if(a.length>=round.n.length)checkNum()}
-function checkNum(){if(document.getElementById("result")?.dataset.done==="1")return;const input=document.getElementById("numAns");if(!input)return;let a=input.value.replace(/[۰-۹]/g,d=>"۰۱۲۳۴۵۶۷۸۹".indexOf(d)).replace(/\D/g,"");if(a.length<round.n.length){input.focus();return}let ok=a===round.n;const shownNumber=document.getElementById("numDisplay");if(shownNumber)shownNumber.textContent=round.n;mark("numbers",ok?20:5);document.getElementById("result").dataset.done="1";input.disabled=true;document.getElementById("result").innerHTML=`<p style="font-weight:900;color:${ok?'#16834a':'#b4232f'}">${ok?'🎉 آفرین! درست بود؛ ۲۰ امتیاز گرفتی.':'✕ پاسخ غلط بود. عدد درست: '+fa(round.n)}</p><div class="actionrow"><button class="btn secondary" onclick="startNumbers()">تمرین دوباره</button><button class="btn primary" onclick="show('home')">بازگشت به صفحه اصلی</button></div>`}
-const wordSets=[["کتاب","باران","پنجره","سیب","دریا"],["چراغ","کوه","مداد","آینه","پرنده"],["باغ","قطار","لیوان","ابر","کلید"]];
-function startWords(){round={words:wordSets[Math.floor(Math.random()*wordSets.length)]};openTrain("حافظه کلمات",`<p class="muted">کلمات را بخوان و برایشان یک داستان ذهنی بساز.</p><div class="flashface" id="wordDisplay"><div class="big">${round.words.join(" • ")}</div><div class="small" id="wordMsg">۶ ثانیه فرصت داری</div></div><div id="wordArea"></div>`);let t=6;timer=setInterval(()=>{let el=document.getElementById("wordMsg");if(!el){clearInterval(timer);return}t--;if(t<=0){clearInterval(timer);document.getElementById("wordDisplay").innerHTML='<div class="big">حالا یادآوری کن</div>';let opts=[...round.words,"میز","ماه","کفش"].sort(()=>Math.random()-.5);round.opts=opts;document.getElementById("wordArea").innerHTML='<p class="muted">پنج کلمه‌ای را که دیدی انتخاب کن.</p><div class="grid">'+opts.map(w=>`<button class="btn secondary wordopt" onclick="this.classList.toggle('dark')">${w}</button>`).join("")+'</div><button class="btn primary" style="width:100%;margin-top:12px" onclick="checkWords()">بررسی</button><div id="result"></div>'}else el.textContent="زمان باقی‌مانده: "+fa(t)+" ثانیه"},1000)}
-function checkWords(){if(document.getElementById("result")?.dataset.done==="1")return;let chosen=[...document.querySelectorAll(".wordopt.dark")].map(x=>x.textContent);let target=round.words;let count=target.filter(x=>chosen.includes(x)).length;let ok=count===target.length&&chosen.length===target.length;mark("words",Math.max(0,count*4));document.querySelectorAll(".wordopt").forEach(b=>b.disabled=true);document.querySelector("#wordArea .primary").disabled=true;document.getElementById("result").dataset.done="1";document.getElementById("result").innerHTML=`<p>${ok?'عالی بود! هر پنج کلمه را درست انتخاب کردی.':'تعداد درست: '+fa(count)+' از ۵ · کلمات هدف: '+target.join('، ')}</p><div class="actionrow"><button class="btn secondary" onclick="startWords()">تمرین دوباره</button><button class="btn primary" onclick="show('home')">بازگشت به صفحه اصلی</button></div>`}
-function startPattern(){round={seq:Array.from({length:9},(_,i)=>i).sort(()=>Math.random()-.5).slice(0,4),picks:[],finished:false};openTrain("حافظه تصویری",`<p class="muted">خانه‌های روشن‌شده را به ترتیب به خاطر بسپار.</p><div class="wordgrid" id="patternGrid">${Array.from({length:9},(_,i)=>`<button class="cell" data-i="${i}" onclick="pickCell(${i})"></button>`).join("")}</div><p class="muted center" id="patMsg">دقت کن؛ سپس همان خانه‌ها را به ترتیب انتخاب کن.</p><div id="patResult"></div>`);let i=0;const cells=[...document.querySelectorAll(".cell")];timer=setInterval(()=>{cells.forEach(c=>c.classList.remove("lit"));if(i<round.seq.length){cells[round.seq[i++]].classList.add("lit")}else{clearInterval(timer);document.getElementById("patMsg").textContent="حالا به ترتیب انتخاب کن."}},700)}
-function pickCell(i){if(round.finished||round.picks.includes(i))return;round.picks.push(i);document.querySelectorAll(".cell")[i].classList.add("chosen");if(round.picks.length===round.seq.length){round.finished=true;let correct=round.picks.filter((v,j)=>v===round.seq[j]).length,ok=correct===round.seq.length;mark("pattern",ok?25:Math.max(5,correct*5));document.getElementById("patMsg").textContent=ok?"عالی! ترتیب درست بود.":"ترتیب کامل درست نبود.";document.getElementById("patResult").innerHTML=`<div class="actionrow"><button class="btn secondary" onclick="startPattern()">تمرین دوباره</button><button class="btn primary" onclick="show('home')">بازگشت به صفحه اصلی</button></div>`;if(!ok)round.seq.forEach((v,j)=>setTimeout(()=>document.querySelectorAll(".cell")[v].classList.add("lit"),j*350))}}
-function addCard(){let f=document.getElementById("front").value.trim(),b=document.getElementById("back").value.trim();if(!f||!b){alert("هر دو قسمت پرسش و پاسخ را پر کن.");return}db.cards.push({id:Date.now()+Math.random(),front:f,back:b,due:Date.now(),interval:0,reps:0,ease:2.3});document.getElementById("front").value="";document.getElementById("back").value="";persist();renderReview()}
-let showingAnswer=false,currentCard=null;
-function renderReview(){let due=dueCards();document.getElementById("cardCount").textContent=fa(db.cards.length)+" کارت · "+fa(due.length)+" آماده مرور";let area=document.getElementById("reviewArea"),controls=document.getElementById("reviewControls");if(!due.length){area.innerHTML=db.cards.length?'<p class="muted">همه کارت‌ها فعلاً مرور شده‌اند. بعداً دوباره سر بزن.</p>':'<p class="muted">هنوز کارتی نساخته‌ای. یک پرسش و پاسخ اضافه کن.</p>';controls.innerHTML="";return}currentCard=due[0];showingAnswer=false;area.innerHTML=`<div class="flashface"><div class="small">پرسش</div><div class="big" style="font-size:20px">${escapeHtml(currentCard.front)}</div><div id="cardAnswer" class="small" style="margin-top:12px"></div></div>`;controls.innerHTML=`<button class="btn dark" style="width:100%" onclick="revealCard()">نمایش پاسخ</button>`}
-function revealCard(){if(!currentCard)return;document.getElementById("cardAnswer").innerHTML="<b>پاسخ:</b> "+escapeHtml(currentCard.back);document.getElementById("reviewControls").innerHTML='<p class="muted">چقدر آسان به یاد آوردی؟</p><div class="actionrow"><button class="btn secondary" onclick="rateCard(0)">دوباره</button><button class="btn secondary" onclick="rateCard(1)">سخت</button><button class="btn primary" onclick="rateCard(2)">خوب</button><button class="btn dark" onclick="rateCard(3)">آسان</button></div>'}
-function rateCard(r){
- let c=db.cards.find(x=>x.id===currentCard.id);if(!c)return;
- c.ease=Number.isFinite(c.ease)?c.ease:2.3;
- if(r===0){
-  c.interval=0.007; // حدود ۱۰ دقیقه؛ برای بازآزمایی سریع
-  c.ease=Math.max(1.3,c.ease-0.2);
- }else if(r===1){
-  c.interval=c.interval<1?1:Math.max(1,Math.round(c.interval*1.2));
-  c.ease=Math.max(1.3,c.ease-0.1);
- }else if(r===2){
-  c.interval=c.interval<1?2:Math.max(2,Math.round(c.interval*c.ease));
- }else{
-  c.interval=c.interval<1?4:Math.max(4,Math.round(c.interval*(c.ease+0.5)));
-  c.ease=Math.min(3,c.ease+0.1);
- }
- c.reps++;c.due=Date.now()+c.interval*86400000;
- db.score+=r===0?2:8;db.sessions++;
- const today=day();db.done[today]=db.done[today]||[];
- if(!db.done[today].includes("cards"))db.done[today].push("cards");
- db.history.push({type:"cards",label:"مرور فلش‌کارت",points:r===0?2:8,date:today,at:Date.now(),rating:r});
- db.history=db.history.slice(-100);persist();renderReview()
-}
-function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function getCoachRecommendation(){
- const recent=db.history.slice(-18);
- const typeNames={numbers:"حافظه اعداد",words:"حافظه کلمات",pattern:"حافظه تصویری",palace:"قصر حافظه",cards:"مرور فلش‌کارت"};
- const maxima={numbers:20,words:20,pattern:25,palace:20,cards:8};
- const stats={};
- recent.forEach(h=>{
-  if(!h||!h.type||!(h.type in maxima))return;
-  const s=stats[h.type]||(stats[h.type]={sum:0,n:0});
-  s.sum+=Math.max(0,Math.min(maxima[h.type],Number(h.points)||0))/maxima[h.type];s.n++;
- });
- let weakest=null,weakScore=2;
- Object.keys(stats).forEach(k=>{const avg=stats[k].sum/stats[k].n;if(stats[k].n>=2&&avg<weakScore){weakScore=avg;weakest=k}});
- if(dueCards().length)return {type:"cards",title:"مرور فلش‌کارت",reason:"کارت‌های سررسیدشده اولویت دارند؛ ابتدا آن‌ها را مرور کن.",steps:["پاسخ را پیش از نمایش، از حافظه بازیابی کن.","پس از دیدن پاسخ، یکی از درجه‌های دوباره، سخت، خوب یا آسان را انتخاب کن."]};
- if(weakest)return {type:weakest,title:typeNames[weakest],reason:"بر اساس امتیازهای ثبت‌شدهٔ تمرین‌های اخیر، این بخش می‌تواند تمرین بیشتری دریافت کند.",steps:["تمرین را یک بار با تمرکز انجام بده.","پس از پایان، پاسخ‌ها یا ترتیب درست را بررسی کن.","اگر دشوار بود، سطح را پایین‌تر انتخاب کن و دوباره تلاش کن."]};
- const dayDone=db.done[day()]||[];
- const pick=dayDone.includes("palace")?"pattern":dayDone.includes("numbers")?"words":"numbers";
- return {type:pick,title:typeNames[pick],reason:"هنوز دادهٔ کافی برای تعیین نقطه‌ضعف شخصی نداریم؛ این تمرین کوتاه برای شروع پیشنهاد می‌شود.",steps:["ابتدا یک نوبت تمرین انجام بده.","پاسخ را بدون نگاه‌کردن بازیابی کن.","فردا دوباره مرور کن و روند خودت را بسنج."]};
-}
-function updateCoach(){
- const msg=document.getElementById("coachMessage"),steps=document.getElementById("coachSteps"),time=document.getElementById("coachTime"),btn=document.getElementById("coachAction");
- if(!msg||!steps||!btn)return;
- const r=getCoachRecommendation();
- msg.textContent=r.reason;
- steps.innerHTML="<b>برنامهٔ کوتاه:</b><br>"+r.steps.map((s,i)=>fa(i+1)+" · "+escapeHtml(s)).join("<br>");
- time.textContent=r.type==="cards"?"۵ تا ۱۰ دقیقه":"حدود ۵ دقیقه";
- btn.textContent="شروع "+r.title;
- btn.dataset.recommendation=r.type;
-}
-function refreshCoach(){updateCoach();const p=document.getElementById("coachMessage");if(p)p.textContent+=" پیشنهاد بر اساس اطلاعات ذخیره‌شدهٔ همین دستگاه تازه‌سازی شد."}
-function runCoachRecommendation(){
- const type=document.getElementById("coachAction")?.dataset.recommendation||getCoachRecommendation().type;
- if(type==="cards"){show("cards");renderReview();return}
- if(type==="numbers"){startNumbers();return}
- if(type==="words"){startWords();return}
- if(type==="pattern"){startPattern();return}
- if(type==="palace"){show("palace");return}
- show("home")
-}
-const palaceBanks={
- mixed:[['نان','یک نان غول‌آسا جلوی در را بسته است'],['ماهی','ماهی‌ها از جاکفشی بیرون می‌پرند'],['ساعت','ساعت بزرگی روی مبل زنگ می‌زند'],['سیب','سیبی نورانی روی میز آشپزخانه می‌چرخد'],['کتاب','کتابی بال‌دار از پنجره وارد می‌شود'],['چتر','چتری رنگی در راهرو باز و بسته می‌شود'],['کلید','کلیدی طلایی روی آینه می‌رقصد'],['تلفن','تلفنی سخنگو روی صندلی آواز می‌خواند'],['گل','گلی بسیار بزرگ از گلدان بیرون می‌جهد'],['کفش','کفش‌هایی خودشان در خانه راه می‌روند'],['لیوان','لیوانی پر از آبشار روی میز است'],['بادکنک','بادکنکی سقف اتاق را بالا می‌برد'],['قاشق','قاشقی غول‌آسا سوپ را هم می‌زند'],['پرنده','پرنده‌ای با صدای زنگ ساعت روی پرده نشسته'],['چراغ','چراغی رنگی روی دیوار شکلک درمی‌آورد']],
- study:[['فرضیه','برگه‌ای بزرگ روی در ورودی باز می‌شود'],['داده','داده‌ها مثل مهره از جاکفشی می‌ریزند'],['تحلیل','ذره‌بینی روی مبل همه‌چیز را بزرگ می‌کند'],['نتیجه','یک پرچم روی میز آشپزخانه بالا می‌رود'],['مرور','کتابی خودبه‌خود روی پنجره ورق می‌خورد'],['پرسش','علامت سؤال بزرگی در راهرو می‌چرخد'],['مثال','یک مثال زنده از آینه بیرون می‌آید'],['خلاصه','کاغذی کوچک تمام اتاق را جمع می‌کند'],['تمرین','مدادی روی میز شنا می‌کند'],['یادآوری','چراغی با هر پاسخ روشن‌تر می‌شود'],['مقایسه','دو ترازو روی زمین مسابقه می‌دهند'],['کاربرد','یک ابزار بزرگ روی در نصب شده'],['واژه','حروف رنگی از گلدان بیرون می‌ریزند'],['نکته','ستاره‌ای درخشان بالای مبل می‌درخشد'],['هدف','نشانه‌ای قرمز وسط اتاق می‌چرخد']],
- numbers:[['۱۴','چهارده توپ روی در می‌کوبند'],['۲۷','بیست‌وهفت ماهی دور جاکفشی می‌چرخند'],['۳۹','سی‌ونه ساعت روی مبل زنگ می‌زنند'],['۴۲','چهل‌ودو سیب در آشپزخانه می‌پرند'],['۵۸','پنجاه‌وهشت کتاب از پنجره پرواز می‌کنند'],['۶۱','شصت‌ویک چتر در راهرو باز می‌شوند'],['۷۳','هفتادوسه کلید روی آینه می‌رقصند'],['۸۶','هشتادوشش تلفن آواز می‌خوانند'],['۹۴','نودوچهار گل از گلدان می‌رویند'],['۱۶','شانزده کفش در خانه راه می‌روند'],['۳۵','سی‌وپنج لیوان روی میز می‌چرخند'],['۷۹','هفتادونه بادکنک سقف را بالا می‌برند'],['۲۴','بیست‌وچهار قاشق سوپ را هم می‌زنند'],['۵۲','پنجاه‌ودو پرنده روی پرده نشسته‌اند'],['۸۱','هشتادویک چراغ چشمک می‌زنند']]
-};
-let palaceRun={items:[],stage:'',timer:null,customRoute:[]};
-function startPalaceSession(){
- clearInterval(timer);
- const n=Number(document.getElementById('palaceLevel').value)||5;
- const theme=document.getElementById('palaceTheme').value;
- let route=[];
- if(theme==='custom'){
-  try{route=JSON.parse(localStorage.getItem('hy_palace_custom')||'[]')}catch(e){route=[]}
-  if(!Array.isArray(route)||route.length<3){
-   const msg=document.getElementById('customPalaceMsg');
-   if(msg)msg.textContent='ابتدا دست‌کم ۳ ایستگاه را در بخش «ساخت مسیر شخصی» ذخیره کن.';
-   document.getElementById('customPalace').scrollIntoView({behavior:'smooth',block:'center'});
-   return;
-  }
- }
- const bank=[...(theme==='custom'?palaceBanks.mixed:palaceBanks[theme])].sort(()=>Math.random()-.5).slice(0,n);
- const count=Math.min(n,bank.length,theme==='custom'?route.length:bank.length);
- const items=bank.slice(0,count).map((it,i)=>theme==='custom'?[it[0],it[1],route[i]]:it);
- palaceRun={items,stage:'study',customRoute:route};
- renderPalaceStudy();
-}
-function renderPalaceStudy(){
- const box=document.getElementById('palaceSession');
- box.innerHTML=`<div class="row" style="justify-content:space-between"><h3>مرحلهٔ ۱ · ساخت تصویر ذهنی</h3><span class="chip">${fa(palaceRun.items.length)} ایستگاه</span></div><p class="muted">هر مورد را با مکان و تصویر پیشنهادی پیوند بده. اگر مسیر شخصی را انتخاب کرده‌ای، هر تصویر را دقیقاً در ایستگاه نشان‌داده‌شده قرار بده.</p>${palaceRun.items.map((it,i)=>`<div class="palace-item"><strong>${fa(i+1)} · ${escapeHtml(it[0])}</strong>${it[2]?`<p><b>مکان تو:</b> ${escapeHtml(it[2])}</p>`:''}<p>${escapeHtml(it[1])}</p></div>`).join('')}<div class="notice">به مسیر خودت فکر کن و هر تصویر را در یک ایستگاه مشخص قرار بده. بعد از ادامه، فهرست پنهان می‌شود.</div><button class="btn primary" style="width:100%;margin-top:12px" onclick="beginPalaceRecall()">پنهان کن و یادآوری را شروع کن</button>`;
-}
-function beginPalaceRecall(){
- palaceRun.stage='recall';
- const box=document.getElementById('palaceSession');
- box.innerHTML=`<h3>مرحلهٔ ۲ · بازیابی از حافظه</h3><p class="muted">موارد را به ترتیب مسیر بنویس؛ هر مورد را با ویرگول یا در خط جدا وارد کن. امتیاز ترتیب بر اساس ترتیب واقعی پاسخ‌های تو محاسبه می‌شود.</p><textarea class="input" id="palaceRecall" rows="5" placeholder="مورد اول، مورد دوم، مورد سوم..."></textarea><button class="btn primary" style="width:100%;margin-top:10px" onclick="checkPalaceAdvanced()">ارزیابی یادآوری</button><div id="palaceAdvancedResult" aria-live="polite"></div>`;
- document.getElementById('palaceRecall').focus();
-}
-function normalizePalaceText(value){
- return String(value||'').toLocaleLowerCase('fa')
-  .replace(/[يى]/g,'ی').replace(/ك/g,'ک')
-  .replace(/[۰-۹]/g,d=>String('۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))
-  .replace(/[٠-٩]/g,d=>String('٠١٢٣٤٥٦٧٨٩'.indexOf(d)))
-  .replace(/[،؛,;\n\r\t]+/g,'|')
-  .split('|').map(x=>x.replace(/\\s+/g,' ').trim()).filter(Boolean);
-}
-function checkPalaceAdvanced(){
- const area=document.getElementById('palaceRecall');
- if(!area||area.dataset.done==='1')return;
- const answers=normalizePalaceText(area.value);
- const keys=palaceRun.items.map(x=>normalizePalaceText(x[0])[0]||'');
- const matched=[];
- const used=new Set();
- answers.forEach((answer,answerIndex)=>{
-  const itemIndex=keys.findIndex((key,i)=>key===answer&&!used.has(i));
-  if(itemIndex>=0){used.add(itemIndex);matched.push({itemIndex,answerIndex});}
- });
- const found=matched.map(x=>x.itemIndex);
- const exact=found.length;
- let inOrder=0,last=-1;
- matched.forEach(x=>{if(x.itemIndex>last){inOrder++;last=x.itemIndex;}});
- const pct=Math.round(exact/Math.max(1,keys.length)*100);
- const orderPct=Math.round(inOrder/Math.max(1,keys.length)*100);
- area.dataset.done='1';area.disabled=true;
- const result=document.getElementById('palaceAdvancedResult');
- const missed=palaceRun.items.filter((x,i)=>!found.includes(i)).map(x=>x[0]);
- result.innerHTML=`<div class="stats"><div class="stat"><b>${fa(exact)}</b><small>مورد درست پیدا شده</small></div><div class="stat"><b>${fa(inOrder)}</b><small>جایگاه‌های درست به ترتیب</small></div><div class="stat"><b>${fa(pct)}٪</b><small>دقت یادآوری</small></div></div><div class="palace-feedback" style="background:${pct>=80?'#e6f7ed':'#fff4e4'};color:${pct>=80?'#155d3d':'#805728'}">${pct>=80?'عملکرد عالی بود؛ برای تثبیت، یک مرور با فاصله انجام بده.':pct>=50?'پیشرفت خوبی است؛ موارد جاافتاده را با تصویرهای واضح‌تر دوباره پیوند بده.':'یک بار دیگر مسیر را آرام طی کن؛ تصویرها را عجیب، متحرک و مرتبط با مکان بساز.'}</div><p><b>مواردی که جا افتادند:</b> ${missed.length?missed.map(escapeHtml).join('، '):'همهٔ موارد پیدا شدند.'}</p><p class="muted">امتیاز ترتیب، تعداد مواردی را نشان می‌دهد که در ترتیب نسبی درست نوشته شده‌اند؛ این معیار، ترتیب کامل را تضمین نمی‌کند.</p><details><summary style="font-weight:900;cursor:pointer">نمایش پاسخ‌ها و تصویرهای پیشنهادی</summary>${palaceRun.items.map((x,i)=>`<div class="palace-item"><strong>${fa(i+1)} · ${escapeHtml(x[0])}</strong>${x[2]?`<p><b>مکان تو:</b> ${escapeHtml(x[2])}</p>`:''}<p>${escapeHtml(x[1])}</p></div>`).join('')}</details><div class="actionrow"><button class="btn secondary" onclick="renderPalaceStudy()">مرور تصاویر</button><button class="btn primary" onclick="startPalaceSession()">تمرین تازه</button></div>`;
- mark('palace',Math.round(pct/5));
-}
-function saveCustomPalace(){
- const vals=document.getElementById('customPalace').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).slice(0,30);
- const unique=vals.filter((v,i,a)=>a.findIndex(x=>x.toLocaleLowerCase('fa')===v.toLocaleLowerCase('fa'))===i);
- if(unique.length<3){document.getElementById('customPalaceMsg').textContent='برای ساخت مسیر، دست‌کم ۳ ایستگاه متفاوت وارد کن.';return}
- try{localStorage.setItem('hy_palace_custom',JSON.stringify(unique));document.getElementById('customPalaceMsg').textContent='مسیر '+fa(unique.length)+' ایستگاهی ذخیره شد؛ اکنون در نوع اطلاعات، «تمرین با مسیر شخصی من» را انتخاب کن.'}
- catch(e){document.getElementById('customPalaceMsg').textContent='ذخیره‌سازی در این مرورگر در دسترس نیست.'}
-}
-function loadCustomPalace(){
- try{const vals=JSON.parse(localStorage.getItem('hy_palace_custom')||'[]');document.getElementById('customPalace').value=vals.join('\n');document.getElementById('customPalaceMsg').textContent=vals.length?'مسیر ذخیره‌شده بارگذاری شد.':'هنوز مسیری ذخیره نکرده‌ای.'}
- catch(e){document.getElementById('customPalaceMsg').textContent='مسیر ذخیره‌شده قابل خواندن نیست.'}
-}
-function checkPalace(){checkPalaceAdvanced()}
-function resetData(){if(confirm("همه امتیازها، تاریخچه و فلش‌کارت‌های ذخیره‌شده در این مرورگر پاک شوند؟ پیشنهاد می‌شود ابتدا خروجی پشتیبان بگیری.")){db=freshDB();persist();renderReview()}}
-
-// آکادمی تندخوانی: آزمون زمان‌دار و ثبت محلی نتایج
-const srPassages=[
-{text:"مطالعه مؤثر تنها به سرعت حرکت چشم وابسته نیست. خواننده باید هدف خود را پیش از آغاز مشخص کند، ساختار متن را بشناسد و پس از هر بخش بررسی کند که چه چیزی آموخته است. متن‌های ساده را می‌توان سریع‌تر خواند، اما در موضوعات تازه و پیچیده لازم است مکث کنیم، یادداشت برداریم و ارتباط ایده‌ها را بسنجیم. مرور کوتاه و یادآوری بدون نگاه به متن به ماندگاری آموخته‌ها کمک می‌کند.",q:"پیام اصلی متن چیست؟",opts:["همیشه باید سریع‌ترین روش را انتخاب کرد","مطالعه مؤثر به سرعت، هدف و فهم متعادل نیاز دارد","یادداشت‌برداری همیشه وقت تلف می‌کند"],a:1},
-{text:"برای خواندن یک گزارش، ابتدا عنوان و بخش‌بندی آن را نگاه کنید. این پیش‌نگری تصویری کلی از موضوع می‌سازد و کمک می‌کند هنگام خواندن جزئیات مهم را تشخیص دهید. سپس هر بخش را با یک پرسش بخوانید و در پایان، پاسخ را از حافظه بیان کنید. اگر نتوانستید مفهوم را توضیح دهید، به همان بخش بازگردید و آن را دقیق‌تر بخوانید.",q:"پس از پیش‌نگری، چه کاری پیشنهاد شده است؟",opts:["حفظ‌کردن همه واژه‌ها","خواندن هر بخش با یک پرسش و یادآوری پاسخ","نادیده‌گرفتن بخش‌های دشوار"],a:1},
-{text:"سرعت مناسب برای همه متن‌ها یکسان نیست. داستان ساده، دستورالعمل فنی و مقاله تخصصی نیازهای متفاوتی دارند. افزایش سرعت اگر فهم را کاهش دهد، لزوماً پیشرفت نیست. بهتر است سرعت و درک مطلب را با متن‌های مشابه مقایسه کنیم و در صورت ابهام، مکث یا بازخوانی داشته باشیم. هدف، یافتن تعادل مناسب برای هر نوع مطالعه است.",q:"چه زمانی افزایش سرعت لزوماً پیشرفت نیست؟",opts:["وقتی درک مطلب کاهش پیدا کند","وقتی متن عنوان داشته باشد","وقتی خواننده یادداشت بردارد"],a:0}
-];
-let srState={};
-let srPractice=null;
-function srReadStats(){try{return JSON.parse(localStorage.getItem('hy_speedread')||'{"tests":0,"wpm":0,"comp":0,"history":[]}')}catch(e){return {tests:0,wpm:0,comp:0,history:[]}}}
-function srPrefs(){try{return JSON.parse(localStorage.getItem('hy_speedread_prefs')||'{"level":"beginner","minutes":5}')}catch(e){return {level:'beginner',minutes:5}}}
-function srSavePrefs(){const level=document.getElementById('srLevel')?.value||'beginner';const minutes=Number(document.getElementById('srMinutes')?.value||5);localStorage.setItem('hy_speedread_prefs',JSON.stringify({level,minutes}));srRenderAdaptive()}
-function srRenderAdaptive(){const prefs=srPrefs();const lv=document.getElementById('srLevel'),mi=document.getElementById('srMinutes');if(lv)lv.value=prefs.level;if(mi)mi.value=String(prefs.minutes);const labels={beginner:'مبتدی',intermediate:'متوسط',advanced:'پیشرفته'};const label=document.getElementById('srLevelLabel'),goal=document.getElementById('srGoalTime'),trend=document.getElementById('srTrend'),rec=document.getElementById('srRecommendation'),hist=document.getElementById('srHistory');if(label)label.textContent=labels[prefs.level]||'مبتدی';if(goal)goal.textContent=fa(prefs.minutes||5);const x=srReadStats(),h=(x.history||[]).slice(-5);if(trend)trend.textContent=h.length<2?'شروع':(h[h.length-1].comp>=h[0].comp?'پایدار/بهتر':'نیازمند تمرین');if(rec){let msg='برای شروع، روزانه یک نوبت کوتاه انجام بده و روی فهم متن تمرکز کن.';if(h.length>=2){const avg=Math.round(h.reduce((a,b)=>a+(b.comp||0),0)/h.length);if(avg<60)msg='پیشنهاد: سطح را یک درجه پایین‌تر بیاور، متن را آرام‌تر بخوان و بعد از هر بند خلاصه بگو.';else if(avg>=80)msg='پیشنهاد: سطح فعلی را حفظ کن و فقط اندکی سرعت را افزایش بده؛ درک مطلب باید بالا بماند.';else msg='پیشنهاد: در همین سطح بمان و تمرین گروه‌بندی عبارت‌ها و یادآوری را تکرار کن.'}rec.textContent=msg}if(hist){hist.innerHTML=h.length?h.slice().reverse().map((r,i)=>`<div class="listitem"><b>آزمون ${fa(h.length-i)}</b><p>${fa(r.wpm||0)} کلمه/دقیقه · درک ${fa(r.comp||0)}٪ · ${escapeHtml(r.date||'')}</p></div>`).join(''):'هنوز نتیجه‌ای ثبت نشده است.'}}
-function srStartPractice(){const prefs=srPrefs();const p=srPassages[Math.floor(Math.random()*srPassages.length)];const area=document.getElementById('srPracticeArea');if(!area)return;const seconds=Math.max(1,Number(prefs.minutes||5)*60);srPractice={p,start:Date.now(),end:Date.now()+seconds*1000,seconds,done:false};area.innerHTML=`<h4>تمرین ${fa(prefs.minutes||5)} دقیقه‌ای</h4><p class="muted">در این تمرین، متن را بخوان و وقتی تمام شد دکمه پایان را بزن. زمان انتخابی یک هدف تمرینی است، نه الزام برای تندخوانی.</p><div class="palace-item" style="line-height:2.2;font-size:16px">${p.text}</div><p id="srPracticeClock">زمان هدف: ${fa(prefs.minutes||5)} دقیقه</p><button class="btn primary" style="width:100%" onclick="srFinishPractice()">پایان مطالعه و سنجش فهم</button>`;srPractice.clock=setInterval(()=>{const el=document.getElementById('srPracticeClock');if(!el||srPractice.done){clearInterval(srPractice.clock);return}const left=Math.max(0,Math.ceil((srPractice.end-Date.now())/1000));el.textContent=left?'زمان هدف باقی‌مانده: '+fa(Math.floor(left/60))+' دقیقه و '+fa(left%60)+' ثانیه':'زمان هدف تمام شد؛ در صورت نیاز خواندن را تمام کن و سپس دکمه را بزن.';},1000)}
-function srFinishPractice(){if(!srPractice||srPractice.done)return;srPractice.done=true;clearInterval(srPractice.clock);srPractice.elapsed=Math.max(1,(Date.now()-srPractice.start)/1000);const p=srPractice.p;const area=document.getElementById('srPracticeArea');area.innerHTML=`<h4>سنجش فهم</h4><p>${p.q}</p><div class="palace-method">${p.opts.map((o,i)=>`<button class="btn secondary" style="text-align:right" onclick="srPracticeAnswer(${i})">${['الف','ب','ج'][i]} ـ ${o}</button>`).join('')}</div>`}
-function srPracticeAnswer(i){if(!srPractice||srPractice.answered)return;srPractice.answered=true;const p=srPractice.p,ok=i===p.a,wpm=Math.round(p.text.trim().split(/\s+/).length/(srPractice.elapsed/60)),comp=ok?100:0,x=srReadStats();x.tests=(x.tests||0)+1;x.wpm=wpm;x.comp=comp;x.history=x.history||[];x.history.push({wpm,comp,date:day(),kind:'practice'});x.history=x.history.slice(-30);try{localStorage.setItem('hy_speedread',JSON.stringify(x))}catch(e){}srRenderStats();srRenderAdaptive();document.getElementById('srPracticeArea').innerHTML=`<div class="palace-feedback" style="background:${ok?'#e6f7ed':'#fff4e4'}"><b>${ok?'پاسخ درست بود.':'پاسخ درست: '+p.opts[p.a]}</b><p>سرعت تخمینی: ${fa(wpm)} کلمه در دقیقه؛ درک این پرسش: ${fa(comp)}٪. این نتیجه فقط یک تخمین کوتاه است.</p></div><button class="btn secondary" style="width:100%" onclick="srStartPractice()">تمرین دوباره</button>`}
-
-// برنامه روزانه تطبیقی تندخوانی؛ ذخیره پیشرفت در همین مرورگر
-const srDailyTasks={
- focus:{name:'تمرکز و راهنمای دیداری',focus:'تمرکز دیداری',instruction:'۴۵ ثانیه یک پاراگراف را با انگشت یا قلم دنبال کن. حرکت باید نرم باشد؛ اگر فهم کم شد، سرعت را کم کن.',q:'در تمرین دیداری، بهترین معیار پیشرفت چیست؟',opts:['حرکت سریع‌تر حتی بدون فهم','حرکت منظم همراه با حفظ معنا','رد کردن واژه‌های دشوار'],a:1,feedback:'راهنمای دیداری فقط وسیله‌ای برای حفظ ریتم است؛ فهم متن همچنان مهم است.'},
- chunk:{name:'گروه‌بندی عبارت‌ها',focus:'خواندن گروهی',instruction:'عبارت را یک‌بار به شکل طبیعی بخوان: «پس از بررسی گزارش، گروه نتیجه‌ها را با دقت ثبت کرد.»',q:'کدام بخش‌بندی معنایی مناسب‌تر است؟',opts:['پس از بررسی گزارش / گروه نتیجه‌ها را با دقت ثبت کرد','پس / از / بررسی / گزارش','گروه / نتیجه‌ها / را / با / دقت'],a:0,feedback:'عبارت‌های معنادار را با هم ببین؛ گروه‌بندی نباید به حدس‌زدن کلمات تبدیل شود.'},
- preview:{name:'پیش‌نگری هدفمند',focus:'پیش‌نگری',instruction:'موضوع امروز: «چرا خواب به یادگیری کمک می‌کند؟» پیش از خواندن، سؤال اصلی را در ذهن بساز.',q:'کدام سؤال برای این موضوع هدفمندتر است؟',opts:['این متن چند حرف دارد؟','خواب چگونه بر تثبیت یادگیری اثر می‌گذارد؟','چطور می‌توان عنوان را نادیده گرفت؟'],a:1,feedback:'یک سؤال روشن به توجه و تشخیص نکته‌های مهم کمک می‌کند.'},
- recall:{name:'یادآوری فعال',focus:'یادآوری و فهم',instruction:'این جمله را بخوان و سعی کن مفهومش را به زبان خودت بگویی: «مرور فاصله‌دار، یادآوری را در چند نوبت پخش می‌کند.»',q:'ایده اصلی جمله چیست؟',opts:['مرور فقط باید یک‌بار انجام شود','بازگشت به مطلب در چند نوبت می‌تواند به یادگیری کمک کند','سرعت خواندن از فهم مهم‌تر است'],a:1,feedback:'یادآوری بدون نگاه‌کردن، فهم و ماندگاری را بهتر می‌سنجد.'},
- comprehension:{name:'درک مطلب کوتاه',focus:'دقت در فهم',instruction:'متن را با دقت بخوان: «در مطالعه مؤثر، سرعت با هدف تغییر می‌کند. برای مطلب آشنا می‌توان سریع‌تر خواند؛ اما متن پیچیده به مکث، بررسی و گاهی بازخوانی نیاز دارد.»',q:'طبق متن، برای متن پیچیده چه کاری مناسب است؟',opts:['همیشه با بیشترین سرعت خواندن','مکث و بررسی معنا در صورت نیاز','حذف همه جمله‌های دشوار'],a:1,feedback:'سرعت مناسب به دشواری متن و هدف خواندن بستگی دارد.'}
-};
-function srDailyDate(){return new Date().toLocaleDateString('en-CA')}
-function srDailyRead(){try{return JSON.parse(localStorage.getItem('hy_speedread_daily')||'{}')}catch(e){return {}}}
-function srDailyWrite(x){try{localStorage.setItem('hy_speedread_daily',JSON.stringify(x));return true}catch(e){return false}}
-function srDailyPlan(){const x=srReadStats(),h=(x.history||[]).slice(-5);let weak='comprehension';if(h.length){const avg=h.reduce((a,r)=>a+(Number(r.comp)||0),0)/h.length;if(avg<60)weak='comprehension';else if(avg<85)weak='recall';else weak='chunk'}const base=['focus','chunk','comprehension'];if(weak==='recall')return ['focus','recall','comprehension'];if(weak==='chunk')return ['preview','chunk','comprehension'];return base}
-function srRenderDaily(){const data=srDailyRead(),today=srDailyDate(),entry=data[today]||{done:[],scores:[]},plan=srDailyPlan(),x=srReadStats(),h=(x.history||[]).slice(-5);let focus='فهم مطلب';if(h.length){const avg=h.reduce((a,r)=>a+(Number(r.comp)||0),0)/h.length;focus=avg<60?'درک مطلب و کاهش سرعت':avg<85?'یادآوری و دقت':'گروه‌بندی و ریتم'}const count=document.getElementById('srDailyCount'),fc=document.getElementById('srDailyFocus'),st=document.getElementById('srDailyStreak'),ad=document.getElementById('srDailyAdvice'),area=document.getElementById('srDailyArea');if(!area)return;if(count)count.textContent=fa(entry.done.length)+'/۳';if(fc)fc.textContent=focus;if(st){let streak=0,d=new Date();for(let i=0;i<60;i++){const key=d.toLocaleDateString('en-CA'),v=data[key];if(v&&v.done&&v.done.length>=3){streak++;d.setDate(d.getDate()-1)}else if(i===0){d.setDate(d.getDate()-1)}else break}st.textContent=fa(streak)}if(ad)ad.textContent=h.length<2?'هنوز داده کافی برای شخصی‌سازی نداریم؛ فعلاً یک برنامه متعادل پیشنهاد شده است.':`تمرکز پیشنهادی امروز: ${focus}. این پیشنهاد بر پایه نتیجه‌های کوتاه اخیر است و با افزایش داده‌ها تغییر می‌کند.`;area.innerHTML=plan.map((key,i)=>{const t=srDailyTasks[key],done=entry.done.includes(key);return `<div class="listitem"><b>${done?'✓ ':''}گام ${fa(i+1)}: ${t.name}</b><p>${t.instruction}</p>${done?'<p>این گام امروز ثبت شده است.</p>':`<button class="btn secondary" onclick="srDailyStep('${key}')">شروع این گام</button>`}</div>`}).join('')+(entry.done.length>=3?'<div class="palace-feedback">برنامه امروز کامل شد. فردا با توجه به نتیجه‌های جدید، برنامه تازه‌ای پیشنهاد می‌شود.</div>':'')}
-function srStartDaily(){srRenderDaily();const data=srDailyRead(),today=srDailyDate();if(!data[today])data[today]={done:[],scores:[]};srDailyWrite(data);const plan=srDailyPlan(),entry=data[today];const next=plan.find(k=>!entry.done.includes(k));if(next)srDailyStep(next);else srRenderDaily()}
-function srDailyStep(key){const t=srDailyTasks[key],area=document.getElementById('srDailyArea');if(!t||!area)return;area.innerHTML=`<h4>${t.name}</h4><p>${t.instruction}</p><p><b>${t.q}</b></p><div class="palace-method">${t.opts.map((o,i)=>`<button class="btn secondary" style="text-align:right" onclick="srDailyAnswer('${key}',${i})">${['الف','ب','ج'][i]} ـ ${o}</button>`).join('')}</div><p class="muted">پاسخ را انتخاب کن؛ نتیجه در برنامه امروز ثبت می‌شود.</p>`}
-function srDailyAnswer(key,index){const t=srDailyTasks[key];if(!t)return;const ok=index===t.a,data=srDailyRead(),today=srDailyDate(),entry=data[today]||{done:[],scores:[]};if(!entry.done.includes(key))entry.done.push(key);entry.scores.push({key,correct:ok?1:0,time:Date.now()});data[today]=entry;srDailyWrite(data);const area=document.getElementById('srDailyArea');if(area)area.innerHTML=`<div class="palace-feedback" style="background:${ok?'#e6f7ed':'#fff4e4'}"><b>${ok?'پاسخ درست است.':'پاسخ درست: '+t.opts[t.a]}</b><p>${t.feedback}</p><p>گام امروز ثبت شد. ${fa(entry.done.length)} از ۳ گام انجام شده است.</p></div><button class="btn primary" style="width:100%" onclick="srStartDaily()">ادامه برنامه امروز</button>`;srRenderDaily()}
-
-// نسخه ۱۵: چالش روزانه تطبیقی با سنجش مهارت‌به‌مهارت
-const srChallengeBank=[
- {skill:'comprehension',label:'درک مطلب',q:'«برای متن پیچیده، مکث و بازخوانیِ هدفمند می‌تواند فهم را بهتر کند.» نتیجه مناسب کدام است؟',opts:['همه متن‌ها را با سرعت یکسان بخوانیم','سرعت را با دشواری و هدف تنظیم کنیم','جمله‌های دشوار را حذف کنیم'],a:1},
- {skill:'preview',label:'پیش‌نگری',q:'پیش از خواندن مقاله‌ای با عنوان «اثر خواب بر یادگیری»، بهترین سؤال چیست؟',opts:['مقاله چند حرف دارد؟','خواب چگونه به یادگیری و یادآوری کمک می‌کند؟','چند بار عنوان تکرار شده؟'],a:1},
- {skill:'chunk',label:'گروه‌بندی',q:'کدام گروه‌بندی طبیعی‌تر است؟ «پس از پایان جلسه، گزارش را بررسی کردیم.»',opts:['پس از پایان جلسه / گزارش را بررسی کردیم','پس / از / پایان / جلسه','گزارش / را / بررسی / کردیم'],a:0},
- {skill:'recall',label:'یادآوری فعال',q:'بعد از خواندن یک بند، کدام کار یادآوری را بهتر می‌سنجد؟',opts:['دوباره‌خوانی فوری بدون مکث','بستن متن و گفتن نکته اصلی با زبان خود','نگاه کردن فقط به تعداد کلمات'],a:1},
- {skill:'focus',label:'تمرکز دیداری',q:'اگر با حرکت انگشت سریع‌تر می‌خوانی اما معنی را از دست می‌دهی، چه باید کرد؟',opts:['سرعت را کمتر و فهم را بررسی کرد','سرعت را هرچه بیشتر کرد','همه واژه‌های ناآشنا را رد کرد'],a:0},
- {skill:'comprehension',label:'درک مطلب',q:'کدام معیار، پیشرفت در تندخوانی را بهتر نشان می‌دهد؟',opts:['فقط بالا رفتن سرعت','سرعت مناسب همراه با درک قابل قبول','تمام کردن متن بدون توجه به معنی'],a:1},
- {skill:'preview',label:'پیش‌نگری',q:'فایده نگاه‌کردن به عنوان و تیترها پیش از خواندن چیست؟',opts:['ساختن نقشه کلی از موضوع','حذف نیاز به فهم متن','تضمین حفظ همه جزئیات'],a:0},
- {skill:'recall',label:'یادآوری فعال',q:'اگر نتوانستی نکته اصلی را از حافظه توضیح دهی، بهترین گام بعدی چیست؟',opts:['حدس زدن و ادامه دادن','بازگشت به بخش مربوط و خواندن دقیق‌تر','افزایش سرعت'],a:1},
- {skill:'chunk',label:'گروه‌بندی',q:'گروه‌بندی عبارت‌ها باید بر چه چیزی تکیه کند؟',opts:['مرزهای معنایی و طبیعی جمله','تعداد ثابت واژه‌ها در هر گروه','خواندن واژه‌ها بدون توجه به معنا'],a:0},
- {skill:'focus',label:'تمرکز دیداری',q:'هنگام تمرین راهنمای دیداری، چه روشی مناسب‌تر است؟',opts:['حرکت نرم و قابل پیگیری، با حفظ فهم','حرکت ناگهانی و بسیار سریع','نگاه نکردن به جمله'],a:0}
-];
-let srChallenge=null;
-function srChallengeRead(){try{return JSON.parse(localStorage.getItem('hy_sr_challenge')||'{"count":0,"skills":{},"history":[]}')}catch(e){return {count:0,skills:{},history:[]}}}
-function srChallengeWrite(x){try{localStorage.setItem('hy_sr_challenge',JSON.stringify(x));return true}catch(e){return false}}
-function srChallengeWeak(x){const names={comprehension:'درک مطلب',preview:'پیش‌نگری',chunk:'گروه‌بندی',recall:'یادآوری فعال',focus:'تمرکز دیداری'};let chosen='comprehension',lowest=2;Object.keys(names).forEach(k=>{const v=x.skills&&x.skills[k];if(v&&v.n>=1){const rate=v.ok/v.n;if(rate<lowest){lowest=rate;chosen=k}}else if(lowest===2){chosen=k;lowest=1.5}});return {key:chosen,label:names[chosen]}}
-function srChallengeRenderStats(){const x=srChallengeRead(),last=(x.history||[]).slice(-1)[0],weak=srChallengeWeak(x);const a=document.getElementById('srChallengeScore'),b=document.getElementById('srChallengeSkill'),c=document.getElementById('srChallengeCount');if(a)a.textContent=last?fa(last.score)+'٪':'—';if(b)b.textContent=x.count?weak.label:'شروع';if(c)c.textContent=fa(x.count||0)}
-function srChallengeStart(){const x=srChallengeRead(),weak=srChallengeWeak(x);let pool=srChallengeBank.slice();pool.sort((a,b)=>((b.skill===weak.key)?1:0)-((a.skill===weak.key)?1:0));const selected=[];const seen=new Set();for(const q of pool){if(!seen.has(q.skill)||selected.length<2){selected.push(q);seen.add(q.skill)}if(selected.length===5)break}for(let i=selected.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[selected[i],selected[j]]=[selected[j],selected[i]]}srChallenge={items:selected,index:0,correct:0,answers:[]};srChallengeShowQuestion()}
-function srChallengeShowQuestion(){const area=document.getElementById('srChallengeArea');if(!area||!srChallenge)return;const i=srChallenge.index,q=srChallenge.items[i];area.innerHTML=`<p class="muted">پرسش ${fa(i+1)} از ${fa(srChallenge.items.length)} · مهارت: ${q.label}</p><h4>${q.q}</h4><div class="palace-method">${q.opts.map((o,j)=>`<button class="btn secondary" style="text-align:right" onclick="srChallengeAnswer(${j})">${['الف','ب','ج'][j]} ـ ${o}</button>`).join('')}</div>`}
-function srChallengeAnswer(choice){if(!srChallenge)return;const q=srChallenge.items[srChallenge.index],ok=choice===q.a;srChallenge.answers.push({skill:q.skill,correct:ok});if(ok)srChallenge.correct++;srChallenge.index++;if(srChallenge.index<srChallenge.items.length){srChallengeShowQuestion();return}const score=Math.round(srChallenge.correct/srChallenge.items.length*100),x=srChallengeRead();x.count=(x.count||0)+1;x.skills=x.skills||{};for(const ans of srChallenge.answers){const v=x.skills[ans.skill]||{ok:0,n:0};v.n++;if(ans.correct)v.ok++;x.skills[ans.skill]=v}x.history=x.history||[];x.history.push({date:day(),score,correct:srChallenge.correct,total:srChallenge.items.length});x.history=x.history.slice(-30);if(!srChallengeWrite(x)){const area=document.getElementById('srChallengeArea');if(area)area.textContent='ذخیره نتیجه انجام نشد. فضای ذخیره‌سازی مرورگر را بررسی کن.';return}const weak=srChallengeWeak(x);const area=document.getElementById('srChallengeArea');if(area)area.innerHTML=`<div class="palace-feedback" style="background:${score>=80?'#e6f7ed':'#fff4e4'}"><h4>نتیجه چالش</h4><p><b>${fa(score)}٪</b> · ${fa(srChallenge.correct)} پاسخ درست از ${fa(srChallenge.items.length)}</p><p>مهارت پیشنهادی برای تمرین بعدی: <b>${weak.label}</b>.</p><p>${score>=80?'نتیجه خوبی است؛ تمرین را حفظ کن و در متن‌های تازه امتحان کن.':'بهتر است مهارت پیشنهادی را با تمرین کوتاه و بدون عجله تقویت کنی.'}</p></div><button class="btn secondary" style="width:100%" onclick="srChallengeStart()">چالش تازه</button>`;srChallenge=null;srChallengeRenderStats()}
-
-function srRenderStats(){const x=srReadStats();const a=document.getElementById('srWpm'),b=document.getElementById('srComp'),c=document.getElementById('srSessions');if(a)a.textContent=x.wpm||'—';if(b)b.textContent=x.tests?fa(x.comp)+'٪':'—';if(c)c.textContent=fa(x.tests||0)}
-function srStartTest(){const p=srPassages[Math.floor(Math.random()*srPassages.length)];srState={p,start:Date.now(),done:false,answered:false};document.getElementById('srTestArea').innerHTML=`<h3>متن آزمون</h3><p class="muted">با سرعت طبیعی و با توجه به معنی بخوان؛ سپس پایان مطالعه را بزن.</p><div class="palace-item" style="font-weight:500;line-height:2.2;font-size:15px">${p.text}</div><button class="btn primary" style="width:100%;margin-top:10px" onclick="srFinishReading()">پایان مطالعه و پرسش فهم</button>`}
-function srFinishReading(){if(!srState.p||srState.done)return;srState.done=true;srState.seconds=Math.max(1,(Date.now()-srState.start)/1000);const p=srState.p;document.getElementById('srTestArea').innerHTML=`<h3>پرسش درک مطلب</h3><p>${p.q}</p><div class="palace-method">${p.opts.map((o,i)=>`<button class="btn secondary" style="text-align:right" onclick="srAnswer(${i})">${['الف','ب','ج'][i]} ـ ${o}</button>`).join('')}</div>`}
-function srAnswer(i){if(srState.answered)return;srState.answered=true;const ok=i===srState.p.a;const words=srState.p.text.trim().split(/\s+/).length;const wpm=Math.round(words/(srState.seconds/60));const comp=ok?100:0;const x=srReadStats();x.tests=(x.tests||0)+1;x.wpm=wpm;x.comp=comp;x.history=x.history||[];x.history.push({wpm,comp,date:day()});x.history=x.history.slice(-30);localStorage.setItem('hy_speedread',JSON.stringify(x));srRenderStats();document.getElementById('srTestArea').innerHTML=`<h3>نتیجه آزمون</h3><div class="stats"><div class="stat"><b>${fa(wpm)}</b><small>کلمه در دقیقه</small></div><div class="stat"><b>${fa(comp)}٪</b><small>درک این پرسش</small></div><div class="stat"><b>${fa(Math.round(srState.seconds))}</b><small>ثانیه مطالعه</small></div></div><div class="palace-feedback" style="background:${ok?'#e6f7ed':'#fff4e4'}">${ok?'پاسخ درست بود.':'پاسخ درست: '+srState.p.opts[srState.p.a]} این آزمون کوتاه تخمینی است و جای آزمون استاندارد را نمی‌گیرد.</div><button class="btn primary" style="width:100%" onclick="srStartTest()">آزمون تازه</button>`}
-function srDrill(type){
- const a=document.getElementById('srDrillArea');if(!a)return;
- const tasks={
- guide:{title:'تمرین راهنمای دیداری',instruction:'۶۰ ثانیه یک متن را با انگشت یا قلم دنبال کن. سپس این سؤال را پاسخ بده:',q:'هنگام تمرین، اولویت اصلی چیست؟',opts:['فقط سریع‌تر رفتن','حفظ فهم و تنظیم سرعت','رد شدن از واژه‌های ناآشنا'],answer:1,extra:'اگر فهم کم شد، سرعت را پایین بیاور.'},
- chunk:{title:'تمرین گروه‌بندی',instruction:'این عبارت را یک‌جا بخوان: «پس از پایان جلسه، گزارش را با دقت بررسی می‌کنیم.»',q:'کدام گزینه بهترین گروه‌بندی معنایی است؟',opts:['پس از پایان جلسه / گزارش را با دقت بررسی می‌کنیم','پس / از / پایان / جلسه','گزارش / را / با / دقت / بررسی / می‌کنیم'],answer:0,extra:'عبارت‌های معنادار را به‌جای تک‌تک واژه‌ها ببین.'},
- preview:{title:'تمرین پیش‌نگری',instruction:'عنوان فرضی «راه‌های بهتر یادگیری» را بخوان و پیش از مطالعه، پیش‌بینی کن.',q:'پیش از خواندن متن، کدام کار مفیدتر است؟',opts:['ساختن یک سؤال درباره موضوع','حفظ کردن تمام واژه‌ها','نادیده گرفتن عنوان'],answer:0,extra:'یک سؤال شخصی بنویس تا هنگام خواندن دنبال پاسخ آن بگردی.'},
- recall:{title:'تمرین یادآوری',instruction:'این جمله را بخوان و سپس بدون نگاه‌کردن به آن، مفهومش را به یاد بیاور: «مرور فاصله‌دار کمک می‌کند اطلاعات در چند نوبت دوباره بازیابی شوند.»',q:'نکته اصلی جمله چیست؟',opts:['باید فقط یک بار مطالعه کرد','بازیابی در چند نوبت به یادگیری کمک می‌کند','سرعت مهم‌تر از فهم است'],answer:1,extra:'پیش از دیدن پاسخ، جمله را با زبان خودت بازگو کن.'}
- };
- const t=tasks[type];if(!t){a.textContent='این تمرین شناخته نشد. لطفاً یکی از تمرین‌ها را دوباره انتخاب کن.';return;}
- a.innerHTML=`<b>${t.title}</b><p>${t.instruction}</p><p><b>${t.q}</b></p><div class="palace-method">${t.opts.map((o,i)=>`<button class="btn secondary" style="text-align:right" onclick="srCheckDrill('${type}',${i})">${['الف','ب','ج'][i]} ـ ${o}</button>`).join('')}</div><p id="srDrillFeedback" class="muted" aria-live="polite">یکی از پاسخ‌ها را انتخاب کن تا بازخورد بگیری.</p><button class="btn secondary" onclick="srDrill('${type}')">تکرار تمرین</button>`;
-}
-function srCheckDrill(type,index){
- const answers={guide:{answer:1,feedback:'اگر فهم کم شد، سرعت را پایین بیاور و حرکت چشم را نرم نگه دار.'},chunk:{answer:0,feedback:'عبارت‌های معنادار را یک واحد ببین؛ مجبور نیستی تک‌تک واژه‌ها را جداگانه پردازش کنی.'},preview:{answer:0,feedback:'با ساختن سؤال، برای خواندن هدف مشخص می‌کنی.'},recall:{answer:1,feedback:'یادآوری فعال یعنی تلاش برای بازگویی مفهوم بدون نگاه‌کردن به متن.'}};
- const t=answers[type],el=document.getElementById('srDrillFeedback');if(!t||!el)return;
- el.textContent=(index===t.answer?'آفرین، پاسخ درست است. ':'این پاسخ دقیق نیست. پاسخ درست: '+['الف','ب','ج'][t.answer]+' . ')+t.feedback;
-}
-function hyExportBackup(){
- const msg=document.getElementById('hyBackupMsg');
- try{
-  const data={};
-  for(let i=0;i<localStorage.length;i++){
-   const k=localStorage.key(i);
-   if(k&&/^hy/i.test(k))data[k]=localStorage.getItem(k);
-  }
-  const pack={app:'HafezeYar',schema:2,createdAt:new Date().toISOString(),data};
-  const blob=new Blob([JSON.stringify(pack,null,2)],{type:'application/json;charset=utf-8'});
-  const url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;a.download='hafezeyar-backup-'+new Date().toISOString().slice(0,10)+'.json';
-  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
-  if(msg)msg.textContent='پشتیبان ساخته شد؛ '+fa(Object.keys(data).length)+' بخش داده در فایل ذخیره شد. فایل را در جای امن نگه دار.';
- }catch(e){if(msg)msg.textContent='ساخت پشتیبان انجام نشد؛ فضای ذخیره‌سازی یا اجازه دانلود مرورگر را بررسی کن.';}
-}
-function hyImportBackup(event){
- const file=event.target.files&&event.target.files[0];if(!file)return;
- const msg=document.getElementById('hyBackupMsg');
- const reader=new FileReader();reader.onload=()=>{try{
-  const pack=JSON.parse(reader.result);if(!pack||pack.app!=='HafezeYar'||!pack.data||typeof pack.data!=='object')throw new Error('فرمت فایل پشتیبان معتبر نیست.');
-  if(!confirm('اطلاعات فعلی این مرورگر با نسخه پشتیبان جایگزین شود؟ بهتر است ابتدا از اطلاعات فعلی خروجی بگیری.')){event.target.value='';return}
-  Object.keys(pack.data).forEach(k=>{if(k.startsWith('hy')&&typeof pack.data[k]==='string')localStorage.setItem(k,pack.data[k])});
-  msg.textContent='بازیابی انجام شد؛ صفحه برای بارگذاری اطلاعات تازه می‌شود.';setTimeout(()=>location.reload(),700);
- }catch(e){msg.textContent='بازیابی انجام نشد: '+(e.message||'فایل قابل خواندن نیست.')}event.target.value=''};reader.onerror=()=>{msg.textContent='خواندن فایل ممکن نشد.'};reader.readAsText(file,'UTF-8');
-}
-
-
-// نسخه ۱۴: مربی تطبیقی، تحلیل مهارت‌ها و تاریخ محلی پایدار
-if(typeof srPractice==='undefined') srPractice=null;
-function srDailyDate(){const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
-function srDailyRead(){try{const x=JSON.parse(localStorage.getItem('hy_speedread_daily')||'{}');return x&&typeof x==='object'?x:{}}catch(e){return {}}}
-function srDailyWrite(x){try{localStorage.setItem('hy_speedread_daily',JSON.stringify(x));return true}catch(e){return false}}
-function srDailyHistory(days=14){const data=srDailyRead(),keys=Object.keys(data).sort().slice(-days),out=[];keys.forEach(date=>{const e=data[date];if(e&&Array.isArray(e.scores))e.scores.forEach(s=>{if(s&&s.key&&typeof s.correct==='number')out.push({...s,date})})});return out}
-function srSkillStats(){const all=srDailyHistory(30),stats={};Object.keys(srDailyTasks).forEach(k=>stats[k]={n:0,correct:0,rate:null});all.forEach(s=>{if(stats[s.key]){stats[s.key].n++;stats[s.key].correct+=s.correct?1:0}});Object.values(stats).forEach(v=>{v.rate=v.n?v.correct/v.n:null});return stats}
-function srDailyPlan(){
- const stats=srSkillStats(),keys=Object.keys(srDailyTasks),data=srDailyRead(),today=srDailyDate();
- const past=Object.keys(data).sort().filter(k=>k<today).slice(-1)[0],previous=past&&Array.isArray(data[past]?.plan)?data[past].plan:[];
- // ابتدا مهارت‌هایی را انتخاب کن که دقت کمتری دارند؛ برای مهارت‌های بدون داده، ترتیب متنوع آموزشی حفظ می‌شود.
- const order=keys.slice().sort((a,b)=>{const A=stats[a],B=stats[b];const ar=A.rate===null?0.68:A.rate,br=B.rate===null?0.68:B.rate;return ar-br||(A.n-B.n)||keys.indexOf(a)-keys.indexOf(b)});
- let chosen=order.slice(0,3);
- if(chosen.length<3)chosen=chosen.concat(keys.filter(k=>!chosen.includes(k)).slice(0,3-chosen.length));
- if(chosen.every(k=>previous.includes(k))){const alt=order.find(k=>!chosen.includes(k));if(alt)chosen[2]=alt}
- return chosen;
-}
-function srRenderCoach(){
- const elA=document.getElementById('srCoachAccuracy'),elS=document.getElementById('srCoachSkill'),elN=document.getElementById('srCoachSessions'),elM=document.getElementById('srCoachAdvice');if(!elM)return;
- const stats=srSkillStats(),all=srDailyHistory(14),recent=all.slice(-12),n=recent.length,acc=n?Math.round(100*recent.reduce((a,s)=>a+(s.correct?1:0),0)/n):null;
- const names={focus:'تمرکز دیداری',chunk:'گروه‌بندی',preview:'پیش‌نگری',recall:'یادآوری فعال',comprehension:'درک مطلب'};
- const known=Object.keys(stats).filter(k=>stats[k].n>0).sort((a,b)=>stats[a].rate-stats[b].rate);
- if(elA)elA.textContent=acc===null?'—':fa(acc)+'٪';if(elN)elN.textContent=fa(all.length);if(elS)elS.textContent=known.length?names[known[0]]:'شروع';
- let msg='هنوز پاسخ کافی برای تحلیل نداریم. سه گام روزانه را کامل کن تا مربی بتواند مهارت‌های قوی‌تر و نیازمند تمرین را مقایسه کند.';
- if(n>=3){const weakest=known[0],st=stats[weakest];msg=`بر اساس ${fa(n)} پاسخ اخیر، دقت کلی ${fa(acc)}٪ است. تمرکز پیشنهادی: ${names[weakest]} (${fa(Math.round(st.rate*100))}٪ در ${fa(st.n)} پاسخ ثبت‌شده). `;
- if(acc<60)msg+='تمرین‌ها را آرام انجام بده و قبل از انتخاب پاسخ، دلیل خودت را مشخص کن.';else if(acc<85)msg+='فعلاً سرعت را زیاد نکن؛ یک بار دیگر مفهوم را با زبان خودت بازگو کن.';else msg+='دقت خوبی ثبت شده؛ دشواری را فقط کمی بالا ببر و درک مطلب را حفظ کن.';
- }
- elM.textContent=msg;
-}
-function srRenderDaily(){
- const data=srDailyRead(),today=srDailyDate(),entry=data[today]||{done:[],scores:[]},plan=srDailyPlan(),x=srReadStats(),h=(x.history||[]).slice(-5);
- const count=document.getElementById('srDailyCount'),fc=document.getElementById('srDailyFocus'),st=document.getElementById('srDailyStreak'),ad=document.getElementById('srDailyAdvice'),area=document.getElementById('srDailyArea');if(!area)return;
- if(count)count.textContent=fa(entry.done.length)+'/۳';
- const stats=srSkillStats(),weak=Object.keys(stats).filter(k=>stats[k].n>0).sort((a,b)=>stats[a].rate-stats[b].rate)[0];
- const focusNames={focus:'تمرکز دیداری',chunk:'گروه‌بندی',preview:'پیش‌نگری',recall:'یادآوری فعال',comprehension:'درک مطلب'};
- if(fc)fc.textContent=weak?focusNames[weak]:'فهم مطلب';
- if(st){let streak=0,d=new Date();for(let i=0;i<60;i++){const key=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-'),v=data[key];if(v&&v.done&&v.done.length>=3){streak++;d.setDate(d.getDate()-1)}else if(i===0){d.setDate(d.getDate()-1)}else break}st.textContent=fa(streak)}
- if(ad)ad.textContent=weak?`بر اساس پاسخ‌های قبلی، امروز کمی بیشتر روی «${focusNames[weak]}» کار می‌کنیم. برنامه پس از هر روز قابل تغییر است.`:h.length<2?'هنوز داده کافی برای شخصی‌سازی نداریم؛ برنامه متعادل و متنوع پیشنهاد شده است.':'برنامه از ترکیب نتیجه‌های تمرین و تنوع مهارت‌ها ساخته شده است.';
- // ذخیره برنامه روز تا فردا امکان سنجش تنوع فراهم باشد.
- if(!data[today])data[today]={done:[],scores:[]};data[today].plan=plan;srDailyWrite(data);
- area.innerHTML=plan.map((key,i)=>{const t=srDailyTasks[key],done=entry.done.includes(key),sk=stats[key],rate=sk.n?`دقت قبلی: ${fa(Math.round(sk.rate*100))}٪`:'هنوز سابقه‌ای ندارد';return `<div class="listitem"><b>${done?'✓ ':''}گام ${fa(i+1)}: ${t.name}</b><p>${t.instruction}</p><small class="muted">${rate}</small>${done?'<p>این گام امروز ثبت شده است.</p>':`<button class="btn secondary" onclick="srDailyStep('${key}')">شروع این گام</button>`}</div>`}).join('')+(entry.done.length>=3?'<div class="palace-feedback">برنامه امروز کامل شد. پاسخ‌ها ذخیره شدند و در پیشنهاد روزهای بعد اثر می‌گذارند.</div>':'');
- srRenderCoach();
-}
-function srDailyAnswer(key,index){
- const t=srDailyTasks[key];if(!t)return;const data=srDailyRead(),today=srDailyDate(),entry=data[today]||{done:[],scores:[]};
- // هر مهارت در برنامه روزانه فقط یک بار امتیاز می‌گیرد تا لمس دوباره دکمه نتیجه را دست‌کاری نکند.
- if(entry.done.includes(key)){srRenderDaily();return}
- const ok=index===t.a;entry.done.push(key);entry.scores=Array.isArray(entry.scores)?entry.scores:[];entry.scores.push({key,correct:ok?1:0,time:Date.now()});data[today]=entry;
- if(!srDailyWrite(data)){alert('ذخیره نتیجه انجام نشد. فضای ذخیره‌سازی مرورگر را بررسی کن.');return}
- const area=document.getElementById('srDailyArea');if(area)area.innerHTML=`<div class="palace-feedback" style="background:${ok?'#e6f7ed':'#fff4e4'}"><b>${ok?'پاسخ درست است.':'پاسخ درست: '+t.opts[t.a]}</b><p>${t.feedback}</p><p>گام امروز ثبت شد. ${fa(entry.done.length)} از ۳ گام انجام شده است.</p></div><button class="btn primary" style="width:100%" onclick="srStartDaily()">ادامه برنامه امروز</button>`;
- srRenderDaily();
-}
-
-srRenderStats();
-srChallengeRenderStats();
-srRenderAdaptive();
-srRenderDaily();
-
-render();
-
-
-// نسخه ۱۶: آموزش مرحله‌ای تطبیقی تندخوانی
-const srCourseLessons=[
-{id:'goal',title:'۱. هدف‌گذاری پیش از خواندن',skill:'preview',level:1,teach:'پیش از شروع، هدف خواندن را در یک جمله مشخص کن. وقتی دنبال پاسخ یک پرسش هستی، لازم نیست همه جمله‌ها را با سرعت یکسان بخوانی.',demo:'نمونه: به‌جای «این متن را بخوانم»، بگو «می‌خواهم سه علت اصلی را پیدا کنم».',q:'بهترین کار پیش از خواندن یک متن آموزشی چیست؟',opts:['شروع فوری و تلاش برای سریع‌تر خواندن','تعیین هدف یا پرسش مشخص','رد شدن از عنوان و تیترها'],a:1,why:'هدف روشن توجه را هدایت می‌کند و کمک می‌کند اطلاعات مرتبط را بهتر تشخیص بدهی.'},
-{id:'preview',title:'۲. پیش‌نگری هوشمند',skill:'preview',level:1,teach:'عنوان، تیترها، کلمات برجسته و جمله آغازین را سریع مرور کن. سپس حدس بزن متن چه موضوعی را توضیح می‌دهد؛ هنگام خواندن حدس خود را بررسی کن.',demo:'در یک مقاله با تیترهای «علت»، «نتیجه» و «راهکار»، انتظار داشته باش توضیحی مرحله‌ای ببینی.',q:'پیش‌نگری باید چه کمکی بکند؟',opts:['جایگزین کامل خواندن شود','به ساختن انتظار و پرسش برای متن کمک کند','باعث شود جزئیات را حفظ نکنی'],a:1,why:'پیش‌نگری نقشه اولیه می‌سازد؛ برای فهم دقیق، هنوز باید متن را بخوانی.'},
-{id:'chunk',title:'۳. گروه‌بندی عبارت‌ها',skill:'chunk',level:1,teach:'به‌جای نگاه جداگانه به هر واژه، عبارت‌های کوتاه و معنادار را با هم بخوان. گروه‌بندی را به‌اندازه‌ای نگه دار که معنی روشن بماند.',demo:'«دانش‌آموز / هر روز / ده دقیقه / با تمرکز تمرین کرد» چهار گروه معنایی ساده دارد.',q:'کدام روش برای گروه‌بندی بهتر است؟',opts:['گروه‌های کوتاه و معنادار','عبارت‌های بسیار بلند حتی اگر فهم سخت شود','نادیده گرفتن نشانه‌گذاری'],a:0,why:'گروه‌بندی باید بار پردازش را کمتر کند، نه اینکه فهم جمله را دشوارتر کند.'},
-{id:'guide',title:'۴. راهنمای دیداری و مکث‌های کنترل‌شده',skill:'focus',level:1,teach:'می‌توانی انگشت یا قلم را آرام زیر خط حرکت بدهی تا توجه روی متن بماند. حرکت را تدریجی تنظیم کن؛ اگر فهم افت کرد، سرعت را کم کن.',demo:'یک بند کوتاه را یک بار با راهنما بخوان و پس از پایان، مفهومش را در یک جمله بگو.',q:'اگر با سریع‌تر کردن حرکت راهنما مفهوم متن را از دست دادی چه کن؟',opts:['باز هم سریع‌تر حرکت بده','سرعت را کم کن و فهم را بازیابی کن','از پرسش درباره متن صرف‌نظر کن'],a:1,why:'سرعت بیشتر بدون فهم، پیشرفت واقعی نیست. سرعت را با دقت متعادل کن.'},
-{id:'recall',title:'۵. یادآوری فعال و خلاصه‌سازی',skill:'recall',level:2,teach:'پس از هر بخش، متن را ببند و سه نکته را از حافظه بگو یا بنویس. بعد متن را باز کن و موارد جاافتاده را بررسی کن.',demo:'از خودت بپرس: «ایده اصلی چه بود؟ چه شاهدی داشت؟ چه چیزی هنوز مبهم است؟»',q:'کدام کار یادگیری را بهتر می‌سنجد؟',opts:['دوباره‌خوانی منفعلانه بدون توقف','بستن متن و بازگویی نکته‌ها از حافظه','فقط سریع‌تر تمام کردن صفحه'],a:1,why:'بازیابی از حافظه هم میزان یادگیری را آشکار می‌کند و هم فرصت تمرین یادآوری می‌دهد.'},
-{id:'comprehension',title:'۶. درک مطلب و سرعت انعطاف‌پذیر',skill:'comprehension',level:2,teach:'برای متن ساده یا آشنا می‌توانی سریع‌تر بخوانی؛ برای متن تخصصی، حقوقی یا مهم آهسته شو، به جمله‌ها برگرد و استدلال را بررسی کن.',demo:'سرعت را با متن‌های هم‌سطح بسنج و پس از خواندن به پرسش‌های فهم پاسخ بده؛ فقط عدد کلمه در دقیقه کافی نیست.',q:'کدام معیار برای ارزیابی تندخوانی معتبرتر است؟',opts:['بیشترین سرعت، بدون توجه به فهم','سرعت همراه با سنجش درک مطلب','تعداد صفحه‌های ورق‌خورده'],a:1,why:'سرعت مفید باید همراه با فهم سنجیده شود و برای متن‌های مختلف یکسان نیست.'},
-{id:'review',title:'۷. مرور فاصله‌دار و تثبیت',skill:'recall',level:3,teach:'نکته‌های مهم را در فاصله‌های زمانی مرور کن: همان روز، روز بعد، چند روز بعد و یک هفته بعد. فاصله‌ها را با دشواری و میزان یادآوری تنظیم کن.',demo:'اگر نکته را آسان به یاد آوردی فاصله مرور را بیشتر کن؛ اگر فراموش کردی، زودتر برگرد و دوباره بازیابی کن.',q:'اگر یک نکته را در مرور به‌سختی به یاد آوردی، چه کار مناسب‌تر است؟',opts:['دیگر آن را مرور نکن','زودتر دوباره مرورش کن و پاسخ را بازیابی کن','فقط متن را سریع نگاه کن'],a:1,why:'مرور انعطاف‌پذیر، زمان بیشتری را به موارد دشوار اختصاص می‌دهد.'},
-{id:'transfer',title:'۸. انتقال مهارت به متن تازه',skill:'comprehension',level:3,teach:'مهارت را روی متن تازه و هم‌سطح امتحان کن. موضوع، طول و دشواری متن روی سرعت اثر می‌گذارند؛ بنابراین مقایسه منصفانه مهم است.',demo:'دو متن آموزشی مشابه بخوان، زمان و پاسخ‌های فهم را ثبت کن و فقط وقتی فهم حفظ شده سرعت را افزایش بده.',q:'برای مقایسه منصفانه پیشرفت، بهتر است چه چیزی را رعایت کنی؟',opts:['متن‌های کاملاً متفاوت و دشواری نامعلوم','متن‌های تقریباً هم‌سطح و پرسش‌های فهم','فقط زمان را ثبت کنی'],a:1,why:'متن‌های هم‌سطح و سنجش فهم کمک می‌کنند تغییرات معنادارتری ببینی.'}
-];
-function srCourseRead(){try{return JSON.parse(localStorage.getItem('hy_sr_course_v16')||'{"done":[],"skills":{},"history":[]}')}catch(e){return {done:[],skills:{},history:[]}}}
-function srCourseWrite(x){try{localStorage.setItem('hy_sr_course_v16',JSON.stringify(x));return true}catch(e){return false}}
-function srCourseWeak(x){let best=null,rate=1.01;for(const k of ['preview','chunk','focus','recall','comprehension']){const v=(x.skills||{})[k];if(v&&v.n){const r=v.ok/v.n;if(r<rate){rate=r;best=k}}}return best}
-function srCourseSkillName(k){return ({preview:'پیش‌نگری',chunk:'گروه‌بندی',focus:'تمرکز دیداری',recall:'یادآوری فعال',comprehension:'درک مطلب'})[k]||'شروع آموزش'}
-function srCourseNextLesson(){const x=srCourseRead(),done=x.done||[],weak=srCourseWeak(x);let candidates=srCourseLessons.filter(l=>!done.includes(l.id));if(!candidates.length)return null;if(weak){const w=candidates.find(l=>l.skill===weak);if(w)return w}return candidates[0]}
-function srCourseRender(){const x=srCourseRead(),done=x.done||[],hist=x.history||[],avg=hist.length?Math.round(hist.reduce((a,b)=>a+b.score,0)/hist.length):null,next=srCourseNextLesson();const a=document.getElementById('srCourseDone'),b=document.getElementById('srCourseAccuracy'),c=document.getElementById('srCourseNext'),r=document.getElementById('srCourseRecommendation');if(a)a.textContent=fa(done.length)+' از '+fa(srCourseLessons.length);if(b)b.textContent=avg===null?'—':fa(avg)+'٪';if(c)c.textContent=next?srCourseSkillName(next.skill):'تکمیل';if(r)r.textContent=next?('پیشنهاد بعدی: '+next.title+(srCourseWeak(x)?' · مهارت نیازمند تمرین: '+srCourseSkillName(srCourseWeak(x)):'')+'.'): 'آفرین؛ همه درس‌ها را تکمیل کرده‌ای. برای تثبیت، درس‌ها را در متن‌های تازه تمرین کن.';}
-function srCourseStartRecommended(){const l=srCourseNextLesson();if(!l){const area=document.getElementById('srCourseArea');if(area)area.innerHTML='<b>دوره کامل شده است.</b><p>می‌توانی فهرست درس‌ها را مرور کنی یا تمرین‌های آکادمی را روی متن تازه انجام بدهی.</p>';return}srCourseShowLesson(l.id)}
-function srCourseShowAll(){const area=document.getElementById('srCourseArea');if(!area)return;const x=srCourseRead();area.innerHTML='<h4>فهرست آموزش‌ها</h4>'+srCourseLessons.map((l,i)=>`<div class="listitem"><b>${l.title}</b><p>${(x.done||[]).includes(l.id)?'وضعیت: تکمیل‌شده':'وضعیت: در انتظار یادگیری'}</p><button class="btn secondary" onclick="srCourseShowLesson('${l.id}')">${(x.done||[]).includes(l.id)?'مرور دوباره':'شروع درس'}</button></div>`).join('')}
-function srCourseShowLesson(id){const l=srCourseLessons.find(z=>z.id===id),area=document.getElementById('srCourseArea');if(!l||!area)return;delete area.dataset.answered;area.innerHTML=`<p class="muted">درس ${fa(srCourseLessons.indexOf(l)+1)} از ${fa(srCourseLessons.length)} · مهارت: ${srCourseSkillName(l.skill)}</p><h4>${l.title}</h4><p>${l.teach}</p><div class="notice"><b>نمونه عملی</b><br>${l.demo}</div><h4>سنجش یادگیری</h4><p>${l.q}</p><div class="palace-method">${l.opts.map((o,i)=>`<button class="btn secondary" style="text-align:right" onclick="srCourseAnswer('${l.id}',${i})">${['الف','ب','ج'][i]} ـ ${o}</button>`).join('')}</div><div id="srCourseFeedback" class="muted" style="margin-top:10px">برای دیدن بازخورد، یک پاسخ انتخاب کن.</div>`}
-function srCourseAnswer(id,choice){const l=srCourseLessons.find(z=>z.id===id);if(!l)return;const area=document.getElementById('srCourseArea');if(!area||area.dataset.answered===id)return;area.dataset.answered=id;const ok=choice===l.a,x=srCourseRead();x.skills=x.skills||{};const v=x.skills[l.skill]||{ok:0,n:0};v.n++;if(ok)v.ok++;x.skills[l.skill]=v;x.done=x.done||[];if(ok&&!x.done.includes(id))x.done.push(id);x.history=x.history||[];x.history.push({id,score:ok?100:0,date:day(),skill:l.skill});x.history=x.history.slice(-100);const saved=srCourseWrite(x);const fb=document.getElementById('srCourseFeedback');if(fb)fb.innerHTML=`<div class="palace-feedback" style="background:${ok?'#e6f7ed':'#fff4e4'}"><b>${ok?'پاسخ درست است.':'این پاسخ درست نیست.'}</b><p>${l.why}</p><p>${ok?'درس تکمیل شد.':'درس را یک بار دیگر بخوان و دوباره پاسخ بده.'}</p></div>${saved?'':'<p>ذخیره در این مرورگر انجام نشد؛ فضای ذخیره‌سازی را بررسی کن.</p>'}<button class="btn primary" style="width:100%" onclick="${ok?'srCourseContinue()':`srCourseRetry('${id}')`}">${ok?'رفتن به درس پیشنهادی':'تلاش دوباره'}</button>`;srCourseRender()}
-function srCourseRetry(id){const area=document.getElementById('srCourseArea');if(area)delete area.dataset.answered;srCourseShowLesson(id)}
-function srCourseContinue(){const area=document.getElementById('srCourseArea');if(area)delete area.dataset.answered;srCourseStartRecommended()}
-function srCourseResetAsk(){if(confirm('پیشرفت همین دوره آموزشی در این مرورگر پاک شود؟')){localStorage.removeItem('hy_sr_course_v16');const area=document.getElementById('srCourseArea');if(area){delete area.dataset.answered;area.textContent='پیشرفت دوره بازنشانی شد. برای شروع، درس پیشنهادی را انتخاب کن.'}srCourseRender()}}
-
-
-// نسخه ۱۷: مسیر ۳۰ روزه با انتخاب تمرین براساس مهارت‌های ثبت‌شده
-const sr30Tasks=[
-{skill:'preview',title:'پیش‌نگری هدفمند',task:'یک متن کوتاه انتخاب کن. در ۳۰ ثانیه عنوان و تیترها را ببین و دو پرسش درباره متن بنویس؛ سپس متن را بخوان و پاسخ‌ها را بررسی کن.',mins:4},
-{skill:'chunk',title:'گروه‌بندی عبارت‌ها',task:'یک بند ۸۰ تا ۱۵۰ کلمه‌ای بخوان. با خط مورب، عبارت‌های معنادار را جدا کن؛ سپس بند را با صدای آرام و بدون قربانی‌کردن معنا بازخوانی کن.',mins:4},
-{skill:'focus',title:'تمرکز دیداری',task:'یک پاراگراف را با حرکت ملایم انگشت زیر خط بخوان. پس از پایان، بدون نگاه‌کردن، ایده اصلی را در یک جمله بیان کن.',mins:3},
-{skill:'recall',title:'یادآوری فعال',task:'یک بخش کوتاه بخوان، متن را ببند و سه نکته را از حافظه بگو یا بنویس. بعد متن را باز کن و نکته‌های جاافتاده را اصلاح کن.',mins:5},
-{skill:'comprehension',title:'سرعت همراه با فهم',task:'دو بند هم‌سطح بخوان. زمان را ثبت کن و برای هر بند ایده اصلی و یک جزئیات مهم را بنویس. اگر فهم افت کرد، سرعت را کمتر کن.',mins:6}
-];
-function sr30Today(){return new Date().toLocaleDateString('en-CA')}
-function sr30Read(){try{return JSON.parse(localStorage.getItem('hy_sr_30day_v17')||'{"start":"","done":{},"history":[]}')}catch(e){return {start:'',done:{},history:[]}}}
-function sr30Write(x){try{localStorage.setItem('hy_sr_30day_v17',JSON.stringify(x));return true}catch(e){return false}}
-function sr30DayIndex(x){if(!x.start)return 1;const a=new Date(x.start+'T12:00:00'),b=new Date(sr30Today()+'T12:00:00');return Math.max(1,Math.min(30,Math.floor((b-a)/86400000)+1))}
-function sr30PickTask(x){let course={skills:{}};try{course=srCourseRead()}catch(e){};const weak=srCourseWeak(course);const doneCount=Object.keys(x.done||{}).length;const dayN=sr30DayIndex(x);let t;if(weak)t=sr30Tasks.find(z=>z.skill===weak);if(!t)t=sr30Tasks[(dayN-1)%sr30Tasks.length];if(doneCount>=sr30Tasks.length*2)t=sr30Tasks[(dayN+doneCount)%sr30Tasks.length];return t||sr30Tasks[0]}
-function sr30Streak(x){let n=0,d=new Date(sr30Today()+'T12:00:00');for(let i=0;i<30;i++){const key=d.toLocaleDateString('en-CA');if(x.done&&x.done[key]){n++;d.setDate(d.getDate()-1)}else break}return n}
-function sr30Render(){const x=sr30Read(),today=sr30Today();if(!x.start){x.start=today;sr30Write(x)}const idx=sr30DayIndex(x),t=sr30PickTask(x),done=Object.keys(x.done||{}).length;const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set('sr30DayNumber',fa(idx));set('sr30DayDone',fa(done));set('sr30DayStreak',fa(sr30Streak(x)));const area=document.getElementById('sr30DayTask');if(area)area.innerHTML=`<b>تمرین امروز: ${t.title}</b><p>${t.task}</p><p>زمان پیشنهادی: ${fa(t.mins)} دقیقه · مهارت هدف: ${srCourseSkillName(t.skill)}</p><p class="muted">${idx===30?'امروز روز پایانی مسیر است؛ نتیجه را با خط پایه مقایسه کن.':'روز '+fa(idx)+' از ۳۰'}</p>`;const btn=document.getElementById('sr30DayComplete');if(btn){btn.disabled=!!(x.done&&x.done[today]);btn.textContent=btn.disabled?'تمرین امروز ثبت شده':'تمرین امروز را انجام دادم';btn.style.opacity=btn.disabled?'.65':'1'}const msg=document.getElementById('sr30DayMessage');if(msg)msg.textContent=x.done&&x.done[today]?'آفرین؛ تمرین امروز ثبت شده. فردا برای پیشنهاد تازه برگرد.':'پس از انجام واقعی تمرین، دکمه ثبت را بزن. ثبت دکمه به معنی انجام تمرین توسط خودت است.'}
-function sr30Complete(){const x=sr30Read(),today=sr30Today();if(x.done&&x.done[today])return;x.start=x.start||today;const t=sr30PickTask(x);x.done=x.done||{};x.done[today]={skill:t.skill,title:t.title,time:Date.now()};x.history=x.history||[];x.history.push({date:today,skill:t.skill,title:t.title});x.history=x.history.slice(-60);if(!sr30Write(x)){alert('ثبت انجام نشد؛ فضای ذخیره‌سازی مرورگر را بررسی کن.');return}sr30Render()}
-function sr30Refresh(){sr30Render()}
-document.addEventListener('DOMContentLoaded',function(){try{sr30Render()}catch(e){}});
-
-
-// نسخه ۱۸: مرور فاصله‌دار تطبیقی برای نکته‌های اصلی دوره
-const srReviewSeeds=[
-{id:'r_goal',front:'پیش از خواندن یک متن آموزشی چه کاری انجام بدهیم؟',back:'هدف یا پرسش مشخصی تعیین کنیم تا توجه به اطلاعات مرتبط هدایت شود.',skill:'preview'},
-{id:'r_preview',front:'پیش‌نگری متن چه فایده‌ای دارد؟',back:'با نگاه به عنوان و تیترها نقشه اولیه و انتظار می‌سازیم؛ پیش‌نگری جای خواندن دقیق را نمی‌گیرد.',skill:'preview'},
-{id:'r_chunk',front:'گروه‌بندی عبارت‌ها یعنی چه؟',back:'واژه‌ها را در گروه‌های کوتاه و معنادار بخوانیم، بدون اینکه فهم جمله قربانی شود.',skill:'chunk'},
-{id:'r_focus',front:'اگر با افزایش سرعت، مفهوم متن را از دست دادیم چه کنیم؟',back:'سرعت را کم کنیم و فهم را بازیابی کنیم؛ سرعت بدون درک، پیشرفت واقعی نیست.',skill:'focus'},
-{id:'r_recall',front:'یادآوری فعال چیست؟',back:'متن را ببندیم و نکته‌ها را از حافظه بازگو کنیم، سپس با متن مقایسه کنیم.',skill:'recall'},
-{id:'r_comp',front:'چه چیزی برای سنجش تندخوانی مهم است؟',back:'سرعت همراه با درک مطلب؛ نه فقط تعداد کلمه در دقیقه.',skill:'comprehension'},
-{id:'r_spacing',front:'اگر نکته‌ای را به‌سختی به یاد آوردیم، مرور بعدی چه زمانی باشد؟',back:'فاصله را کوتاه‌تر کنیم و دوباره تلاش کنیم پاسخ را از حافظه بازیابی کنیم.',skill:'recall'},
-{id:'r_transfer',front:'چگونه پیشرفت سرعت خواندن را منصفانه مقایسه کنیم؟',back:'با متن‌های تقریباً هم‌سطح و پرسش‌های درک مطلب مشابه، و ثبت زمان و دقت.',skill:'comprehension'}
-];
-function srReviewToday(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
-function srReviewRead(){try{const x=JSON.parse(localStorage.getItem('hy_sr_review_v18')||'{}');return x&&typeof x==='object'?x:{}}catch(e){return {}}}
-function srReviewWrite(x){try{localStorage.setItem('hy_sr_review_v18',JSON.stringify(x));return true}catch(e){return false}}
-function srReviewInit(){const x=srReviewRead();x.cards=x.cards||{};let changed=false;for(const seed of srReviewSeeds){if(!x.cards[seed.id]){x.cards[seed.id]={...seed,due:srReviewToday(),interval:0,reps:0,ease:2.5,last:'',reviews:0};changed=true}}if(!x.history)x.history=[];if(changed)srReviewWrite(x);return x}
-function srReviewDueCards(x){const today=srReviewToday();return Object.values(x.cards||{}).filter(c=>!c.due||c.due<=today).sort((a,b)=>(a.due||'').localeCompare(b.due||''))}
-function srReviewRender(){const x=srReviewInit(),due=srReviewDueCards(x),today=srReviewToday(),doneToday=(x.history||[]).filter(h=>h.date===today).length;const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=fa(v)};set('srReviewDue',due.length);set('srReviewDone',(x.history||[]).length);set('srReviewStreak',doneToday);const msg=document.getElementById('srReviewMessage');if(msg)msg.textContent=due.length?'امروز '+fa(due.length)+' کارت برای مرور آماده است.':'کارت موعددار نداری؛ برای تثبیت می‌توانی کارت‌ها را زودتر هم مرور کنی.';}
-let srReviewSession=null;
-function srReviewStart(){const x=srReviewInit(),cards=srReviewDueCards(x);if(!cards.length){const a=document.getElementById('srReviewArea');if(a)a.innerHTML='<h4>مرور موعددار تمام شده است.</h4><p>برای تمرین بیشتر می‌توانی «نمایش همه کارت‌ها» را انتخاب کنی.</p>';srReviewRender();return}srReviewSession={ids:cards.map(c=>c.id),index:0,shown:false};srReviewShowCurrent()}
-function srReviewShowCurrent(){if(!srReviewSession)return;const x=srReviewInit(),id=srReviewSession.ids[srReviewSession.index],c=x.cards[id],a=document.getElementById('srReviewArea');if(!c||!a)return;srReviewSession.shown=false;a.innerHTML=`<p class="muted">کارت ${fa(srReviewSession.index+1)} از ${fa(srReviewSession.ids.length)} · مهارت: ${srCourseSkillName(c.skill)}</p><h4>${c.front}</h4><p class="muted">پیش از دیدن پاسخ، آن را با صدای آرام یا در ذهن بازیابی کن.</p><button class="btn primary" style="width:100%" onclick="srReviewReveal()">نمایش پاسخ</button><div id="srReviewBack" style="display:none" class="notice">${c.back}</div><div id="srReviewRatings" style="display:none" class="palace-method"><button class="btn secondary" onclick="srReviewRate(0)">فراموش کردم</button><button class="btn secondary" onclick="srReviewRate(1)">سخت بود</button><button class="btn primary" onclick="srReviewRate(2)">به‌یاد آوردم</button><button class="btn secondary" onclick="srReviewRate(3)">آسان بود</button></div>`}
-function srReviewReveal(){if(!srReviewSession)return;srReviewSession.shown=true;const b=document.getElementById('srReviewBack'),r=document.getElementById('srReviewRatings');if(b)b.style.display='block';if(r)r.style.display='grid'}
-function srReviewRate(rating){if(!srReviewSession||!srReviewSession.shown)return;const x=srReviewInit(),id=srReviewSession.ids[srReviewSession.index],c=x.cards[id];if(!c)return;let days=1;if(rating===0){c.interval=0;c.reps=0;days=1;c.ease=Math.max(1.3,(c.ease||2.5)-0.2)}else if(rating===1){days=Math.max(1,Math.round((c.interval||1)*1.2));c.interval=days;c.reps=(c.reps||0)+1;c.ease=Math.max(1.3,(c.ease||2.5)-0.15)}else if(rating===2){days=c.reps===0?1:c.reps===1?3:Math.max(2,Math.round((c.interval||3)*(c.ease||2.5)));c.interval=days;c.reps=(c.reps||0)+1}else{days=c.reps===0?3:c.reps===1?5:Math.max(3,Math.round((c.interval||3)*(c.ease||2.5)*1.3));c.interval=days;c.reps=(c.reps||0)+1;c.ease=Math.min(3.2,(c.ease||2.5)+0.15)}const next=new Date();next.setDate(next.getDate()+days);c.due=next.getFullYear()+'-'+String(next.getMonth()+1).padStart(2,'0')+'-'+String(next.getDate()).padStart(2,'0');c.last=srReviewToday();c.reviews=(c.reviews||0)+1;x.history.push({id,date:srReviewToday(),rating,days});x.history=x.history.slice(-500);if(!srReviewWrite(x)){const m=document.getElementById('srReviewMessage');if(m)m.textContent='ذخیره مرور انجام نشد؛ فضای ذخیره‌سازی مرورگر را بررسی کن.';return}srReviewSession.index++;if(srReviewSession.index<srReviewSession.ids.length)srReviewShowCurrent();else{const a=document.getElementById('srReviewArea');if(a)a.innerHTML='<h4>آفرین؛ مرور امروز تمام شد.</h4><p>زمان مرور بعدی هر کارت براساس میزان دشواری پاسخ تنظیم شد.</p><button class="btn primary" style="width:100%" onclick="srReviewStart()">بررسی کارت‌های باقی‌مانده</button>';srReviewSession=null}srReviewRender()}
-function srReviewShowAll(){const x=srReviewInit(),a=document.getElementById('srReviewArea');if(!a)return;const cards=Object.values(x.cards||{});a.innerHTML='<h4>همه کارت‌های آموزشی</h4>'+cards.map(c=>`<div class="listitem"><b>${c.front}</b><p>${c.back}</p><p class="muted">موعد مرور: ${c.due||'امروز'} · تعداد مرور: ${fa(c.reviews||0)}</p></div>`).join('')+'<button class="btn primary" style="width:100%" onclick="srReviewStart()">شروع مرور موعددار</button>'}
-document.addEventListener('DOMContentLoaded',function(){try{srReviewRender()}catch(e){}});
-
-</script><script>document.addEventListener("DOMContentLoaded",function(){try{srCourseRender();srReviewRender()}catch(e){}});</script><script>
-(function(){
-const KEY='hy_memory_assessment_v19';
-const $=id=>document.getElementById(id);
-const faN=n=>{try{return Number(n).toLocaleString('fa-IR')}catch(e){return String(n)}};
-const bank=[
- {type:'words',title:'بخش ۱ از ۴ · یادآوری کلمات',instruction:'این ۶ کلمه را با دقت بخوان. پس از 12 ثانیه کلمات پنهان می‌شوند و باید آن‌ها را انتخاب کنی.',items:['باران','کتاب','انار','پنجره','دریا','چراغ'],seconds:12},
- {type:'numbers',title:'بخش ۲ از ۴ · حافظه اعداد',instruction:'این رشته عددی را به خاطر بسپار. پس از 10 ثانیه، ترتیب درست را انتخاب کن.',items:['۴','۹','۲','۷','۱','۶'],seconds:10},
- {type:'association',title:'بخش ۳ از ۴ · تداعی واژه‌ها',instruction:'جفت‌های واژه را ببین و ارتباطشان را به خاطر بسپار. سپس جفت درست را مشخص کن.',pairs:[['ماه','شب'],['کلید','قفل'],['مداد','نوشتن'],['عسل','زنبور']],seconds:12},
- {type:'comprehension',title:'بخش ۴ از ۴ · درک مطلب',instruction:'متن کوتاه را بخوان و سپس به پرسش پاسخ بده.',passage:'سارا برای خرید به بازار رفت. او ابتدا فهرست خریدش را بررسی کرد تا چیزی را فراموش نکند. چون هوا گرم بود، خرید مواد غذایی را در پایان انجام داد تا مدت کمتری بیرون از یخچال بمانند. پس از بازگشت، اقلام را مرتب کرد و هزینه‌ها را با فهرست مقایسه کرد.'}
-];
-let state=null,timer=null;
-function read(){try{return JSON.parse(localStorage.getItem(KEY)||'{"history":[]}')}catch(e){return {history:[]}}}
-function write(x){try{localStorage.setItem(KEY,JSON.stringify(x));return true}catch(e){return false}}
-function renderStats(){const h=read().history||[];const scores=h.map(x=>x.score);if($('hyAssessBest'))$('hyAssessBest').textContent=scores.length?faN(Math.max(...scores))+'٪':'—';if($('hyAssessLast'))$('hyAssessLast').textContent=scores.length?faN(scores[scores.length-1])+'٪':'—';if($('hyAssessCount'))$('hyAssessCount').textContent=faN(h.length)}
-function hide(id){if($(id))$(id).style.display='none'}function show(id){if($(id))$(id).style.display='block'}
-function cleanup(){if(timer){clearInterval(timer);timer=null}}
-function start(){cleanup();state={step:0,score:0,answers:[],started:Date.now()};hide('hyAssessIntro');hide('hyAssessHistoryBox');hide('hyAssessFeedback');show('hyAssessWork');renderStep()}
-function renderStep(){cleanup();if(!state)return;const q=bank[state.step],w=$('hyAssessWork');if(!q){finish();return}
-let html='<h4>'+q.title+'</h4><p>'+q.instruction+'</p>';
-if(q.type==='words'||q.type==='numbers'){html+='<div id="hyAssessStimulus" style="padding:18px;border-radius:12px;background:#edf5ef;text-align:center;font-size:24px;font-weight:800;line-height:2">'+q.items.join('　')+'</div><p id="hyAssessCountdown" class="muted">زمان مشاهده: '+faN(q.seconds)+' ثانیه</p><button class="btn primary" id="hyAssessReveal" style="width:100%" onclick="hyAssessReveal()">حالا سؤال را نشان بده</button><div id="hyAssessQuestion" style="display:none"></div>';state.mode='memorize';state.remaining=q.seconds;timer=setInterval(()=>{if(!state)return;state.remaining--;const c=$('hyAssessCountdown');if(c)c.textContent='زمان مشاهده: '+faN(Math.max(0,state.remaining))+' ثانیه';if(state.remaining<=0){cleanup();hyAssessReveal()}},1000)}
-else if(q.type==='association'){html+='<div style="padding:12px;background:#edf5ef;border-radius:10px;line-height:2;font-weight:700">'+q.pairs.map(p=>p.join(' ← ')).join('<br>')+'</div><p>بعد از یادگیری جفت‌ها، دکمه را بزن.</p><button class="btn primary" style="width:100%" onclick="hyAssessReveal()">نمایش سؤال</button>';state.mode='memorize';state.remaining=q.seconds;timer=setTimeout(()=>hyAssessReveal(),q.seconds*1000)}
-else {html+='<div style="padding:14px;background:#edf5ef;border-radius:10px;line-height:2">'+q.passage+'</div><button class="btn primary" style="width:100%;margin-top:10px" onclick="hyAssessQuestion()">پاسخ به سؤال درک مطلب</button>';state.mode='passage'}w.innerHTML=html}
-function reveal(){if(!state)return;cleanup();const q=bank[state.step];if(q.type==='words'){const el=$('hyAssessStimulus');if(el)el.style.display='none';const box=$('hyAssessQuestion');box.style.display='block';box.innerHTML='<p><b>کدام مجموعه شامل کلماتی بود که دیدی؟</b></p>'+opts([['ابر، دفتر، سیب، در، رود، لامپ',false],['باران، کتاب، انار، پنجره، دریا، چراغ',true],['باران، دفتر، انار، خانه، دریا، ساعت',false],['برف، کتاب، انگور، پنجره، کوه، چراغ',false]],'words')}
-else if(q.type==='numbers'){const el=$('hyAssessStimulus');if(el)el.style.display='none';const box=$('hyAssessQuestion');box.style.display='block';box.innerHTML='<p><b>کدام رشته عددی را دیدی؟</b></p>'+opts([['۴، ۲، ۹، ۷، ۶، ۱',false],['۹، ۴، ۲، ۱، ۷، ۶',false],['۴، ۹، ۷، ۲، ۱، ۶',false],['۴، ۹، ۲، ۷، ۱، ۶',true]],'numbers')}
-else if(q.type==='association'){const w=$('hyAssessWork');w.innerHTML='<h4>'+q.title+'</h4><p><b>کدام جفت در فهرست بود؟</b></p>'+opts([['قلم — پنجره',false],['ماه — ظهر',false],['کلید — قفل',true],['عسل — ماهی',false]],'association')}
-}
-function opts(options,type){options=options.slice().sort(()=>Math.random()-.5);state.currentCorrect=options.findIndex(o=>o[1]);return '<div style="display:grid;gap:8px">'+options.map((o,i)=>'<button class="btn secondary" style="width:100%;text-align:right" onclick="hyAssessAnswer(\''+type+'\','+i+')">'+String.fromCharCode(1575+i)+') '+o[0]+'</button>').join('')+'</div><p class="muted">جای گزینه‌ها در هر نوبت تغییر می‌کند؛ پس به محتوا توجه کن.</p>'}
-function question(){if(!state)return;const w=$('hyAssessWork');w.innerHTML='<h4>'+bank[state.step].title+'</h4><p><b>چرا سارا خرید مواد غذایی را در پایان انجام داد؟</b></p>'+opts([['چون فهرست خرید را گم کرده بود',false],['برای اینکه بازار خلوت‌تر شود',false],['تا مدت کمتری بیرون از یخچال بمانند',true],['چون پول کافی نداشت',false]],'comprehension')}
-function answer(type,index){if(!state)return;const correct={words:0,numbers:0,association:0,comprehension:0};const right=index===state.currentCorrect;state.answers.push({type,correct:right});if(right)state.score+=25;state.step++;if(state.step<bank.length)renderStep();else finish()}
-function finish(){cleanup();const score=state.score,details=state.answers;const h=read();h.history=h.history||[];h.history.push({date:new Date().toISOString(),score,details,duration:Math.round((Date.now()-state.started)/1000)});h.history=h.history.slice(-100);write(h);$('hyAssessWork').innerHTML='<h4>نتیجه آزمون</h4><div style="font-size:30px;font-weight:900;text-align:center;padding:14px">'+faN(score)+'٪</div><p>پاسخ درست: '+faN(details.filter(x=>x.correct).length)+' از ۴</p><p>'+recommend(details)+'</p><button class="btn primary" style="width:100%" onclick="hyAssessStart()">تکرار آزمون</button><button class="btn secondary" style="width:100%;margin-top:8px" onclick="hyAssessHistory()">مشاهده سابقه</button>';state=null;renderStats();show('hyAssessWork')}
-function recommend(a){const missed=a.filter(x=>!x.correct).map(x=>x.type);if(!missed.length)return'عالی بود؛ برای سنجش دقیق‌تر، آزمون را در روز دیگری با تمرکز بر یادآوری و درک مطلب تکرار کن.';const names={words:'یادآوری کلمات',numbers:'حافظه اعداد',association:'تداعی واژه‌ها',comprehension:'درک مطلب'};return'برای تمرین بعدی، روی این بخش‌ها تمرکز کن: '+[...new Set(missed)].map(x=>names[x]).join('، ')+'.'}
-function history(){const h=read().history||[],box=$('hyAssessHistoryBox');show('hyAssessHistoryBox');if(!h.length){box.innerHTML='<p>هنوز نتیجه‌ای ثبت نشده است.</p>';return}box.innerHTML='<h4>سابقه آزمون‌ها</h4>'+h.slice(-10).reverse().map((x,i)=>'<div class="listitem"><b>نتیجه: '+faN(x.score)+'٪</b><p class="muted">'+new Date(x.date).toLocaleString('fa-IR')+' · مدت: '+faN(x.duration||0)+' ثانیه</p></div>').join('')+'<button class="btn secondary" onclick="hyAssessClear()" style="width:100%">پاک‌کردن سابقه آزمون</button>'}
-function clearHistory(){if(!confirm('سابقه آزمون‌های این بخش پاک شود؟'))return;write({history:[]});renderStats();history()}
-window.hyAssessStart=start;window.hyAssessReveal=reveal;window.hyAssessQuestion=question;window.hyAssessAnswer=answer;window.hyAssessHistory=history;window.hyAssessClear=clearHistory;
-document.addEventListener('DOMContentLoaded',renderStats);
-})();
-</script>
-
-<script>
-(function(){
- const $20=id=>document.getElementById(id);
- const fa20=n=>{try{return Number(n).toLocaleString('fa-IR')}catch(e){return String(n)}};
- function get20(){try{return JSON.parse(localStorage.getItem('hy_memory_assessment')||'{}')}catch(e){return {}}}
- function history20(){let d=get20(); if(Array.isArray(d.history))return d.history; try{let keys=Object.keys(localStorage);for(let k of keys){if(/assess/i.test(k)){let x=JSON.parse(localStorage.getItem(k)||'{}');if(Array.isArray(x.history))return x.history}}}catch(e){} return []}
- function skill20(h){let counts={words:{ok:0,n:0,label:'یادآوری کلمات'},numbers:{ok:0,n:0,label:'حافظه اعداد'},association:{ok:0,n:0,label:'تداعی واژه‌ها'},comprehension:{ok:0,n:0,label:'درک مطلب'}};h.slice(-5).forEach(t=>(t.details||[]).forEach(a=>{if(counts[a.type]){counts[a.type].n++;if(a.correct)counts[a.type].ok++}}));let arr=Object.entries(counts).filter(x=>x[1].n).map(([k,v])=>({key:k,...v,rate:v.ok/v.n}));arr.sort((a,b)=>a.rate-b.rate);return arr}
- function refresh20(){let h=history20(),last=h.slice(-5),scores=last.map(x=>Number(x.score)||0),avg=scores.length?Math.round(scores.reduce((a,b)=>a+b,0)/scores.length):null;let trend='داده کافی نیست';if(scores.length>=2){let half=Math.max(1,Math.floor(scores.length/2)),early=scores.slice(0,half).reduce((a,b)=>a+b,0)/half,late=scores.slice(half).reduce((a,b)=>a+b,0)/scores.slice(half).length;trend=late-early>=5?'رو به بهبود':late-early<=-5?'نیازمند توجه':'تقریباً ثابت'}
- if($20('hyCoach20Average'))$20('hyCoach20Average').textContent=avg===null?'—':fa20(avg)+'٪';if($20('hyCoach20Trend'))$20('hyCoach20Trend').textContent=trend;if($20('hyCoach20Tests'))$20('hyCoach20Tests').textContent=fa20(h.length);
- let mins=Number($20('hyCoach20Goal')?.value||15),weak=skill20(h),plan='';if(!h.length){plan='هنوز نتیجه‌ای پیدا نشد. از بخش «آزمایشگاه سنجش حافظه» یک آزمون کامل انجام بده؛ بعد به این بخش برگرد تا پیشنهاد متناسب‌تری بگیری.'}else{let target=weak[0];let warm=avg>=85?'نتیجه فعلی خوب است؛ تمرکز را روی تثبیت و تکرار با فاصله بگذار.':avg>=60?'پایه قابل‌قبولی داری؛ تمرین کوتاه و منظم همراه با بازیابی فعال پیشنهاد می‌شود.':'فعلاً روی دقت و یادآوری تمرکز کن و برای بالا بردن سرعت عجله نکن.';let focus=target?'اولویت پیشنهادی بر اساس پاسخ‌های ثبت‌شده: <b>'+target.label+'</b>.' :'برای تشخیص نقطه ضعف، آزمون را دوباره انجام بده.';plan='<b>برنامه پیشنهادی امروز · '+fa20(mins)+' دقیقه</b><br>'+warm+'<br>'+focus+'<br><br><b>تقسیم زمان:</b> '+fa20(Math.max(2,Math.round(mins*.2)))+' دقیقه مرور کارت‌های قبلی، '+fa20(Math.max(3,Math.round(mins*.5)))+' دقیقه تمرین مهارت اولویت‌دار، و '+fa20(Math.max(2,mins-Math.max(2,Math.round(mins*.2))-Math.max(3,Math.round(mins*.5))))+' دقیقه یادآوری بدون نگاه‌کردن و ثبت نتیجه.<br><small>این پیشنهاد آموزشی و تقریبی است؛ با تعداد کم آزمون‌ها نمی‌توان نتیجه قطعی درباره توانایی حافظه گرفت.</small>'}
- if($20('hyCoach20Plan'))$20('hyCoach20Plan').innerHTML=plan;
- }
- function export20(){let h=history20(),text='گزارش حافظه‌یار - مربی شخصی\nتاریخ تهیه: '+new Date().toLocaleString('fa-IR')+'\nتعداد آزمون‌ها: '+h.length+'\n\n'+h.slice(-20).map((x,i)=>(i+1)+'. '+new Date(x.date).toLocaleDateString('fa-IR')+' | امتیاز '+x.score+'٪ | زمان '+(x.duration||0)+' ثانیه').join('\n');let box=$20('hyCoach20ExportBox');box.style.display='block';box.innerHTML='<textarea class="input" style="width:100%;min-height:150px;direction:rtl">'+text.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea><button class="btn secondary" style="width:100%;margin-top:8px" onclick="navigator.clipboard&&navigator.clipboard.writeText(document.querySelector(\'#hyCoach20ExportBox textarea\').value).then(()=>alert(\'گزارش کپی شد\')).catch(()=>alert(\'متن گزارش را انتخاب و کپی کن\'))">کپی گزارش</button>'}
- try{let saved=localStorage.getItem('hy_coach20_goal');if(saved&&$20('hyCoach20Goal'))$20('hyCoach20Goal').value=saved}catch(e){}
- $20('hyCoach20Goal')?.addEventListener('change',()=>{try{localStorage.setItem('hy_coach20_goal',$20('hyCoach20Goal').value)}catch(e){}refresh20()});window.hyCoach20Refresh=refresh20;window.hyCoach20Export=export20;document.addEventListener('DOMContentLoaded',refresh20);setTimeout(refresh20,500);
-})();
-</script>
-
-<script>
-(function(){
- const skills=[['words','یادآوری کلمات'],['numbers','حافظه اعداد'],['association','تداعی واژه‌ها'],['comprehension','درک مطلب']];
- const fa=n=>{try{return Number(n).toLocaleString('fa-IR')}catch(e){return String(n)}};
- function history(){try{const d=JSON.parse(localStorage.getItem('hy_memory_assessment_v19')||'{}');return Array.isArray(d.history)?d.history:[]}catch(e){return []}}
- function render(){const box=document.getElementById('hy21SkillMap');if(!box)return;const h=history().slice(-20);if(!h.length){box.innerHTML='<p class="muted">هنوز داده‌ای برای تحلیل ثبت نشده است. ابتدا آزمون چهارمرحله‌ای را کامل کن.</p>';return}
-  const stats=skills.map(([key,label])=>{let n=0,ok=0;h.forEach(test=>(test.details||[]).forEach(a=>{if(a.type===key){n++;if(a.correct)ok++}}));return {key,label,n,ok,rate:n?Math.round(ok/n*100):null}});
-  const measured=stats.filter(x=>x.n).sort((a,b)=>a.rate-b.rate);const weakest=measured[0];
-  box.innerHTML=stats.map(x=>'<div style="margin:10px 0"><div style="display:flex;justify-content:space-between;gap:8px;font-size:13px"><b>'+x.label+'</b><span>'+(x.n?fa(x.rate)+'٪ · '+fa(x.n)+' پاسخ':'داده کافی نیست')+'</span></div><div style="height:9px;background:#e8eee9;border-radius:20px;overflow:hidden;margin-top:5px"><div style="height:100%;width:'+(x.n?x.rate:0)+'%;background:'+(x.n&&x.rate<60?'#e58a32':'#167653')+';border-radius:20px"></div></div></div>').join('')+(weakest?'<div class="notice" style="margin-top:12px">اولویت تمرین بر اساس داده فعلی: <b>'+weakest.label+'</b>. این نتیجه فقط از '+fa(weakest.n)+' پاسخ ثبت‌شده محاسبه شده و با آزمون‌های بیشتر دقیق‌تر می‌شود.</div>':'');
- }
- window.hy21RefreshSkillMap=render;document.addEventListener('DOMContentLoaded',render);setTimeout(render,700);
-})();
-</script>
-
-
-<script>
-(function(){
-const KEY='hy22_comprehensive_assessment_v22';const $=id=>document.getElementById(id);const fa=n=>{try{return Number(n).toLocaleString('fa-IR')}catch(e){return String(n)}};
-const bank=[
-{skill:'یادآوری',q:'برای به‌خاطر سپردن یک مفهوم تازه، کدام روش معمولاً مفیدتر است؟',o:['فقط چند بار از روی متن خواندن','بستن متن و تلاش برای بازگویی مفهوم','هم‌زمان خواندن چند مطلب','تندتر خواندن بدون مکث'],a:1},
-{skill:'یادآوری',q:'یادآوری فعال یعنی چه؟',o:['هایلایت‌کردن همه متن','نگاه‌کردن دوباره به پاسخ','بازیابی پاسخ از حافظه پیش از بررسی متن','خواندن فقط عنوان‌ها'],a:2},
-{skill:'مرور',q:'اگر پاسخ یک کارت را کاملاً فراموش کردی، انتخاب مناسب‌تر چیست؟',o:['مرور کوتاه‌تر و تلاش دوباره','دیگر هرگز آن را مرور نکنی','فاصله مرور را بسیار طولانی کنی','کارت را بدون خواندن رد کنی'],a:0},
-{skill:'تندخوانی',q:'کدام معیار برای ارزیابی تندخوانی معتبرتر است؟',o:['فقط تعداد صفحه‌ها','فقط سرعت حرکت چشم','سرعت همراه با درک مطلب','تمام‌کردن متن بدون آزمون'],a:2},
-{skill:'توجه',q:'هنگام تمرین تمرکز، اعلان‌های گوشی چه اثری می‌توانند داشته باشند؟',o:['همیشه حافظه را تقویت می‌کنند','ممکن است توجه را قطع کنند','هیچ‌وقت اثری ندارند','درک مطلب را تضمین می‌کنند'],a:1},
-{skill:'پیش‌نگری',q:'پیش‌نگری متن بهتر است شامل چه چیزی باشد؟',o:['دیدن عنوان‌ها و ساختار کلی','خواندن فقط آخرین جمله','حدس‌زدن همه جزئیات','نادیده‌گرفتن تیترها'],a:0},
-{skill:'تداعی',q:'برای به خاطر سپردن یک واژه انتزاعی، چه کاری می‌تواند کمک کند؟',o:['تکرار بی‌هدف و سریع','پیوند دادن آن با تصویر یا تجربه معنادار','پرهیز از هرگونه مثال','خواندن بدون توجه'],a:1},
-{skill:'درک مطلب',q:'اگر بعد از سریع‌تر خواندن، پاسخ سؤال متن را نمی‌دانی چه کار کنی؟',o:['سرعت را باز هم بیشتر کنی','پاسخ را حدس بزنی و ادامه دهی','سرعت را تنظیم کنی و بخش مرتبط را دوباره بخوانی','نتیجه را موفقیت حساب کنی'],a:2},
-{skill:'حافظه',q:'چرا مرور فاصله‌دار به کار می‌آید؟',o:['مرور را در زمان‌های جداگانه پخش می‌کند','نیاز به یادگیری را حذف می‌کند','همه مطالب را یک‌باره حفظ می‌کند','دقت را بی‌اهمیت می‌کند'],a:0},
-{skill:'اندازه‌گیری',q:'برای مقایسه دو آزمون خواندن، بهتر است متن‌ها چگونه باشند؟',o:['یکی بسیار ساده و دیگری بسیار دشوار','تقریباً هم‌سطح و همراه با پرسش‌های مشابه','بدون ثبت زمان','با موضوع و طول کاملاً نامقایسه'],a:1},
-{skill:'تمرین',q:'اگر یک مهارت ضعیف‌تر به نظر برسد، بهترین گام بعدی چیست؟',o:['نادیده‌گرفتن نتیجه','تمرین هدفمند و آزمون دوباره در شرایط مشابه','نتیجه‌گیری قطعی از یک سؤال','افزایش سرعت در همه تمرین‌ها'],a:1},
-{skill:'اهداف',q:'هدف تمرین روزانه بهتر است چگونه باشد؟',o:['مبهم و بدون زمان','بسیار طولانی در هر روز','مشخص، واقع‌بینانه و قابل پیگیری','بدون معیار بررسی'],a:2},
-{skill:'خواندن',q:'گروه‌بندی عبارت‌ها به چه معناست؟',o:['نگاه‌کردن به واژه‌ها به‌صورت گروه‌های معنادار','حذف همه نشانه‌گذاری‌ها','نادیده‌گرفتن معنی جمله','خواندن چند خط هم‌زمان بدون فهم'],a:0},
-{skill:'حافظه اعداد',q:'برای به‌خاطر سپردن یک رشته عددی، کدام راهبرد ممکن است کمک کند؟',o:['تقسیم رشته به گروه‌های کوچک‌تر','تغییر ترتیب اعداد','پرهیز از تکرار بازیابی','نگاه‌کردن به عددها بدون توجه'],a:0},
-{skill:'خودسنجی',q:'کدام کار پس از پایان مطالعه مفید است؟',o:['بلافاصله فراموش‌کردن متن','بازگویی نکات اصلی و بررسی میزان درک','فقط شمردن صفحات','فقط ثبت مدت زمان'],a:1},
-{skill:'دقت',q:'اگر خسته‌ای و درک مطلب پایین آمده، کدام انتخاب منطقی‌تر است؟',o:['اجبار به سرعت بیشتر','نادیده‌گرفتن خطاها','استراحت کوتاه یا کاهش شدت تمرین','افزایش هم‌زمان چند کار'],a:2}
-];let session=null;
-function read(){try{let x=JSON.parse(localStorage.getItem(KEY)||'{"history":[]}');return x&&Array.isArray(x.history)?x:{history:[]}}catch(e){return {history:[]}}}
-function save(x){try{localStorage.setItem(KEY,JSON.stringify(x));return true}catch(e){return false}}
-function render(){let h=read().history,ss=h.slice(-5).map(x=>x.score),avg=ss.length?Math.round(ss.reduce((a,b)=>a+b,0)/ss.length):null;if($('hy22Last'))$('hy22Last').textContent=h.length?fa(h[h.length-1].score)+'٪':'—';if($('hy22Avg'))$('hy22Avg').textContent=avg===null?'—':fa(avg)+'٪';if($('hy22Count'))$('hy22Count').textContent=fa(h.length)}
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function start(){let level=$('hy22Level')?.value||'normal',n=level==='easy'?5:level==='hard'?10:8;session={items:shuffle(bank).slice(0,n),i:0,correct:0,answers:[],started:Date.now()};$('hy22History').innerHTML='';showQ()}
-function showQ(){if(!run)return;const q=chooseQuestion();if(!q){finish();return}run.items.push(q);const options=shuffle(q.o.map((label,i)=>({label,correct:i===q.a})));run.current=options;run.questionStart=Date.now();const levelName=q.d===1?'پایه':q.d===2?'میانی':'پیشرفته';$('hy23IQWork').innerHTML='<div class="notice">سؤال '+fa(run.items.length)+' از '+fa(run.target)+' · '+q.c+' · دشواری: '+levelName+' · زمان کل: '+fa(Math.floor((Date.now()-run.start)/1000))+' ثانیه</div><h4 style="line-height:2">'+q.q+'</h4><div style="display:grid;gap:8px">'+options.map((o,i)=>'<button class="btn secondary" style="text-align:right" onclick="hy23IQAnswer('+i+')">'+['الف','ب','ج','د'][i]+' ـ '+o.label+'</button>').join('')+'</div><details style="margin-top:10px"><summary class="muted">راهنمایی (در صورت استفاده، نتیجه را تمرینی‌تر در نظر بگیر)</summary><p class="muted">'+q.h+'</p></details><p class="muted">پس از دو پاسخ درست پیاپی، سطح معمولاً بالاتر می‌رود؛ پس از دو پاسخ نادرست پیاپی، پایین‌تر می‌آید. برای مقایسه منصفانه از کمک بیرونی استفاده نکن.</p>'}
-function answer(i){if(!run||!run.current||!run.current[i]||run.awaitNext)return;const q=run.items[run.items.length-1],ok=run.current[i].correct,rt=Math.max(1,Math.round((Date.now()-run.questionStart)/1000));if(ok){run.correct++;run.streak=run.streak>=0?run.streak+1:1}else{run.streak=run.streak<=0?run.streak-1:-1}run.details.push({category:q.c,correct:ok,seconds:rt,difficulty:q.d});if(run.streak>=2&&run.level<3){run.level++;run.levelChanges.push({after:run.items.length,to:run.level});run.streak=0}else if(run.streak<=-2&&run.level>1){run.level--;run.levelChanges.push({after:run.items.length,to:run.level});run.streak=0}run.current=null;run.awaitNext=true;const right=q.o[q.a];$('hy23IQWork').innerHTML='<div class="notice" style="border-right:4px solid '+(ok?'#198754':'#bd5c13')+'"><b>'+(ok?'پاسخ درست بود.':'این پاسخ درست نبود.')+'</b><p>پاسخ صحیح: '+right+'</p><p>'+((q.explanation||q.h||'الگو را با دقت بررسی کن.'))+'</p><p class="muted">زمان این سؤال: '+fa(rt)+' ثانیه</p></div><button class="btn primary" style="width:100%;margin-top:10px" onclick="hy23IQNext()">'+(run.items.length<run.target?'سؤال بعدی':'مشاهده گزارش نهایی')+'</button>'}
-function next(){if(!run||!run.awaitNext)return;run.awaitNext=false;if(run.items.length<run.target)showQ();else finish()}
-function finish(){let score=Math.round(session.correct/session.items.length*100),record={date:new Date().toISOString(),score,correct:session.correct,total:session.items.length,level:$('hy22Level').value,answers:session.answers,duration:Math.round((Date.now()-session.started)/1000)};let x=read();x.history.push(record);x.history=x.history.slice(-100);let saved=save(x);let by={};session.answers.forEach(a=>{let k=a.skill;by[k]=by[k]||{n:0,ok:0};by[k].n++;if(a.correct)by[k].ok++});let weak=Object.entries(by).sort((a,b)=>a[1].ok/a[1].n-b[1].ok/b[1].n)[0];$('hy22Work').innerHTML='<div class="flashface"><div class="big">'+fa(score)+'٪</div><div class="small">'+fa(session.correct)+' پاسخ درست از '+fa(session.items.length)+'</div></div><p><b>پیشنهاد تمرین:</b> '+(score>=85?'سطح بعدی را امتحان کن و مرور فاصله‌دار را ادامه بده.':weak?'در تمرین بعدی بیشتر روی «'+weak[0]+'» تمرکز کن.':'آزمون را دوباره در روز دیگری انجام بده.')+'</p><p class="muted">این آزمون آموزشی و کوتاه است؛ امتیاز آن تشخیص بالینی یا سنجش قطعی هوش و حافظه نیست.</p>'+(saved?'':'<p class="notice">ذخیره نتیجه ناموفق بود؛ فضای مرورگر را بررسی کن.</p>')+'<button class="btn primary" style="width:100%" onclick="hy22Start()">آزمون تازه با سؤال‌های متفاوت</button><button class="btn secondary" style="width:100%;margin-top:8px" onclick="hy22ShowHistory()">مشاهده سابقه</button>';session=null;render()}
-function showHistory(){let h=read().history,box=$('hy22History');if(!h.length){box.innerHTML='<p class="muted">هنوز آزمون جامعی ثبت نشده است.</p>';return}box.innerHTML='<h4>آخرین نتایج</h4>'+h.slice(-10).reverse().map(x=>'<div class="listitem"><b>'+fa(x.score)+'٪</b><p>'+new Date(x.date).toLocaleString('fa-IR')+' · '+fa(x.correct)+' از '+fa(x.total)+' · '+(x.level==='easy'?'آسان':x.level==='hard'?'پیشرفته':'متوسط')+'</p></div>').join('')}
-function exportAll(){let data={app:'Hafezeyar',schema:1,createdAt:new Date().toISOString(),localStorage:{}};try{for(let i=0;i<localStorage.length;i++){let k=localStorage.key(i);if(k&&(/^(hy(?:_|\d)|hafez|sr|memory|tana)/i.test(k)||k==='appData'))data.localStorage[k]=localStorage.getItem(k)}data.localStorage[KEY]=JSON.stringify(read());let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='hafezeyar-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);$('hy22BackupMsg').textContent='فایل پشتیبان ساخته شد. آن را در محل امن نگه دار.'}catch(e){$('hy22BackupMsg').textContent='ساخت پشتیبان ناموفق بود؛ فضای ذخیره‌سازی یا مجوز دانلود را بررسی کن.'}}
-function importAll(ev){let f=ev.target.files&&ev.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);if(!d||!d.localStorage||typeof d.localStorage!=='object')throw Error('invalid');if(!confirm('بازیابی داده‌ها انجام شود؟ کلیدهای موجود با کلیدهای داخل فایل جایگزین می‌شوند.'))return;let count=0;Object.entries(d.localStorage).forEach(([k,v])=>{if(typeof k==='string'&&typeof v==='string'&&(/^(hy(?:_|\d)|hafez|sr|memory|tana)/i.test(k)||k==='appData')){localStorage.setItem(k,v);count++}});render();$('hy22BackupMsg').textContent='بازیابی انجام شد؛ '+fa(count)+' بخش داده وارد شد. صفحه را یک‌بار تازه‌سازی کن.'}catch(e){$('hy22BackupMsg').textContent='فایل معتبر حافظه‌یار نیست یا بازیابی به‌دلیل محدودیت مرورگر انجام نشد.'}finally{ev.target.value=''}};reader.readAsText(f)}
-window.hy22Start=start;window.hy22Answer=answer;window.hy22ShowHistory=showHistory;window.hy22Export=exportAll;window.hy22Import=importAll;document.addEventListener('DOMContentLoaded',render);setTimeout(render,500);
-})();
-</script>
-
-
-<script>
-(function(){
-const KEY='hy23_iq_practice_v1', $=id=>document.getElementById(id);
-const fa=n=>{try{return Number(n).toLocaleString('fa-IR')}catch(e){return String(n)}};
-const bank=[
-{c:'استدلال عددی',q:'دنباله را کامل کن: ۳، ۶، ۱۲، ۲۴، ؟',o:['۳۰','۳۶','۴۸','۵۴'],a:2,h:'هر عدد دو برابر عدد قبلی است.'},
-{c:'استدلال عددی',q:'دنباله را کامل کن: ۲، ۵، ۹، ۱۴، ۲۰، ؟',o:['۲۵','۲۶','۲۷','۲۸'],a:2,h:'اختلاف‌ها به‌ترتیب ۳، ۴، ۵ و ۶ هستند؛ اختلاف بعدی ۷ است.'},
-{c:'استدلال عددی',q:'اگر ۴ دستگاه در ۴ دقیقه ۴ قطعه بسازند، ۸ دستگاه در ۴ دقیقه چند قطعه می‌سازند؟',o:['۴','۸','۱۲','۱۶'],a:1,h:'هر دستگاه در ۴ دقیقه یک قطعه می‌سازد؛ پس ۸ دستگاه ۸ قطعه می‌سازند.'},
-{c:'استدلال عددی',q:'کدام عدد با بقیه متفاوت است؟ ۱۶، ۲۵، ۳۶، ۴۸',o:['۱۶','۲۵','۳۶','۴۸'],a:3,h:'۱۶، ۲۵ و ۳۶ مربع کامل‌اند؛ ۴۸ مربع کامل نیست.'},
-{c:'منطق',q:'همه لاله‌ها گل‌اند. بعضی گل‌ها زردند. آیا حتماً بعضی لاله‌ها زردند؟',o:['بله، حتماً','خیر، لزوماً نتیجه نمی‌شود','همه لاله‌ها زردند','هیچ گلی زرد نیست'],a:1,h:'اطلاعات درباره بعضی گل‌ها الزاماً درباره لاله‌ها نیست.'},
-{c:'منطق',q:'علی از رضا بلندتر است و رضا از مینا بلندتر است. چه کسی کوتاه‌تر است؟',o:['علی','رضا','مینا','مشخص نیست'],a:2,h:'ترتیب قدها از بلند به کوتاه: علی، رضا، مینا.'},
-{c:'منطق',q:'اگر امروز دوشنبه باشد، ۱۰ روز دیگر چه روزی است؟',o:['سه‌شنبه','چهارشنبه','پنجشنبه','جمعه'],a:2,h:'۱۰ روز بعد یعنی یک هفته و ۳ روز بعد؛ پنجشنبه.'},
-{c:'منطق',q:'در مسابقه از نفر دوم سبقت می‌گیری. اکنون در چه جایگاهی هستی؟',o:['اول','دوم','سوم','چهارم'],a:1,h:'جایگاه نفر دوم را می‌گیری؛ پس دوم می‌شوی.'},
-{c:'تشابه کلامی',q:'کتاب به خواندن مربوط است؛ چنگال بیشتر به چه کاری مربوط است؟',o:['نوشتن','غذا خوردن','شنیدن','اندازه‌گیری'],a:1,h:'رابطه ابزار با کاربرد معمول آن را پیدا کن.'},
-{c:'تشابه کلامی',q:'داغ در برابر سرد، مانند روشن در برابر چیست؟',o:['درخشان','تاریک','سفید','گرم'],a:1,h:'رابطه تضاد را پیدا کن.'},
-{c:'تشابه کلامی',q:'کدام واحد با بقیه متفاوت است؟ متر، سانتی‌متر، کیلومتر، کیلوگرم',o:['متر','سانتی‌متر','کیلومتر','کیلوگرم'],a:3,h:'سه گزینه واحد طول‌اند و کیلوگرم واحد جرم است.'},
-{c:'تشابه کلامی',q:'بذر به گیاه مربوط است، همان‌طور که تخم به چه چیزی مربوط است؟',o:['سنگ','پرنده','ابر','خاک'],a:1,h:'در این مثال، رابطه مرحله آغازین رشد در نظر گرفته شده است.'},
-{c:'الگوی دیداری متنی',q:'الگو را ادامه بده: ▲ ■ ▲ ■ ▲ ؟',o:['▲','■','●','◆'],a:1,h:'دو نماد به‌صورت یکی‌درمیان تکرار می‌شوند.'},
-{c:'الگوی دیداری متنی',q:'اگر پیکان هر بار ۹۰ درجه ساعت‌گرد بچرخد: ↑، →، ↓، ؟',o:['↑','←','→','↓'],a:1,h:'هر بار یک‌چهارم دور ساعت‌گرد بچرخان.'},
-{c:'الگوی دیداری متنی',q:'کدام شکل از نظر بُعد با بقیه فرق دارد؟',o:['مثلث','مربع','پنج‌ضلعی','مکعب'],a:3,h:'سه گزینه دوبعدی‌اند و مکعب سه‌بعدی است.'},
-{c:'الگوی دیداری متنی',q:'در یک شبکه ۲×۲، خانه بالا-چپ و پایین-راست رنگی‌اند. قطر دیگر از کدام خانه‌ها می‌گذرد؟',o:['بالا-چپ و پایین-راست','بالا-راست و پایین-چپ','فقط دو خانه بالایی','هر چهار خانه'],a:1,h:'قطر دیگر دو گوشه مخالف باقی‌مانده را وصل می‌کند.'},
-{c:'استدلال عددی',q:'۱۵٪ از ۲۰۰ برابر ۳۰ است. ۱۰٪ از ۳۰۰ چند است؟',o:['۱۵','۲۰','۳۰','۴۵'],a:2,h:'ده درصد یعنی یک‌دهم مقدار.'},
-{c:'منطق',q:'سه جعبه با برچسب «سیب»، «پرتقال» و «مخلوط» داریم و همه برچسب‌ها اشتباه‌اند. برای شروع از کدام جعبه میوه بیرون بیاوریم؟',o:['جعبه «سیب»','جعبه «پرتقال»','جعبه «مخلوط»','هر جعبه‌ای به یک اندازه کافی است'],a:2,h:'چون برچسب «مخلوط» قطعاً اشتباه است، آن جعبه مخلوط نیست و یک میوه اطلاعات تعیین‌کننده می‌دهد.'},
-{c:'تشابه کلامی',q:'پزشک با بیمار مرتبط است؛ آموزگار با چه کسی مرتبط است؟',o:['مسافر','دانش‌آموز','فروشنده','راننده'],a:1,h:'رابطه حرفه با فردی را در نظر بگیر که معمولاً با او کار می‌کند.'},
-{c:'الگوی دیداری متنی',q:'الگو را کامل کن: ● ● ▲ ● ● ▲ ● ● ؟',o:['●','▲','■','◆'],a:1,h:'دو دایره و سپس یک مثلث تکرار می‌شود.'},
-{c:'استدلال عددی',q:'دنباله را کامل کن: ۴، ۷، ۱۳، ۲۵، ۴۹، ؟',o:['۷۳','۸۵','۹۷','۹۹'],a:2,h:'اختلاف‌ها ۳، ۶، ۱۲ و ۲۴ هستند؛ اختلاف بعدی ۴۸ است، پس عدد بعدی ۹۷ می‌شود.'},
-{c:'استدلال عددی',q:'سه‌پنجمِ ۴۰ چند است؟',o:['۸','۱۸','۲۴','۳۰'],a:2,h:'۴۰ را بر ۵ تقسیم کن و در ۳ ضرب کن.'},
-{c:'استدلال عددی',q:'قیمت کالایی ۲۰۰ هزار تومان است و ۱۵٪ تخفیف می‌خورد. قیمت نهایی چیست؟',o:['۱۷۰ هزار','۱۸۰ هزار','۱۸۵ هزار','۱۹۵ هزار'],a:0,h:'۱۵٪ از ۲۰۰ هزار برابر ۳۰ هزار است؛ آن را کم کن.'},
-{c:'استدلال عددی',q:'اگر x+7=19 باشد، x چند است؟',o:['۱۰','۱۱','۱۲','۱۳'],a:2,h:'۷ را از هر دو طرف کم کن.'},
-{c:'منطق',q:'همه پزشکان تحصیل‌کرده‌اند. سارا پزشک است. کدام نتیجه قطعی است؟',o:['سارا تحصیل‌کرده است','همه تحصیل‌کرده‌ها پزشک‌اند','سارا جراح است','هیچ نتیجه‌ای ممکن نیست'],a:0,h:'نتیجه مستقیماً از دو گزاره به دست می‌آید.'},
-{c:'منطق',q:'اگر باران ببارد، زمین خیس می‌شود. زمین خیس است. آیا حتماً باران باریده؟',o:['بله','خیر؛ علت‌های دیگری هم ممکن است','فقط شب‌ها','اطلاعات کافی برای هیچ گزاره‌ای نیست'],a:1,h:'خیس بودن زمین می‌تواند علت‌های دیگری هم داشته باشد.'},
-{c:'منطق',q:'در صف، ندا جلوتر از سارا و سارا جلوتر از مریم است. نفر وسط کدام است؟',o:['ندا','سارا','مریم','نامشخص'],a:1,h:'ترتیب صف ندا، سارا، مریم است.'},
-{c:'منطق',q:'اگر امروز جمعه باشد، ۱۰۰ روز دیگر چه روزی است؟',o:['شنبه','یکشنبه','دوشنبه','سه‌شنبه'],a:1,h:'باقی‌مانده تقسیم ۱۰۰ بر ۷ برابر ۲ است؛ دو روز پس از جمعه یکشنبه است.'},
-{c:'تشابه کلامی',q:'قلم به نوشتن مانند قیچی به چیست؟',o:['بریدن','چسباندن','رنگ کردن','شستن'],a:0,h:'کارکرد اصلی هر ابزار را مقایسه کن.'},
-{c:'تشابه کلامی',q:'کدام گزینه رابطه «بخشی از کل» را نشان می‌دهد؟',o:['چرخ ـ خودرو','خودرو ـ جاده','راننده ـ سفر','بنزین ـ پمپ'],a:0,h:'چرخ بخشی از خودرو است.'},
-{c:'تشابه کلامی',q:'متضاد «موقت» کدام است؟',o:['کوتاه','گذرا','دائمی','ناگهانی'],a:2,h:'واژه‌ای را انتخاب کن که معنای مخالف دارد.'},
-{c:'الگوی دیداری متنی',q:'الگو را ادامه بده: ▲ ▲ ■ ▲ ▲ ■ ▲ ▲ ؟',o:['▲','■','●','◆'],a:1,h:'دو مثلث و سپس یک مربع تکرار می‌شود.'},
-{c:'الگوی دیداری متنی',q:'جهت پیکان هر بار ۱۸۰ درجه عوض می‌شود: ↑، ↓، ↑، ؟',o:['↑','→','↓','←'],a:2,h:'با چرخش ۱۸۰ درجه، بالا و پایین جابه‌جا می‌شوند.'},
-{c:'الگوی دیداری متنی',q:'کدام مورد با سه مورد دیگر هم‌گروه نیست؟',o:['دایره','بیضی','مثلث','کره'],a:3,h:'سه گزینه شکل دوبعدی‌اند و کره جسم سه‌بعدی است.'},
-{c:'استدلال عددی',q:'یک عدد را دو برابر می‌کنیم و ۶ می‌افزاییم؛ حاصل ۲۲ است. عدد اولیه چیست؟',o:['۶','۸','۱۰','۱۴'],a:1,h:'از ۲۲ شش تا کم کن و سپس بر ۲ تقسیم کن.'}
-];
-// بانک تکمیلی نسخه ۳۰؛ آیتم‌های تمرینی با پاسخ و توضیح صریح.
-bank.push(
-{c:'استدلال عددی',d:2,q:'دنباله را کامل کن: ۱، ۴، ۹، ۱۶، ؟',o:['۲۰','۲۴','۲۵','۳۶'],a:2,h:'به اختلاف‌ها یا مربع عددهای طبیعی توجه کن.',explanation:'این‌ها مربع‌های ۱، ۲، ۳ و ۴ هستند؛ جمله بعدی ۵×۵ برابر ۲۵ است.'},
-{c:'استدلال عددی',d:2,q:'اگر ۳x − ۴ = ۱۷ باشد، مقدار x چیست؟',o:['۵','۶','۷','۸'],a:2,h:'ابتدا ۴ را به دو طرف اضافه کن و سپس بر ۳ تقسیم کن.',explanation:'با افزودن ۴ به دو طرف، ۳x=۲۱ می‌شود؛ بنابراین x=۷ است.'},
-{c:'استدلال عددی',d:2,q:'پنج خودکار ۶۰ هزار تومان قیمت دارند. با قیمت واحد یکسان، هشت خودکار چند تومان می‌شوند؟',o:['۸۴ هزار','۹۰ هزار','۹۶ هزار','۱۰۰ هزار'],a:2,h:'ابتدا قیمت یک خودکار را پیدا کن.',explanation:'قیمت هر خودکار ۱۲ هزار تومان است؛ ۸×۱۲ هزار برابر ۹۶ هزار تومان می‌شود.'},
-{c:'منطق',d:3,q:'همه اعضای گروه الف عضو گروه ب هستند. هیچ عضو گروه ب عضو گروه ج نیست. کدام نتیجه قطعی است؟',o:['هیچ عضو گروه الف در گروه ج نیست','همه اعضای گروه ج در گروه الف‌اند','بعضی اعضای الف حتماً در ج‌اند','رابطه الف و ج معلوم نیست'],a:0,h:'رابطه عضویت گروه الف را از راه گروه ب دنبال کن.',explanation:'هر عضو الف در ب است و هیچ عضو ب در ج نیست؛ پس هیچ عضو الف نمی‌تواند در ج باشد.'},
-{c:'تشابه کلامی',d:2,q:'دماسنج دما را می‌سنجد؛ ترازو در این مقایسه برای سنجش چه چیزی به کار می‌رود؟',o:['فاصله','جرم یا وزن در کاربرد روزمره','سرعت','زمان'],a:1,h:'کاربرد معمول هر ابزار اندازه‌گیری را مقایسه کن.',explanation:'دماسنج برای دما و ترازو برای سنجش جرم یا وزن در کاربرد روزمره استفاده می‌شود.'},
-{c:'تشابه کلامی',d:1,q:'کدام مورد با سه مورد دیگر متفاوت است؟ ساعت، دقیقه، ثانیه، متر',o:['ساعت','دقیقه','ثانیه','متر'],a:3,h:'سه مورد واحد زمان‌اند؛ مورد دیگر چه چیزی را اندازه می‌گیرد؟',explanation:'ساعت، دقیقه و ثانیه واحد زمان‌اند؛ متر واحد طول است.'},
-{c:'الگوی دیداری متنی',d:2,q:'الگو را ادامه بده: ۲، ۴، ۸، ۳، ۶، ۱۲، ۵، ۱۰، ؟',o:['۱۲','۱۵','۲۰','۲۵'],a:2,h:'الگو در گروه‌های سه‌تایی است؛ در هر گروه عدد دوم دو برابر اول و سوم دو برابر دوم است.',explanation:'گروه سوم از ۵، ۱۰ شروع شده؛ عدد سوم آن دو برابر ۱۰ یعنی ۲۰ است.'},
-);
-// ماتریس‌های دیداری تازه: الگوها عمداً ساده و توضیح‌پذیرند؛ این‌ها آیتم‌های تمرینی‌اند، نه مواد آزمون استاندارد.
-const matrixCell=(sym)=>'<span style="font-size:25px;font-weight:800;line-height:1">'+sym+'</span>';
-const matrixGrid=(cells)=>'<div dir="ltr" style="display:grid;grid-template-columns:repeat(3,minmax(42px,1fr));gap:4px;max-width:230px;margin:12px auto;padding:6px;border:1px solid var(--line);border-radius:10px;background:#fff">'+cells.map((x,i)=>'<div style="height:48px;display:flex;align-items:center;justify-content:center;border:1px solid #d8e4dd;border-radius:6px;background:'+(i===8?'#fff4e8':'#f7fbf8')+'">'+(i===8?'<span style="font-size:25px;color:#bd5c13;font-weight:800">?</span>':matrixCell(x))+'</div>').join('')+'</div>';
-bank.push({c:'ماتریس دیداری',d:2,q:'در هر ردیف، خانه سوم ترکیب دو نماد اول است. خانه آخر چه می‌شود؟'+matrixGrid(['○','△','○△','□','◇','□◇','●','◆','?']),o:['●◆','●◇','○◆','□■'],a:0,h:'در هر ردیف، نمادهای اول و دوم بدون تغییر در خانه سوم کنار هم قرار می‌گیرند.',explanation:'در ردیف آخر، نماد اول ● و نماد دوم ◆ است؛ خانه سوم ترکیب ●◆ می‌شود.'});
-const visualQs=[
-{c:'ماتریس دیداری',d:1,q:'کدام نماد جای علامت سؤال را می‌گیرد؟'+matrixGrid(['○','□','○','□','○','□','○','□','?']),o:['○','□','△','◇'],a:0,h:'در هر خانه، نمادها به‌صورت یکی‌درمیان دایره و مربع‌اند.',explanation:'الگو در هر خانه به‌ترتیب دایره، مربع تکرار می‌شود؛ پس پاسخ دایره است.'},
-{c:'ماتریس دیداری',d:1,q:'ردیف‌ها را بررسی کن و خانه آخر را پیدا کن.'+matrixGrid(['▲','▲','▲','●','●','●','■','■','?']),o:['▲','●','■','◆'],a:2,h:'هر ردیف یک نماد را سه بار تکرار می‌کند.',explanation:'ردیف سوم با مربع آغاز شده و همان نماد در سه خانه ردیف تکرار می‌شود.'},
-{c:'ماتریس دیداری',d:2,q:'در هر ردیف، شکل‌ها از چپ به راست تغییر می‌کنند. خانه خالی چیست؟'+matrixGrid(['○','□','△','□','△','◇','△','◇','?']),o:['○','□','△','◇'],a:0,h:'هر ردیف از سه شکل پی‌درپی در یک چرخه استفاده می‌کند: دایره، مربع، مثلث، لوزی، سپس دایره.',explanation:'چرخه شکل‌ها دایره، مربع، مثلث، لوزی است؛ پس بعد از لوزی دوباره دایره می‌آید.'},
-{c:'ماتریس دیداری',d:2,q:'هر ردیف تعداد نقطه‌ها را یک واحد زیاد می‌کند. چه چیزی باید در خانه آخر باشد؟'+matrixGrid(['•','••','•••','••','•••','••••','•••','••••','?']),o:['••','•••','••••','•••••'],a:3,h:'در هر ردیف تعداد نقطه‌ها به ترتیب ۱،۲،۳؛ سپس ۲،۳،۴؛ سپس ۳،۴،۵ است.',explanation:'ردیف سوم باید ۳، ۴ و ۵ نقطه داشته باشد؛ پاسخ پنج نقطه است.'},
-{c:'ماتریس دیداری',d:2,q:'الگوی جهت پیکان‌ها را کامل کن.'+matrixGrid(['↑','→','↓','→','↓','←','↓','←','?']),o:['↑','→','↓','←'],a:0,h:'در هر ردیف، پیکان‌ها هر بار ۹۰ درجه ساعت‌گرد می‌چرخند.',explanation:'ردیف سوم از پایین، چپ و سپس بالا ادامه پیدا می‌کند؛ پاسخ پیکان رو به بالاست.'},
-{c:'ماتریس دیداری',d:3,q:'در هر ردیف، نماد سوم ترکیبی از دو نماد اول است: دایره + مربع = هر دو کنار هم. خانه آخر چه ترکیبی می‌خواهد؟'+matrixGrid(['○','□','○□','△','◇','△◇','●','◆','?']),o:['●◆','●◇','○◆','△◆'],a:0,h:'نماد سوم هر ردیف، دو نماد اول همان ردیف را کنار هم می‌آورد.',explanation:'در ردیف آخر دایره توپر و لوزی توپر داریم؛ ترکیب هر دو، گزینه اول است.'},
-{c:'ماتریس دیداری',d:3,q:'هر ستون یک شکل ثابت دارد و تعداد نمادها در هر ردیف بیشتر می‌شود. خانه آخر؟'+matrixGrid(['○','□','△','○○','□□','△△','○○○','□□□','?']),o:['△','△△','△△△','□□□'],a:2,h:'ستون سوم همیشه مثلث دارد؛ ردیف‌ها به‌ترتیب یک، دو و سه شکل نشان می‌دهند.',explanation:'ستون سوم مثلث است و ردیف سوم سه نماد دارد؛ پاسخ سه مثلث است.'},
-{c:'ماتریس دیداری',d:3,q:'قاعده هر ردیف را پیدا کن: شکل اول، سپس شکل دوم، سپس شکل اول و دوم با هم.'+matrixGrid(['○','▲','○▲','□','●','□●','◇','■','?']),o:['◇■','◇●','○■','□■'],a:0,h:'خانه سوم هر ردیف، دو نماد همان ردیف را کنار هم قرار می‌دهد.',explanation:'در ردیف آخر، لوزی و مربع توپر آمده‌اند؛ ترکیب آن‌ها گزینه اول است.'}
-];
-bank.push(...visualQs);
-// برچسب دشواری صرفاً برای تمرین است؛ هنجاریابی علمی نشده است.
-bank.forEach((q,i)=>{q.id=i;if(!q.d)q.d=i<12?1:i<24?2:3;});
-let run=null;
-function read(){try{const x=JSON.parse(localStorage.getItem(KEY)||'{"history":[]}');return x&&Array.isArray(x.history)?x:{history:[]}}catch(e){return {history:[]}}}
-function save(x){try{localStorage.setItem(KEY,JSON.stringify(x));return true}catch(e){return false}}
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function render(){const h=read().history;const last=h[h.length-1];if($('hy23IQLast'))$('hy23IQLast').textContent=last?fa(last.score)+'٪':'—';if($('hy23IQBest'))$('hy23IQBest').textContent=h.length?fa(Math.max(...h.map(x=>x.score)))+'٪':'—';if($('hy23IQCount'))$('hy23IQCount').textContent=fa(h.length)}
-function chooseQuestion(){const used=new Set(run.items.map(q=>q.id));let candidates=bank.filter(q=>!used.has(q.id)&&q.d===run.level);if(!candidates.length){candidates=bank.filter(q=>!used.has(q.id)).sort((a,b)=>Math.abs(a.d-run.level)-Math.abs(b.d-run.level));if(candidates.length){const d=candidates[0].d;candidates=candidates.filter(q=>q.d===d);run.level=d}}if(!candidates.length)return null;const counts={};run.items.forEach(q=>counts[q.c]=(counts[q.c]||0)+1);const min=Math.min(...candidates.map(q=>counts[q.c]||0));candidates=candidates.filter(q=>(counts[q.c]||0)===min);return shuffle(candidates)[0]}
-function start(){const n=Number($('hy23IQLevel').value)||24;run={target:Math.min(n,bank.length),items:[],i:0,correct:0,details:[],start:Date.now(),questionStart:Date.now(),current:null,level:2,streak:0,levelChanges:[]};$('hy23IQHistory').innerHTML='';showQ()}
-function showQ(){if(!run)return;const q=chooseQuestion();if(!q){finish();return}run.items.push(q);const options=shuffle(q.o.map((label,i)=>({label,correct:i===q.a})));run.current=options;run.questionStart=Date.now();const levelName=q.d===1?'پایه':q.d===2?'میانی':'پیشرفته';$('hy23IQWork').innerHTML='<div class="notice">سؤال '+fa(run.items.length)+' از '+fa(run.target)+' · '+q.c+' · دشواری: '+levelName+' · زمان کل: '+fa(Math.floor((Date.now()-run.start)/1000))+' ثانیه</div><h4 style="line-height:2">'+q.q+'</h4><div style="display:grid;gap:8px">'+options.map((o,i)=>'<button class="btn secondary" style="text-align:right" onclick="hy23IQAnswer('+i+')">'+['الف','ب','ج','د'][i]+' ـ '+o.label+'</button>').join('')+'</div><details style="margin-top:10px"><summary class="muted">راهنمایی (در صورت استفاده، نتیجه را تمرینی‌تر در نظر بگیر)</summary><p class="muted">'+q.h+'</p></details><p class="muted">پس از دو پاسخ درست پیاپی، سطح معمولاً بالاتر می‌رود؛ پس از دو پاسخ نادرست پیاپی، پایین‌تر می‌آید. برای مقایسه منصفانه از کمک بیرونی استفاده نکن.</p>'}
-function answer(i){
- if(!run||!run.current||!run.current[i]||run.pending)return;
- const q=run.items[run.items.length-1],selected=run.current[i],ok=selected.correct,rt=Math.max(1,Math.round((Date.now()-run.questionStart)/1000));
- if(ok){run.correct++;run.streak=run.streak>=0?run.streak+1:1}else{run.streak=run.streak<=0?run.streak-1:-1}
- run.details.push({category:q.c,correct:ok,seconds:rt,difficulty:q.d,question:q.q,selected:selected.label,correctAnswer:q.o[q.a],explanation:q.explanation||q.h||'رابطه‌های سؤال را دوباره بررسی کن.'});
- if(run.streak>=2&&run.level<3){run.level++;run.levelChanges.push({after:run.items.length,to:run.level});run.streak=0}else if(run.streak<=-2&&run.level>1){run.level--;run.levelChanges.push({after:run.items.length,to:run.level});run.streak=0}
- run.current=null;run.pending=true;const d=run.details[run.details.length-1];
- $('hy23IQWork').innerHTML='<div class="notice">بازخورد سؤال '+fa(run.items.length)+' از '+fa(run.target)+'</div><div class="listitem" style="padding:16px;border:1px solid '+(ok?'#a7d8ba':'#f0c4a9')+';border-radius:14px;background:'+(ok?'#effaf2':'#fff7f0')+'"><h4 style="color:'+(ok?'#17683e':'#98451f')+'">'+(ok?'پاسخ درست بود':'این پاسخ درست نبود')+'</h4><p><b>پاسخ شما:</b> '+d.selected+'</p>'+(ok?'':'<p><b>پاسخ صحیح:</b> '+d.correctAnswer+'</p>')+'<p><b>توضیح راه‌حل:</b> '+d.explanation+'</p><p class="muted">زمان پاسخ: '+fa(rt)+' ثانیه · حوزه: '+q.c+'</p></div><button class="btn primary" style="width:100%;margin-top:12px" onclick="hy23IQNext()">'+(run.items.length<run.target?'سؤال بعدی':'دیدن گزارش و برنامه تمرین')+'</button><p class="muted">پیش از ادامه، قاعده حل سؤال را با زبان خودت مرور کن.</p>';
-}
-function next(){if(!run||!run.pending)return;run.pending=false;if(run.items.length<run.target)showQ();else finish()}
-function finish(){
- if(!run)return;
- const total=run.items.length,score=Math.round(run.correct/total*100),seconds=Math.round((Date.now()-run.start)/1000),avg=+(run.details.reduce((a,x)=>a+x.seconds,0)/total).toFixed(1);
- const by={};run.details.forEach(x=>{by[x.category]??={n:0,ok:0,seconds:0};by[x.category].n++;by[x.category].seconds+=x.seconds;if(x.correct)by[x.category].ok++});
- const weak=Object.entries(by).sort((a,b)=>a[1].ok/a[1].n-b[1].ok/b[1].n)[0];
- const levels={پایه:0,میانی:0,پیشرفته:0};run.details.forEach(x=>{levels[x.difficulty===1?'پایه':x.difficulty===2?'میانی':'پیشرفته']++});
- const mistakes=run.details.filter(x=>!x.correct),missedCategories=[...new Set(mistakes.map(x=>x.category))];
- const plan=missedCategories.length?missedCategories.slice(0,3).map((cat,i)=>'<div class="listitem"><b>روز '+fa(i+1)+' · تمرین '+cat+'</b><p>۱۰ دقیقه: سه سؤال مشابه حل کن، راه‌حل هرکدام را توضیح بده و سپس بدون نگاه‌کردن قاعده را دوباره یادآوری کن.</p></div>').join(''):'<div class="listitem"><b>برنامه پیشنهادی</b><p>در سه روز آینده روزی ۱۰ دقیقه، از هر حوزه چند سؤال تازه حل کن و راه‌حل را بدون دیدن توضیح بازگو کن.</p></div>';
- const mistakeReview=mistakes.length?mistakes.slice(0,8).map((x,i)=>'<div class="listitem"><b>'+fa(i+1)+'. '+x.category+'</b><p>'+x.question+'</p><p><b>پاسخ صحیح:</b> '+x.correctAnswer+'</p><p><b>قاعده:</b> '+x.explanation+'</p></div>').join(''):'<p>در این آزمون پاسخی اشتباه ثبت نشد. برای ارزیابی پایدارتر، آزمون دیگری با سؤال‌های متفاوت انجام بده.</p>';
- const rec={date:new Date().toISOString(),score,correct:run.correct,total,seconds,avgSeconds:avg,by,adaptive:true,levels};const data=read();data.history.push(rec);data.history=data.history.slice(-50);const saved=save(data);const prior=data.history.slice(0,-1).slice(-4);const consistency=prior.length?Math.round(prior.reduce((a,x)=>a+Math.abs(x.score-score),0)/prior.length):null;
- const levelText=Object.entries(levels).filter(x=>x[1]).map(([k,v])=>k+': '+fa(v)+' سؤال').join(' · ');
- $('hy23IQWork').innerHTML='<div class="flashface"><div class="small">شاخص عملکرد در این آزمون تطبیقی</div><div class="big">'+fa(score)+'٪</div><div class="small">'+fa(run.correct)+' پاسخ درست از '+fa(total)+' · زمان کل '+fa(seconds)+' ثانیه · میانگین '+fa(avg)+' ثانیه برای هر سؤال</div><p class="muted">این درصد عملکرد شما در همین مجموعه سؤال‌هاست؛ معادل IQ یا نمره هنجاری نیست.</p></div><h4>ترکیب دشواری سؤال‌ها</h4><div class="listitem"><p>'+levelText+'</p><p>تعداد تغییرهای سطح: '+fa(run.levelChanges.length)+'</p></div><h4>عملکرد بر اساس مهارت</h4>'+Object.entries(by).map(([k,v])=>'<div class="listitem"><b>'+k+'</b><p>'+fa(v.ok)+' از '+fa(v.n)+' پاسخ صحیح ('+fa(Math.round(v.ok/v.n*100))+'٪) · میانگین زمان '+fa((v.seconds/v.n).toFixed(1))+' ثانیه</p></div>').join('')+'<h4>مرور پاسخ‌های اشتباه</h4>'+mistakeReview+'<h4>برنامه تمرینی شخصی‌سازی‌شده</h4><p class="muted">این پیشنهاد بر اساس حوزه‌های اشتباه همین آزمون ساخته شده و صرفاً برنامه تمرینی است.</p>'+plan+'<div class="notice">'+(weak?'بخش با کمترین درصد موفقیت در این آزمون: «'+weak[0]+'». ':'')+(consistency===null?'برای بررسی ثبات نتیجه، آزمون را در روزهای دیگر با سؤال‌های متفاوت تکرار کن.':'میانگین فاصله درصد این آزمون با '+fa(prior.length)+' نوبت قبلی: '+fa(consistency)+' واحد درصد.')+' سطح دشواری‌ها علمی کالیبره نشده‌اند؛ نتیجه را IQ معتبر تلقی نکن.</div>'+(saved?'':'<p class="muted">ذخیره نتیجه ناموفق بود.</p>')+'<button class="btn primary" style="width:100%;margin-top:10px" onclick="hy23IQStart()">اجرای آزمون تازه</button><button class="btn secondary" style="width:100%;margin-top:8px" onclick="hy23IQHistoryShow()">نمایش سابقه</button>';
- run=null;render()
-}
-function historyShow(){const h=read().history;const b=$('hy23IQHistory');if(!h.length){b.innerHTML='<p class="muted">هنوز نتیجه‌ای ثبت نشده است.</p>';return}b.innerHTML='<h4>سابقه آزمون‌ها</h4>'+h.slice(-10).reverse().map(x=>'<div class="listitem"><b>'+fa(x.score)+'٪ · '+fa(x.correct)+' از '+fa(x.total)+' پاسخ درست</b><p>'+new Date(x.date).toLocaleString('fa-IR')+' · زمان '+fa(x.seconds||0)+' ثانیه'+(x.adaptive?' · آزمون تطبیقی':'')+'</p></div>').join('')}
-function auditBank(){
- const errors=[],cats={},diffs={پایه:0,میانی:0,پیشرفته:0};
- bank.forEach((q,i)=>{
-   if(!q||typeof q.q!=='string'||!q.q.trim())errors.push('سؤال '+(i+1)+': متن سؤال خالی است.');
-   if(!Array.isArray(q.o)||q.o.length<2)errors.push('سؤال '+(i+1)+': گزینه‌ها ناقص‌اند.');
-   if(!Array.isArray(q.o)||!Number.isInteger(q.a)||q.a<0||q.a>=q.o.length)errors.push('سؤال '+(i+1)+': شماره پاسخ صحیح معتبر نیست.');
-   if(Array.isArray(q.o)&&new Set(q.o.map(x=>String(x).trim())).size!==q.o.length)errors.push('سؤال '+(i+1)+': گزینه تکراری دارد.');
-   cats[q.c]=(cats[q.c]||0)+1;
-   diffs[q.d===1?'پایه':q.d===2?'میانی':'پیشرفته']++;
- });
- const box=$('hy23IQAuditBox');
- box.innerHTML='<div class="listitem"><h4>گزارش بررسی ساختاری بانک سؤال</h4><p>تعداد سؤال‌ها: '+fa(bank.length)+'</p><p>خطاهای ساختاری شناسایی‌شده: '+fa(errors.length)+'</p><p class="muted">این بررسی فقط ساختار گزینه‌ها و شماره پاسخ را می‌سنجد؛ درستی علمی یا یکتایی منطقی پاسخ‌ها را اثبات نمی‌کند.</p><h4>توزیع بر اساس موضوع</h4>'+Object.entries(cats).map(([k,v])=>'<p>'+k+': '+fa(v)+' سؤال</p>').join('')+'<h4>توزیع بر اساس دشواری تمرینی</h4>'+Object.entries(diffs).map(([k,v])=>'<p>'+k+': '+fa(v)+' سؤال</p>').join('')+(errors.length?'<h4>موارد نیازمند اصلاح</h4>'+errors.map(e=>'<p>'+e+'</p>').join(''):'<p>از نظر ساختار گزینه‌ها و شماره پاسخ، مورد آشکاری پیدا نشد.</p>')+'<p class="muted">برچسب دشواری‌ها هنوز با داده‌های واقعی آزمون‌شوندگان کالیبره نشده‌اند؛ بنابراین این گزارش معادل اعتبارسنجی روان‌سنجی نیست.</p></div>';
-}
-function historyShow(){
- const h=read().history;const b=$('hy23IQHistory');
- if(!h.length){b.innerHTML='<p class="muted">هنوز نتیجه‌ای ثبت نشده است.</p>';return}
- const recent=h.slice(-10);
- const bars=recent.map((x,i)=>'<div title="آزمون '+fa(i+1)+': '+fa(x.score)+'٪" style="display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:4px;min-width:0"><span style="font-size:11px">'+fa(x.score)+'٪</span><div style="width:100%;max-width:28px;height:'+Math.max(8,x.score)+'px;background:#0b6848;border-radius:4px 4px 0 0"></div><small>'+fa(i+1)+'</small></div>').join('');
- const scores=recent.map(x=>x.score),avg=Math.round(scores.reduce((a,v)=>a+v,0)/scores.length),spread=Math.max(...scores)-Math.min(...scores);
- b.innerHTML='<h4>روند عملکرد در آزمون‌های اخیر</h4><div class="listitem"><div style="display:flex;align-items:flex-end;gap:7px;min-height:135px;padding:8px 2px">'+bars+'</div><p>میانگین '+fa(recent.length)+' آزمون اخیر: '+fa(avg)+'٪ · فاصله بهترین تا ضعیف‌ترین نتیجه: '+fa(spread)+' واحد درصد</p><p class="muted">این نمودار روند درصد پاسخ‌های درست را نشان می‌دهد، نه تغییر IQ. مقایسه آزمون‌های با سؤال‌ها و دشواری متفاوت محدودیت دارد.</p></div><h4>سابقه آزمون‌ها</h4>'+h.slice(-10).reverse().map(x=>'<div class="listitem"><b>'+fa(x.score)+'٪ · '+fa(x.correct)+' از '+fa(x.total)+' پاسخ درست</b><p>'+new Date(x.date).toLocaleString('fa-IR')+' · زمان '+fa(x.seconds||0)+' ثانیه'+(x.adaptive?' · آزمون تطبیقی':'')+'</p></div>').join('');
-}
-window.hy23IQStart=start;window.hy23IQAnswer=answer;window.hy23IQNext=next;window.hy23IQHistoryShow=historyShow;window.hy23IQAudit=auditBank;document.addEventListener('DOMContentLoaded',render);setTimeout(render,600);
-})();
-</script>
-<script>
-(function(){
- let hyInstallPrompt=null;
- window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();hyInstallPrompt=e;const t=document.getElementById('hyInstallText');if(t)t.textContent='مرورگر امکان نصب مستقیم را فراهم کرده است؛ دکمه زیر را بزن.';});
- window.addEventListener('appinstalled',function(){const m=document.getElementById('hyInstallMsg');if(m)m.textContent='حافظه‌یار به صفحه برنامه‌های دستگاه اضافه شد.';hyInstallPrompt=null;});
- window.hyInstallApp=async function(){const m=document.getElementById('hyInstallMsg');if(hyInstallPrompt){hyInstallPrompt.prompt();const choice=await hyInstallPrompt.userChoice;if(m)m.textContent=choice&&choice.outcome==='accepted'?'درخواست نصب پذیرفته شد.':'نصب فعلاً انجام نشد؛ هر زمان خواستی دوباره تلاش کن.';hyInstallPrompt=null;return;}if(location.protocol==='https:'||location.hostname==='localhost'){if(m)m.textContent='در Chrome منوی سه‌نقطه را باز کن و «Install app» یا «Add to Home screen» را انتخاب کن.';}else{if(m)m.textContent='برای نصب وب‌اپ، فایل‌ها باید روی یک نشانی HTTPS میزبانی شوند. فعلاً می‌توانی همین فایل HTML را باز کنی؛ برای نصب واقعی، بسته وب نسخه ۳۰ را روی هاست HTTPS قرار بده.';}}
- window.hyRunDiagnostics=function(){
-  const required=['home','palace','speedread','hy23IQPanel','hy23IQStart','hy23IQWork','cards','progress','hyInstallPanel'];
-  const results=[];required.forEach(id=>{const ok=id==='hy23IQStart'?typeof window.hy23IQStart==='function':!!document.getElementById(id);results.push({label:'وجود '+id,ok});});
-  let storageOk=false;try{const k='hy30_diagnostic_temp';localStorage.setItem(k,'ok');storageOk=localStorage.getItem(k)==='ok';localStorage.removeItem(k)}catch(e){}results.push({label:'خواندن و نوشتن حافظه محلی',ok:storageOk});
-  const ids=[...document.querySelectorAll('[id]')].map(x=>x.id);const duplicate=ids.filter((id,i)=>ids.indexOf(id)!==i);results.push({label:'شناسه‌های یکتای صفحه',ok:duplicate.length===0,detail:duplicate.length?duplicate.join('، '):''});
-  const links=[...document.querySelectorAll('button[onclick]')];const empty=links.filter(b=>!b.getAttribute('onclick').trim());results.push({label:'دکمه‌های دارای کنش تعریف‌شده',ok:empty.length===0});
-  const passed=results.filter(x=>x.ok).length;const html='<div class="notice"><b>نتیجه بررسی: '+passed+' از '+results.length+' کنترل پایه موفق</b><p>این کنترل‌ها فقط سلامت ساختاری و ذخیره محلی را بررسی می‌کنند؛ تمام مسیرهای تعاملی را جایگزین آزمایش دستی نمی‌کنند.</p></div>'+results.map(x=>'<div class="listitem"><b style="color:'+(x.ok?'#17683e':'#a33b32')+'">'+(x.ok?'✓ ':'! ')+x.label+'</b>'+(x.detail?'<p>'+x.detail+'</p>':'')+'</div>').join('');
-  ['hyDiagnosticsResult','hyInstallMsg'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=html;});
-  const out=document.getElementById('hyDiagnosticsResult');if(out)out.scrollIntoView({behavior:'smooth',block:'nearest'});
-  return results;
- };
- if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('./sw.js').catch(function(){});
-})();
-</script>
-</body></html>
+**نکته مهم:** این فایل تنظیمات، پروژه اندرویدی ساده‌ای برای نمایش فایل HTML می‌سازد. ابتدا باید مطمئن شویم فرایند ساخت موفق است؛ بعد می‌توانیم درباره امکاناتی مثل اعلان‌ها، آفلاین‌بودن و دسترسی‌های لازم تصمیم بگیریم.
