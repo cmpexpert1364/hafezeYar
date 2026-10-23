@@ -24,40 +24,29 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Install Android SDK tools
-        shell: bash
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android packages
         run: |
-          set -e
-          yes | sdkmanager --licenses || true
-          sdkmanager --install \
-            "platform-tools" \
-            "platforms;android-35" \
-            "build-tools;35.0.0"
+          sdkmanager --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
 
       - name: Prepare Android project
         shell: bash
         run: |
           set -e
 
-          HTML_FILE=""
-
-          for f in hafezeyar_v30_integrated_release_candidate.html hafezeyar_v30_integrated_release_candidate.htm; do
-            if [ -f "$f" ]; then
-              HTML_FILE="$f"
-              break
-            fi
-          done
-
-          if [ -z "$HTML_FILE" ]; then
-            HTML_FILE=$(find . -maxdepth 1 -type f -name '*.html' ! -name 'index.html' | head -n 1)
-          fi
+          HTML_FILE=$(find . -maxdepth 1 -type f -name '*.html' ! -name 'index.html' | head -n 1)
 
           if [ -z "$HTML_FILE" ]; then
             echo "ERROR: No HTML file found in repository root."
             exit 1
           fi
-
-          echo "Using HTML file: $HTML_FILE"
 
           mkdir -p app/src/main/assets
           cp "$HTML_FILE" app/src/main/assets/index.html
@@ -114,7 +103,6 @@ jobs:
               <application
                   android:theme="@android:style/Theme.Material.Light.NoActionBar"
                   android:label="حافظه‌یار"
-                  android:usesCleartextTraffic="true"
                   android:allowBackup="false">
                   <activity
                       android:name=".MainActivity"
@@ -141,23 +129,16 @@ jobs:
               @Override
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
-
                   WebView webView = new WebView(this);
                   WebSettings settings = webView.getSettings();
                   settings.setJavaScriptEnabled(true);
                   settings.setDomStorageEnabled(true);
-
                   webView.setWebViewClient(new WebViewClient());
                   setContentView(webView);
                   webView.loadUrl("file:///android_asset/index.html");
               }
           }
           EOF
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.9'
 
       - name: Build APK
         run: gradle --no-daemon assembleDebug
