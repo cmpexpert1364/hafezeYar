@@ -24,11 +24,11 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install Android tools
+      - name: Install Android SDK tools
+        shell: bash
         run: |
+          set -e
+          yes | sdkmanager --licenses || true
           sdkmanager --install \
             "platform-tools" \
             "platforms;android-35" \
@@ -37,7 +37,7 @@ jobs:
       - name: Prepare Android project
         shell: bash
         run: |
-          set -euo pipefail
+          set -e
 
           HTML_FILE=""
 
@@ -49,11 +49,7 @@ jobs:
           done
 
           if [ -z "$HTML_FILE" ]; then
-            HTML_FILE="$(find . -maxdepth 1 -type f -name '*.html' ! -name 'index.html' | sort | head -n 1)"
-          fi
-
-          if [ -z "$HTML_FILE" ]; then
-            HTML_FILE="$(find . -maxdepth 1 -type f -name 'index.html' | head -n 1)"
+            HTML_FILE=$(find . -maxdepth 1 -type f -name '*.html' ! -name 'index.html' | head -n 1)
           fi
 
           if [ -z "$HTML_FILE" ]; then
@@ -76,7 +72,6 @@ jobs:
                   gradlePluginPortal()
               }
           }
-
           dependencyResolutionManagement {
               repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
               repositories {
@@ -84,20 +79,14 @@ jobs:
                   mavenCentral()
               }
           }
-
           rootProject.name = "HafezeYar"
-          include(":app")
+          include ':app'
           EOF
 
           cat > build.gradle <<'EOF'
           plugins {
               id 'com.android.application' version '8.7.3' apply false
           }
-          EOF
-
-          cat > gradle.properties <<'EOF'
-          android.useAndroidX=true
-          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
           EOF
 
           cat > app/build.gradle <<'EOF'
@@ -113,8 +102,8 @@ jobs:
                   applicationId 'com.cmpexpert.hafezeyar'
                   minSdk 23
                   targetSdk 28
-                  versionCode 1
-                  versionName '1.0'
+                  versionCode 30
+                  versionName '30.0'
               }
           }
           EOF
@@ -122,22 +111,18 @@ jobs:
           cat > app/src/main/AndroidManifest.xml <<'EOF'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
               <uses-permission android:name="android.permission.INTERNET" />
-
               <application
                   android:theme="@android:style/Theme.Material.Light.NoActionBar"
                   android:label="حافظه‌یار"
                   android:usesCleartextTraffic="true"
-                  android:allowBackup="true">
-
+                  android:allowBackup="false">
                   <activity
                       android:name=".MainActivity"
                       android:exported="true">
-
                       <intent-filter>
                           <action android:name="android.intent.action.MAIN" />
                           <category android:name="android.intent.category.LAUNCHER" />
                       </intent-filter>
-
                   </activity>
               </application>
           </manifest>
@@ -157,26 +142,25 @@ jobs:
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
 
-                  WebView web = new WebView(this);
-                  WebSettings settings = web.getSettings();
-
+                  WebView webView = new WebView(this);
+                  WebSettings settings = webView.getSettings();
                   settings.setJavaScriptEnabled(true);
                   settings.setDomStorageEnabled(true);
-                  web.setWebViewClient(new WebViewClient());
 
-                  setContentView(web);
-                  web.loadUrl("file:///android_asset/index.html");
+                  webView.setWebViewClient(new WebViewClient());
+                  setContentView(webView);
+                  webView.loadUrl("file:///android_asset/index.html");
               }
           }
           EOF
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
 
       - name: Build APK
-        run: |
-          gradle --version
-          gradle --no-daemon assembleDebug
+        run: gradle --no-daemon assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
