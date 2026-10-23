@@ -27,11 +27,25 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      -       - name: Install Android packages
+      - name: Install Android packages
         shell: bash
         run: |
           set -e
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install \
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager 2>/dev/null | head -n 1)"
+
+          if [ -z "$SDKMANAGER" ]; then
+            echo "ERROR: sdkmanager was not found."
+            exit 1
+          fi
+
+          echo "Using sdkmanager: $SDKMANAGER"
+
+          yes | "$SDKMANAGER" --licenses || true
+
+          "$SDKMANAGER" --install \
             "platform-tools" \
             "platforms;android-35" \
             "build-tools;35.0.0"
@@ -46,12 +60,14 @@ jobs:
         run: |
           set -e
 
-          HTML_FILE=$(find . -maxdepth 1 -type f -name '*.html' ! -name 'index.html' | head -n 1)
+          HTML_FILE="$(find . -maxdepth 1 -type f -iname '*.html' ! -name 'index.html' | head -n 1)"
 
           if [ -z "$HTML_FILE" ]; then
             echo "ERROR: No HTML file found in repository root."
             exit 1
           fi
+
+          echo "Using HTML file: $HTML_FILE"
 
           mkdir -p app/src/main/assets
           cp "$HTML_FILE" app/src/main/assets/index.html
@@ -66,6 +82,7 @@ jobs:
                   gradlePluginPortal()
               }
           }
+
           dependencyResolutionManagement {
               repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
               repositories {
@@ -73,6 +90,7 @@ jobs:
                   mavenCentral()
               }
           }
+
           rootProject.name = "HafezeYar"
           include ':app'
           EOF
@@ -105,17 +123,21 @@ jobs:
           cat > app/src/main/AndroidManifest.xml <<'EOF'
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
               <uses-permission android:name="android.permission.INTERNET" />
+
               <application
                   android:theme="@android:style/Theme.Material.Light.NoActionBar"
                   android:label="حافظه‌یار"
                   android:allowBackup="false">
+
                   <activity
                       android:name=".MainActivity"
                       android:exported="true">
+
                       <intent-filter>
                           <action android:name="android.intent.action.MAIN" />
                           <category android:name="android.intent.category.LAUNCHER" />
                       </intent-filter>
+
                   </activity>
               </application>
           </manifest>
@@ -134,10 +156,13 @@ jobs:
               @Override
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
+
                   WebView webView = new WebView(this);
                   WebSettings settings = webView.getSettings();
+
                   settings.setJavaScriptEnabled(true);
                   settings.setDomStorageEnabled(true);
+
                   webView.setWebViewClient(new WebViewClient());
                   setContentView(webView);
                   webView.loadUrl("file:///android_asset/index.html");
@@ -146,6 +171,7 @@ jobs:
           EOF
 
       - name: Build APK
+        shell: bash
         run: gradle --no-daemon assembleDebug
 
       - name: Upload APK
@@ -154,3 +180,4 @@ jobs:
           name: HafezeYar-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+          retention-days: 7
