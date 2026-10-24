@@ -53,7 +53,7 @@ jobs:
           echo "Using HTML file: $HTML_FILE"
 
           mkdir -p app/src/main/assets
-          cp "$HTML_FILE" app/src/main/assets/index.html
+          cp "hafezeyar_v30_integrated_release_candidate.html" app/src/main/assets/index.html
           mkdir -p app/src/main/java/com/cmpexpert/hafezeyar
 
           cat > settings.gradle <<'EOF'
